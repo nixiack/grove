@@ -1,0 +1,37 @@
+
+h2{margin:0 !important; height:0; visibility: hidden;}
+
+.submit{padding:0;}
+#submit{border:none; padding:8px; margin-bottom: 10px; line-height: 32px; background:#59C54A; color: #fff; border-radius: 3px; font-size: 18px !important; text-transform: uppercase; text-shadow:none;}
+
+.ss_social_wrap, .ss_regular_wrap{padding: 20px; background: #ECECEC; float: left; border-radius: 5px; clear: left;	margin:0 0 15px 0; width:350px;}
+.ss_social_wrap i, .ss_regular_wrap i{color: #aaa; font-size: 32px; position: relative; top:10px; float: right; margin-left:10px;}
+.ss_settings label{ font-size: 18px; margin:0 10px; color: #21759B; height: 32px; line-height: 32px;}
+.form-table td{padding: 0;}
+
+@-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
+@-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
+@-ms-keyframes spin { from { -ms-transform: rotate(0deg); }	to { -ms-transform: rotate(360deg); } }
+
+#icons	{ background: url('inc/icons.png') 0 0 no-repeat; position: fixed; top: -650px; left: -550px; width: 1600px; height: 1600px; z-index: -1; 
+	
+	-webkit-animation-name: spin; 
+	-webkit-animation-duration: 40000ms; 
+	-webkit-animation-iteration-count: infinite; 
+	-webkit-animation-timing-function: linear;
+	
+	-moz-animation-name: spin; 
+	-moz-animation-duration: 40000ms;
+	-moz-animation-iteration-count: infinite; 
+	-moz-animation-timing-function: linear;
+
+	-ms-animation-name: spin; 
+	-ms-animation-duration: 40000ms; 
+	-ms-animation-iteration-count: infinite; 
+	-ms-animation-timing-function: linear;
+
+	-o-transition: rotate(3600deg);
+}
+
+
+ 

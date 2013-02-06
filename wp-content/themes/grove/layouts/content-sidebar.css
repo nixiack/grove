@@ -1,0 +1,79 @@
+/*
+Theme Name: Grove
+Layout: Content-Sidebar
+*/
+
+body{
+	
+}
+#main, #masthead, .site-info{
+	width: 960px;
+	margin:30px auto;
+	position: relative;
+}
+
+#primary {
+	float: left;
+	margin: 0 -25% 0 0;
+	width: 100%;
+}
+
+.page-contact #primary, .page-template-page-contact-php #primary{
+	margin:0 -40% 0 0;
+}
+
+#content {
+	margin: 0 25% 0 0;
+}
+
+.page-contact #content, .page-template-page-contact-php #content{
+	margin:0 40% 0 0;
+}
+
+.hide-sidebar #content {
+	margin: 0;
+}
+
+.left-sidebar #primary{
+	float: right;
+	margin: 0 0 0 -25%;
+}
+
+.page-contact.left-sidebar #primary, .page-template-page-contact-php.left-sidebar #primary{
+	margin: 0 0 0 -40%;
+}
+
+.left-sidebar #content{
+	margin: 0 0 0 25%;
+}
+
+.page-contact.left-sidebar #content, .page-template-page-contact-php.left-sidebar #content{
+	margin: 0 0 0 40%;
+}
+
+.left-sidebar #secondary{
+	float:left;
+	padding: 0 30px 0 0;
+}
+
+#secondary { /* Sidebar 1 */
+	float: right;
+	overflow: hidden;
+	width: 25%;
+	padding: 0 0 0 30px;
+}
+
+.page-contact #secondary, .page-template-page-contact-php #secondary{
+	width:40%;
+}
+
+#tertiary { /* Sidebar 2 */
+	clear: right;
+}
+
+.site-footer {
+	clear: both;
+	width: 100%;
+}
+
+#main:after{display: block; content: "."; height: 0; clear:both; visibility: hidden;}

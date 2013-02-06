@@ -1,0 +1,11 @@
+#adminmenuback, #adminmenuwrap, #wpadminbar, #footer, #screen-meta-links{display: none !important;}
+#wpcontent{margin:0 20px !important;}
+#wpbody-content{padding-bottom: 20px !important}
+html.wp-toolbar{padding:0 !important;}
+#nav-menus-frame{clear:both;}
+#message{float: left; background:#00a99d; color:#fff; border-radius:3px; border:none; position: relative; top:3px; font-size:18px; font-weight:bold; margin-bottom: 0;}
+.wrap{padding-top: 80px;}
+.wrap h2{float:left;}
+
+.simple{padding:15px 0; text-align:center; background:#00a99d; color:#fff; border-radius:3px; display:block; position:absolute; top:20px; width:100%; font-size:18px; font-weight:bold; text-decoration:none;}
+.simple:hover{color:#fff;}
