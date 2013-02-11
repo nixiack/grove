@@ -15,12 +15,12 @@
 		<div class="site-info">
 			<?php do_action( 'grove_credits' ); ?>
 
-			<?php if (get_theme_mod( 'footer_social_position' ) == 'top') { ?>
+			<?php if (get_option( 'footer_social_position' ) == 'top') { ?>
 
 			<div class="footer-bar top">
-				<div class="footer-text"><?php echo get_theme_mod('footer_text') ?></div>
+				<div class="footer-text"><?php echo get_option('footer_text') ?></div>
 			
-				<?php if (get_theme_mod( 'show_social_footer' )) { if( function_exists( 'social_bartender' ) ){
+				<?php if (get_option( 'show_social_footer' )) { if( function_exists( 'social_bartender' ) ){
 				echo '<div class="social">';
 				social_bartender();
 				echo '</div>'; } } ?>
@@ -37,9 +37,9 @@
 			</div>
 
 			<div class="footer-bar bottom">
-				<div class="footer-text"><?php echo get_theme_mod('footer_text') ?></div>
+				<div class="footer-text"><?php echo get_option('footer_text') ?></div>
 
-				<?php if (get_theme_mod( 'show_social_footer' )) { if( function_exists( 'social_bartender' ) ){ ?>
+				<?php if (get_option( 'show_social_footer' )) { if( function_exists( 'social_bartender' ) ){ ?>
 				<?php echo '<div class="social">';
 				social_bartender();
 				echo '</div>'; } } ?>

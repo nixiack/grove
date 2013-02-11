@@ -16,37 +16,37 @@ get_header(); ?>
 
 		
 
-			<?php if (get_theme_mod( 'small_slider' )) { ?>
+			<?php if (get_option( 'small_slider' )) { ?>
 
 			<div class="slider half">
-			<?php echo do_shortcode('[wooslider slide_page="'.get_theme_mod("slide_page").'" slider_type="slides" limit="5"]') ?>
+			<?php echo do_shortcode('[wooslider slide_page="'.get_option("slide_page").'" slider_type="slides" limit="5"]') ?>
 			</div>
 
 			
 			<div class="homepage-features">
-			<?php echo get_theme_mod('slide_feature_static') ?>
+			<?php echo get_option('slide_feature_static') ?>
 			</div>
 
 			<?php } else {?>
 			<div class="slider-outer">
 			<div class="slider">
-			<?php echo do_shortcode('[wooslider slide_page="'.get_theme_mod("slide_page").'" slider_type="slides" limit="5"]') ?>
+			<?php echo do_shortcode('[wooslider slide_page="'.get_option("slide_page").'" slider_type="slides" limit="5"]') ?>
 			</div>
 			</div>
 			<?php } ?>
 
 			<?php  ?>
 
-			<?php get_template_part('hot', 'buttons'); ?>
+			<?php get_template_part('hot', 'buttons'); ?> 
 
-			<?php if (get_theme_mod('show_tweet_ticker') AND get_theme_mod('tweet_ticker_user')) {
+			<?php if (get_option('show_tweet_ticker') AND get_option('tweet_ticker_user')) {
 				
 
-					$recent_tweets = get_transient('recent_tweets_'.get_theme_mod('tweet_ticker_user'));
+					$recent_tweets = get_transient('recent_tweets_'.get_option('tweet_ticker_user'));
 					if (!$recent_tweets){
-					$tweets = wp_remote_retrieve_body( wp_remote_get('http://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='.get_theme_mod('tweet_ticker_user').'&count=10') );
+					$tweets = wp_remote_retrieve_body( wp_remote_get('http://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='.get_option('tweet_ticker_user').'&count=10') );
 					$recent_tweets = json_decode($tweets, true);
-					set_transient('recent_tweets_'.get_theme_mod('tweet_ticker_user'), $recent_tweets, 60 * 10);
+					set_transient('recent_tweets_'.get_option('tweet_ticker_user'), $recent_tweets, 60 * 10);
 					}
 
 					if ($recent_tweets){ 
@@ -74,7 +74,7 @@ get_header(); ?>
 						});
 						</script>
 
-						<a class="follow-button" href="http://twitter.com/<?php echo get_theme_mod('tweet_ticker_user'); ?>"><i class="ss-icon ss-social">Twitter</i>Follow @<?php echo get_theme_mod('tweet_ticker_user'); ?></a>
+						<a class="follow-button" href="http://twitter.com/<?php echo get_option('tweet_ticker_user'); ?>"><i class="ss-icon ss-social">Twitter</i>Follow @<?php echo get_option('tweet_ticker_user'); ?></a>
 
 					 <?php } ?>
 

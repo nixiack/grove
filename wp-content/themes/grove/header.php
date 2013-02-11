@@ -58,7 +58,7 @@
 
 	<?php if (display_header_text()) { ?>
 		<hgroup>
-			<?php $logo_image = get_theme_mod( 'custom_logo' );
+			<?php $logo_image = get_option( 'custom_logo' );
 			if ($logo_image) { ?>
 			<h1 class="site-title site-logo"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo $logo_image; ?>" /></a></h1>
 			<?php } else { ?>
@@ -74,8 +74,8 @@
 			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 		</nav><!-- .site-navigation .main-navigation -->
 
-		<?php if (get_theme_mod( 'show_social_header' )) { if( function_exists( 'social_bartender' ) ){
-			echo '<div class="social social-'.get_theme_mod( 'header_social_position' ).'">';
+		<?php if (get_option( 'show_social_header' )) { if( function_exists( 'social_bartender' ) ){
+			echo '<div class="social social-'.get_option( 'header_social_position' ).'">';
 			social_bartender();
 			echo '</div>'; } } ?>
 
