@@ -1,7 +1,7 @@
 <?php
 
-add_action('customize_register', 'ignite_hotbuttons');
-function ignite_hotbuttons($wp_customize) {
+add_action('customize_register', 'grove_customize');
+function grove_customize($wp_customize) {
 
 	class WP_Customize_Social_Config extends WP_Customize_Control {
 	public $type = 'social_setup';
@@ -37,9 +37,22 @@ function ignite_hotbuttons($wp_customize) {
 	<?php }
 	}
 
-
 	class WP_Customize_Textarea_Control extends WP_Customize_Control {
-	public $type = 'textarea';
+    	public $type = 'textarea';
+ 
+	public function render_content() {
+	        ?>
+	        <label>
+	        <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+	        <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
+	        </label>
+	        <?php
+	    }
+	}
+
+
+	class WP_Customize_Hotbutton extends WP_Customize_Control {
+	public $type = 'hotbutton';
 
 	public function render_content() {
 		?>
@@ -62,7 +75,8 @@ function ignite_hotbuttons($wp_customize) {
 		#customize-section-ignite_hotbutton_5_settings{display: none;}
 		#hb{position: absolute; top:20px; left: 20px;}
 		#hb a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}
-		#customize-section-ignite_slider_settings #hb{display: none}</style>
+		</style>
+
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
 
@@ -144,7 +158,7 @@ function ignite_hotbuttons($wp_customize) {
 	'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'hb_1_excerpt', array(
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_1_excerpt', array(
 	'label'   => 'Excerpt (optional)',
 	'section' => 'ignite_hotbutton_1_settings',
 	'settings'   => 'hb_1_excerpt',
@@ -194,7 +208,7 @@ function ignite_hotbuttons($wp_customize) {
 	'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'hb_2_excerpt', array(
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_2_excerpt', array(
 	'label'   => 'Excerpt (optional)',
 	'section' => 'ignite_hotbutton_2_settings',
 	'settings'   => 'hb_2_excerpt',
@@ -243,7 +257,7 @@ function ignite_hotbuttons($wp_customize) {
 	'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'hb_3_excerpt', array(
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_3_excerpt', array(
 	'label'   => 'Excerpt (optional)',
 	'section' => 'ignite_hotbutton_3_settings',
 	'settings'   => 'hb_3_excerpt',
@@ -292,7 +306,7 @@ function ignite_hotbuttons($wp_customize) {
 	'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'hb_4_excerpt', array(
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_4_excerpt', array(
 	'label'   => 'Excerpt (optional)',
 	'section' => 'ignite_hotbutton_4_settings',
 	'settings'   => 'hb_4_excerpt',
@@ -341,7 +355,7 @@ function ignite_hotbuttons($wp_customize) {
 	'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'hb_5_excerpt', array(
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_5_excerpt', array(
 	'label'   => 'Excerpt (optional)',
 	'section' => 'ignite_hotbutton_5_settings',
 	'settings'   => 'hb_5_excerpt',
@@ -627,24 +641,36 @@ function ignite_hotbuttons($wp_customize) {
 
 function grove_insert_css() {
 
-	echo '<style type="text/css">';
-	echo '.body {';
-	if (get_option( 'background_image' )) { echo 'background-image:url('.get_option( 'background_image' ).');'; };
-	if (get_option( 'background_position_x' )) { echo 'background-position:top '.get_option( 'background_position_x' ).';'; };
-	echo '}';
-	echo 'body{ background-repeat:'.get_option( 'background_repeat' ).'; background-color:#'.get_option('background_color').'; font-family:'.get_option( 'body-font' ).' !important}';
-	echo 'a, .follow-button{color:'.get_option('link_color').'}';
-	echo 'a.button{background:'.get_option('link_color').';}';
-	echo '.wooslider-control-paging li a.wooslider-active{background:'.get_option('link_color').';}';
-	echo '.wooslider-control-paging li a:hover{background:'.get_option('link_color').'; opacity:0.5}';
-	echo '#masthead{color:#'.get_header_textcolor().'}';
-	if (get_option('header_nav_y') == 'top') echo '#masthead .site-navigation{top:0;}#masthead{padding-top:60px;}';
-	if (get_option('header_nav_y') == 'middle') echo '#masthead .site-navigation{top:50%; margin-top:-20px;}';
-	if (get_option('header_nav_y') == 'bottom') echo '#masthead .site-navigation{bottom:0;}';
-	if (get_option('header_nav_x') == 'left') echo '#masthead .site-navigation{left:0;}';
-	if (get_option('header_nav_x') == 'center') echo '#masthead .site-navigation{left:50%;}';
-	if (get_option('header_nav_x') == 'right') echo '#masthead .site-navigation{right:0;}';
-	echo '</style>';
+	$style = '<style type="text/css">';
+
+	if (get_option( 'background_image' ) OR get_option( 'background_position_x') OR get_option( 'background_repeat' ) OR get_option( 'background_color' ) OR get_option( 'body-font' )) {
+	$style .= '.body {';
+	if (get_option( 'background_image' )) { $style .= 'background-image:url('.get_option( 'background_image' ).');'; };
+	if (get_option( 'background_position_x' )) { $style .= 'background-position:top '.get_option( 'background_position_x' ).';'; };
+	if (get_option( 'background_repeat' )) { $style .= 'background-repeat:'.get_option( 'background_repeat' ).';'; };
+	if (get_option( 'background_color' )) { $style .= 'background-color:#'.get_option('background_color').';'; };
+	if (get_option( 'body-font' )) { $style .= 'font-family:'.get_option( 'body-font' ).' !important;'; };
+	$style .= '}';
+	}
+
+	if(get_option('link_color')){
+	$style .= 'a, .follow-button{color:'.get_option('link_color').'}';
+	$style .= 'a.button{background:'.get_option('link_color').';}';
+	$style .= '.wooslider-control-paging li a.wooslider-active{background:'.get_option('link_color').';}';
+	$style .= '.wooslider-control-paging li a:hover{background:'.get_option('link_color').'; opacity:0.5}';
+	 };
+	
+	if (get_option('get_header_textcolor')) $style .= '#masthead{color:#'.get_header_textcolor().'}';
+	if (get_option('header_nav_y') == 'top') $style .='#masthead .site-navigation{top:0;}#masthead{padding-top:60px;}';
+	if (get_option('header_nav_y') == 'middle') $style .= '#masthead .site-navigation{top:50%; margin-top:-20px;}';
+	if (get_option('header_nav_y') == 'bottom') $style .= '#masthead .site-navigation{bottom:0;}';
+	if (get_option('header_nav_x') == 'left') $style .= '#masthead .site-navigation{left:0;}';
+	if (get_option('header_nav_x') == 'center') $style .= '#masthead .site-navigation{left:50%;}';
+	if (get_option('header_nav_x') == 'right') $style .= '#masthead .site-navigation{right:0;}';
+
+	$style .= '</style>';
+
+	echo $style;
 };
 
 add_action('wp_head', 'grove_insert_css');
