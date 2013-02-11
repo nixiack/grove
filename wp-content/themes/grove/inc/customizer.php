@@ -23,7 +23,7 @@ function grove_customize($wp_customize) {
 	public $type = 'widget_setup';
 
 	public function render_content() { ?>
-	<style type="text/css">select{margin-bottom:20px;}#customize-section-ignite_footer ul{padding-top:70px; position: relative;}</style>
+	<style type="text/css">select{margin-bottom:20px;}#customize-section-grove_footer ul{padding-top:70px; position: relative;}</style>
 		<a target="_blank" onclick="popupwindow('/wp-admin/widgets.php?chromeless=true', 'Widgets', 980, 800); return false;" href="/wp-admin/widgets.php" style="padding:10px 0; text-align:center; background:#00a99d; color:#fff; border-radius:4px; display:block; margin:10px 0; position:absolute; top:5px;left:20px; width:258px;">Configure Widgets</a>
 	<?php }
 	}
@@ -64,15 +64,15 @@ function grove_customize($wp_customize) {
 		<style type="text/css">
 		#customize-section-static_front_page{display:none;}
 		#customize-control-blogdescription{display: none;}
-		#customize-section-ignite_hotbutton_1_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-ignite_hotbutton_2_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-ignite_hotbutton_3_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-ignite_hotbutton_4_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-ignite_hotbutton_5_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-ignite_hotbutton_2_settings{display: none;}
-		#customize-section-ignite_hotbutton_3_settings{display: none;}
-		#customize-section-ignite_hotbutton_4_settings{display: none;}
-		#customize-section-ignite_hotbutton_5_settings{display: none;}
+		#customize-section-grove_hotbutton_1_settings .customize-section-content {padding-top:60px !important; position: relative;}
+		#customize-section-grove_hotbutton_2_settings .customize-section-content {padding-top:60px !important; position: relative;}
+		#customize-section-grove_hotbutton_3_settings .customize-section-content {padding-top:60px !important; position: relative;}
+		#customize-section-grove_hotbutton_4_settings .customize-section-content {padding-top:60px !important; position: relative;}
+		#customize-section-grove_hotbutton_5_settings .customize-section-content {padding-top:60px !important; position: relative;}
+		#customize-section-grove_hotbutton_2_settings{display: none;}
+		#customize-section-grove_hotbutton_3_settings{display: none;}
+		#customize-section-grove_hotbutton_4_settings{display: none;}
+		#customize-section-grove_hotbutton_5_settings{display: none;}
 		#hb{position: absolute; top:20px; left: 20px;}
 		#hb a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}
 		</style>
@@ -90,8 +90,8 @@ function grove_customize($wp_customize) {
 		  jQuery("#hb a").click(function() {
 		  	var hbcount = jQuery(this).text();
 		  	jQuery(".customize-section.open").removeClass("open").hide();
-		  	jQuery("#customize-section-ignite_hotbutton_" + hbcount + "_settings").show();
-		  	jQuery("#customize-section-ignite_hotbutton_" + hbcount + "_settings").addClass("open");
+		  	jQuery("#customize-section-grove_hotbutton_" + hbcount + "_settings").show();
+		  	jQuery("#customize-section-grove_hotbutton_" + hbcount + "_settings").addClass("open");
 		  	return false;
 		  });
 
@@ -114,7 +114,7 @@ function grove_customize($wp_customize) {
 	
 }
 
-	$wp_customize->add_section( 'ignite_hotbutton_1_settings', array(
+	$wp_customize->add_section( 'grove_hotbutton_1_settings', array(
 		'title'          => 'Hot Buttons',
 		'description'	 => 'Manage the buttons/links in the middle of the homepage.',
 		'priority'       => 44,
@@ -127,7 +127,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_1_image', array(
 		'label'   => 'Image Setting',
-		'section' => 'ignite_hotbutton_1_settings',
+		'section' => 'grove_hotbutton_1_settings',
 		'settings'   => 'hb_1_image',
 	) ) );
 
@@ -138,7 +138,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_1_title', array(
 		'label'   => 'Title',
-		'section' => 'ignite_hotbutton_1_settings',
+		'section' => 'grove_hotbutton_1_settings',
 		'type'    => 'text',
 	) );
 
@@ -149,7 +149,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_1_link', array(
 		'label'   => 'Link',
-		'section' => 'ignite_hotbutton_1_settings',
+		'section' => 'grove_hotbutton_1_settings',
 		'type'    => 'text',
 	) );
 
@@ -160,12 +160,12 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_1_excerpt', array(
 	'label'   => 'Excerpt (optional)',
-	'section' => 'ignite_hotbutton_1_settings',
+	'section' => 'grove_hotbutton_1_settings',
 	'settings'   => 'hb_1_excerpt',
 	) ) );
 
 
-	$wp_customize->add_section( 'ignite_hotbutton_2_settings', array(
+	$wp_customize->add_section( 'grove_hotbutton_2_settings', array(
 		'title'          => 'Hot Button 2',
 		'priority'       => 44,
 	) );
@@ -177,7 +177,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_2_image', array(
 		'label'   => 'Image Setting',
-		'section' => 'ignite_hotbutton_2_settings',
+		'section' => 'grove_hotbutton_2_settings',
 		'settings'   => 'hb_2_image',
 	) ) );
 
@@ -188,7 +188,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_2_title', array(
 		'label'   => 'Title',
-		'section' => 'ignite_hotbutton_2_settings',
+		'section' => 'grove_hotbutton_2_settings',
 		'type'    => 'text',
 	) );
 
@@ -199,7 +199,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_2_link', array(
 		'label'   => 'Link',
-		'section' => 'ignite_hotbutton_2_settings',
+		'section' => 'grove_hotbutton_2_settings',
 		'type'    => 'text',
 	) );
 
@@ -210,11 +210,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_2_excerpt', array(
 	'label'   => 'Excerpt (optional)',
-	'section' => 'ignite_hotbutton_2_settings',
+	'section' => 'grove_hotbutton_2_settings',
 	'settings'   => 'hb_2_excerpt',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_hotbutton_3_settings', array(
+	$wp_customize->add_section( 'grove_hotbutton_3_settings', array(
 		'title'          => 'Hot Button 3',
 		'priority'       => 44,
 	) );
@@ -226,7 +226,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_3_image', array(
 		'label'   => 'Image Setting',
-		'section' => 'ignite_hotbutton_3_settings',
+		'section' => 'grove_hotbutton_3_settings',
 		'settings'   => 'hb_3_image',
 	) ) );
 
@@ -237,7 +237,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_3_title', array(
 		'label'   => 'Title',
-		'section' => 'ignite_hotbutton_3_settings',
+		'section' => 'grove_hotbutton_3_settings',
 		'type'    => 'text',
 	) );
 
@@ -248,7 +248,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_3_link', array(
 		'label'   => 'Link',
-		'section' => 'ignite_hotbutton_3_settings',
+		'section' => 'grove_hotbutton_3_settings',
 		'type'    => 'text',
 	) );
 
@@ -259,11 +259,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_3_excerpt', array(
 	'label'   => 'Excerpt (optional)',
-	'section' => 'ignite_hotbutton_3_settings',
+	'section' => 'grove_hotbutton_3_settings',
 	'settings'   => 'hb_3_excerpt',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_hotbutton_4_settings', array(
+	$wp_customize->add_section( 'grove_hotbutton_4_settings', array(
 		'title'          => 'Hot Button 4',
 		'priority'       => 44,
 	) );
@@ -275,7 +275,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_4_image', array(
 		'label'   => 'Image Setting',
-		'section' => 'ignite_hotbutton_4_settings',
+		'section' => 'grove_hotbutton_4_settings',
 		'settings'   => 'hb_4_image',
 	) ) );
 
@@ -286,7 +286,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_4_title', array(
 		'label'   => 'Title',
-		'section' => 'ignite_hotbutton_4_settings',
+		'section' => 'grove_hotbutton_4_settings',
 		'type'    => 'text',
 	) );
 
@@ -297,7 +297,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_4_link', array(
 		'label'   => 'Link',
-		'section' => 'ignite_hotbutton_4_settings',
+		'section' => 'grove_hotbutton_4_settings',
 		'type'    => 'text',
 	) );
 
@@ -308,11 +308,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_4_excerpt', array(
 	'label'   => 'Excerpt (optional)',
-	'section' => 'ignite_hotbutton_4_settings',
+	'section' => 'grove_hotbutton_4_settings',
 	'settings'   => 'hb_4_excerpt',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_hotbutton_5_settings', array(
+	$wp_customize->add_section( 'grove_hotbutton_5_settings', array(
 		'title'          => 'Hot Button 5',
 		'priority'       => 44,
 	) );
@@ -324,7 +324,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_5_image', array(
 		'label'   => 'Image Setting',
-		'section' => 'ignite_hotbutton_5_settings',
+		'section' => 'grove_hotbutton_5_settings',
 		'settings'   => 'hb_5_image',
 	) ) );
 
@@ -335,7 +335,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_5_title', array(
 		'label'   => 'Title',
-		'section' => 'ignite_hotbutton_5_settings',
+		'section' => 'grove_hotbutton_5_settings',
 		'type'    => 'text',
 	) );
 
@@ -346,7 +346,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'hb_5_link', array(
 		'label'   => 'Link',
-		'section' => 'ignite_hotbutton_5_settings',
+		'section' => 'grove_hotbutton_5_settings',
 		'type'    => 'text',
 	) );
 
@@ -357,11 +357,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_5_excerpt', array(
 	'label'   => 'Excerpt (optional)',
-	'section' => 'ignite_hotbutton_5_settings',
+	'section' => 'grove_hotbutton_5_settings',
 	'settings'   => 'hb_5_excerpt',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_slider_settings', array(
+	$wp_customize->add_section( 'grove_slider_settings', array(
 		'title'          => 'Slider (Homepage)',
 		'description'	 => 'Manage the main slider on the homepage.',
 		'priority'       => 43,
@@ -374,7 +374,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'small_slider', array(
 		'label'   => 'Small slider?',
-		'section' => 'ignite_slider_settings',
+		'section' => 'grove_slider_settings',
 		'type'    => 'checkbox',
 	) );
 
@@ -390,7 +390,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'slide_page', array(
 	'label'   => 'Slide category',
-	'section' => 'ignite_slider_settings',
+	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $slides,
 	) );
@@ -402,11 +402,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'slide_feature_static', array(
 	'label'   => 'Feature content (for use with small slider)',
-	'section' => 'ignite_slider_settings',
+	'section' => 'grove_slider_settings',
 	'settings'   => 'slide_feature_static',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_social_settings', array(
+	$wp_customize->add_section( 'grove_social_settings', array(
 		'title'          => 'Social Settings',
 		'description'	 => 'Where should the social links be shown?',
 		'priority'       => 42,
@@ -418,7 +418,7 @@ function grove_customize($wp_customize) {
 	) );
 
 	$wp_customize->add_control( new WP_Customize_Social_Config( $wp_customize, 'social_config', array(
-	'section' => 'ignite_social_settings',
+	'section' => 'grove_social_settings',
 	'settings'   => 'social_config',
 	) ) );
 
@@ -429,7 +429,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'show_social_header', array(
 		'label'   => 'Show social links in header?',
-		'section' => 'ignite_social_settings',
+		'section' => 'grove_social_settings',
 		'type'    => 'checkbox',
 	) );
 
@@ -440,7 +440,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'header_social_position', array(
 	'label'   => 'Social Position (Header)',
-	'section' => 'ignite_social_settings',
+	'section' => 'grove_social_settings',
 	'type'    => 'select',
 	'choices'    => array(
 		'top' => 'top',
@@ -456,7 +456,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'show_social_footer', array(
 		'label'   => 'Show social links in footer?',
-		'section' => 'ignite_social_settings',
+		'section' => 'grove_social_settings',
 		'type'    => 'checkbox',
 	) );
 
@@ -467,7 +467,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'footer_social_position', array(
 	'label'   => 'Social Position (Footer)',
-	'section' => 'ignite_social_settings',
+	'section' => 'grove_social_settings',
 	'type'    => 'select',
 	'choices'    => array(
 		'top' => 'top',
@@ -475,7 +475,7 @@ function grove_customize($wp_customize) {
 		),
 	) );
 
-	$wp_customize->add_section( 'ignite_tweet_ticker', array(
+	$wp_customize->add_section( 'grove_tweet_ticker', array(
 		'title'          => 'Tweet Ticker',
 		'description'	 => 'Show scrolling status updates on the homepage',
 		'priority'       => 45,
@@ -488,7 +488,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'show_tweet_ticker', array(
 		'label'   => 'Show tweet ticker on homepage?',
-		'section' => 'ignite_tweet_ticker',
+		'section' => 'grove_tweet_ticker',
 		'type'    => 'checkbox',
 	) );
 
@@ -499,11 +499,11 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'tweet_ticker_user', array(
 		'label'   => 'Twitter user (without @)',
-		'section' => 'ignite_tweet_ticker',
+		'section' => 'grove_tweet_ticker',
 		'type'    => 'text',
 	) );
 
-	$wp_customize->add_section( 'ignite_custom_logo', array(
+	$wp_customize->add_section( 'grove_custom_logo', array(
 		'title'          => 'Logo',
 		'description'	 => 'Display a custom logo?',
 		'priority'       => 25,
@@ -516,7 +516,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'custom_logo', array(
 		'label'   => 'Custom logo',
-		'section' => 'ignite_custom_logo',
+		'section' => 'grove_custom_logo',
 		'settings'   => 'custom_logo',
 	) ) );
 
@@ -573,7 +573,7 @@ function grove_customize($wp_customize) {
 	'settings'   => 'menu_config',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_footer', array(
+	$wp_customize->add_section( 'grove_footer', array(
 		'title'          => 'Footer',
 		'priority'       => 105,
 	) );
@@ -585,7 +585,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'footer_text', array(
 		'label'   => 'Footer Tagline',
-		'section' => 'ignite_footer',
+		'section' => 'grove_footer',
 		'type'    => 'text',
 	) );
 
@@ -595,11 +595,11 @@ function grove_customize($wp_customize) {
 	) );
 
 	$wp_customize->add_control( new WP_Customize_Widget_Config( $wp_customize, 'widget_config_footer', array(
-	'section' => 'ignite_footer',
+	'section' => 'grove_footer',
 	'settings'   => 'widget_config_footer',
 	) ) );
 
-	$wp_customize->add_section( 'ignite_font_settings', array(
+	$wp_customize->add_section( 'grove_font_settings', array(
 		'title'          => 'Font Settings',
 		'description'	 => 'Which font style would you like to use?',
 		'priority'       => 48,
@@ -612,7 +612,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'body-font', array(
 	'label'   => 'Body font',
-	'section' => 'ignite_font_settings',
+	'section' => 'grove_font_settings',
 	'type'    => 'select',
 	'choices'    => array(
 		'Arial' => 'Arial',
@@ -621,7 +621,7 @@ function grove_customize($wp_customize) {
 		),
 	) );
 
-	$wp_customize->add_section( 'ignite_address', array(
+	$wp_customize->add_section( 'grove_address', array(
 		'title'          => 'Address',
 		'priority'       => 105,
 	) );
@@ -633,7 +633,7 @@ function grove_customize($wp_customize) {
 
 	$wp_customize->add_control( 'address', array(
 		'label'   => 'Address',
-		'section' => 'ignite_address',
+		'section' => 'grove_address',
 		'type'    => 'text',
 	) );
 
