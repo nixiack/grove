@@ -20,20 +20,16 @@ if (has_post_thumbnail()) {
 if ($banner!='hide') { if ($banner=='large' OR $hide_sidebar=='hide') { the_post_thumbnail('960', $attr); } else {$image = get_the_post_thumbnail($post->ID, '720', $attr);} } } ?>
 
 		<div id="primary" class="content-area">
+
 			<div id="content" class="site-content" role="main">
+
+			<?php do_action( 'before_single_content' ); ?>
 
 			<?php echo $image; ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php $format = get_post_format();
-				if ( false === $format ) {
-				get_template_part( 'content', 'single' );
-				 } else {
-				get_template_part( 'content', $format );
-				} ?>
-
-				<?php  ?>
+				<?php get_template_part( 'content', 'single' ); ?>
 
 				<?php grove_content_nav( 'nav-below' ); ?>
 
@@ -45,7 +41,10 @@ if ($banner!='hide') { if ($banner=='large' OR $hide_sidebar=='hide') { the_post
 
 			<?php endwhile; // end of the loop. ?>
 
+			<?php do_action( 'after_single_content' ); ?>
+
 			</div><!-- #content .site-content -->
+			
 		</div><!-- #primary .content-area -->
 
 
