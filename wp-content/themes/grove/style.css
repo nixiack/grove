@@ -272,6 +272,7 @@ input[type="search"] {
 	-webkit-box-sizing: content-box; /* Addresses box sizing set to border-box in S5, Chrome (include -moz to future-proof) */
 	box-sizing: content-box;
 }
+#secondary #s {width:100%;}
 input[type="search"]::-webkit-search-decoration { /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
 	-webkit-appearance: none;
 }
@@ -377,7 +378,7 @@ a:active {
 	display: none;
 	float: left;
 	position: absolute;
-		top: 1.5em;
+		top: 40px;
 		left: 0;
 	z-index: 99999;
 }

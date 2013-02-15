@@ -33,7 +33,7 @@ if ($banner!='hide') { if ($banner=='large' OR $hide_sidebar=='hide') { the_post
 					<?php add_action('before_sidebar', 'sidebar_map');
 
 					 function sidebar_map() {
-						if (get_option('address')) echo '<div class="location">'.do_shortcode('[gmap height="240px"]'.get_option('address').'[/gmap]'); echo '<strong>'.get_option('address').'</strong></div>';
+						if (get_option('address')) { echo '<div class="location">'.do_shortcode('[gmap height="240px"]'.get_option('address').'[/gmap]'); echo '<strong>'.get_option('address').'</strong></div>'; } else { }
 					} ?>
 
 				<?php endwhile; // end of the loop. ?>
