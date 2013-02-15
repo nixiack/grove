@@ -66,7 +66,7 @@ function grove_setup() {
 	/**
 	 * Enable support for Post Formats
 	 */
-	add_theme_support( 'post-formats' );
+	add_theme_support( 'post-formats', array( 'gallery') );
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
@@ -74,11 +74,6 @@ function grove_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'grove' ),
 	) );
-
-	/**
-	 * Add support for the Aside Post Formats
-	 */
-	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'quote' ) );
 }
 endif; // grove_setup
 add_action( 'after_setup_theme', 'grove_setup' );
