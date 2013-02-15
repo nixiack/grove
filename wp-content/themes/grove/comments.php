@@ -71,6 +71,6 @@
 		<p class="nocomments"><?php _e( 'Comments are closed.', 'grove' ); ?></p>
 	<?php endif; ?>
 
-	<?php comment_form(); ?>
+	<?php comment_form(array('comment_notes_after' => '')); ?>
 
 </div><!-- #comments .comments-area -->

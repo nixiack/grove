@@ -53,24 +53,6 @@ function chromeless () {
   }
 }
 
-add_action('admin_head', 'post_format_picker');
-
-function post_format_picker () {
-
-$screen = get_current_screen();
-if ( $screen->id == 'post' OR $screen->id == 'page' )
-
-{ echo '<script>
-jQuery(document).ready(function(){
-var hash = window.location.hash;
-if (hash){
-jQuery("a[href$="+hash+"]").click();
-}
-});
-</script>';
-wp_enqueue_style('layout_picker', site_url().'/wp-content/mu-plugins/inc/layout-picker.css', '', '', 'all'); }
-}
-
 function ignite_update_complete(){
   if ( $_GET["chromeless"] ) {
     echo '<a href="#" onclick="window.close(); return false;" class="simple">When you\'re done making changes, simply close this window</a>';
@@ -92,4 +74,30 @@ add_action('admin_head', 'my_custom_logo');
 
 function my_custom_logo() {
   echo ' <style type="text/css"> #wp-admin-bar-wp-logo .ab-icon { background: url(/wp-content/mu-plugins/inc/icon-ignite.png) no-repeat top center !important; } </style> '; }
+
+//turn comments OFF be default on pages
+function page_comments_off_please() {
+  if(isset($_REQUEST['post_type'])) {
+    if ($_REQUEST['post_type'] == "page") {
+      $fixit = <<<ENDIT
+        <script>
+          if (document.post) {
+            var the_comment = document.post.comment_status;
+            var the_ping = document.post.ping_status;
+            if (the_comment && the_ping) {
+              the_comment.checked = false;
+              the_ping.checked = false;
+            }
+          }                 
+        </script>"
+ENDIT;
+        echo $fixit;
+    }
+  }
+}
+
+add_action ( 'admin_footer', 'page_comments_off_please' );
+
+if ( ! isset( $content_width ) )
+    $content_width = 720;
 ?>

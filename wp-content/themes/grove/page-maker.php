@@ -27,10 +27,6 @@ function make_content_callback() {
 
 			update_post_meta($post_id, '_ignite_hide_sidebar', $_GET['sidebar']);
 
-			if ($_GET['format']){
-			set_post_format($post_id, $_GET['format']);
-			}
-
 			if ($_GET['template']=="contact") { update_post_meta( $post_id, '_wp_page_template', 'page-contact.php' ); };
 			if ($_GET['template']=="blog") { update_post_meta( $post_id, '_wp_page_template', 'page-blog.php' ); };
 
@@ -144,9 +140,9 @@ function make_content_callback() {
 </ul>
 
 <ul class="layouts gallery">
-	<li><a href="admin.php?page=make-content&type=post&format=gallery&sidebar=right&noheader=true" rel="gallery-sidebar-right.png">Sidebar on Right</a></li>
-	<li><a href="admin.php?page=make-content&type=post&format=gallery&sidebar=left&noheader=true" rel="gallery-sidebar-left.png">Sidebar on Left</a></li>
-	<li><a href="admin.php?page=make-content&type=post&format=gallery&sidebar=hide&noheader=true" rel="gallery-sidebar-none.png">No sidebar</a></li>
+	<li><a href="admin.php?page=make-content&type=post&sidebar=right&noheader=true" rel="gallery-sidebar-right.png">Sidebar on Right</a></li>
+	<li><a href="admin.php?page=make-content&type=post&sidebar=left&noheader=true" rel="gallery-sidebar-left.png">Sidebar on Left</a></li>
+	<li><a href="admin.php?page=make-content&type=post&sidebar=hide&noheader=true" rel="gallery-sidebar-none.png">No sidebar</a></li>
 </ul>
 
 <ul class="layouts event">

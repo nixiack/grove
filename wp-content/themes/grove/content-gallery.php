@@ -19,7 +19,6 @@
 
 	<div class="entry-content">
 		<?php the_content(); ?>
-		<?php echo do_shortcode('[gallery columns="0"]'); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'grove' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
 

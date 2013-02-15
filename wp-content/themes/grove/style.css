@@ -519,6 +519,8 @@ img.size-full {
 .site-content .gallery-columns-4 .gallery-item img {
 }
 
+.site-content .tiled-gallery{margin-bottom: 30px;}
+
 /* Make sure embeds and iframes fit their containers */
 embed,
 iframe,
