@@ -621,6 +621,17 @@ function grove_customize($wp_customize) {
 		),
 	) );
 
+	$wp_customize->add_setting( 'typekit', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'typekit', array(
+	'label'   => 'Typekit Script',
+	'section' => 'grove_font_settings',
+	'settings'   => 'typekit',
+	) ) );
+
 	$wp_customize->add_section( 'grove_address', array(
 		'title'          => 'Address',
 		'priority'       => 105,
@@ -640,6 +651,8 @@ function grove_customize($wp_customize) {
 }
 
 function grove_insert_css() {
+
+	$typekit = get_option( 'typekit' ); if ($typekit) { echo $typekit;	};
 
 	$style = '<style type="text/css">';
 
