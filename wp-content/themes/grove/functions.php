@@ -34,6 +34,10 @@ function grove_setup() {
 	require( get_template_directory() . '/inc/metabox/functions.php' );
 
 	require_once ( get_template_directory() . '/page-maker.php' );
+	
+	/* implementation of TGM Plugin activation */
+	require_once ( get_template_directory() . '/inc/plugin-mgmt/pluginmgr.php' );
+
 
 	/**
 	 * Custom functions that act independently of the theme templates
