@@ -62,7 +62,8 @@ add_action('admin_notices', 'ignite_update_complete');
 
 function sidebar_status($classes) {
   global $post;
-  $sidebar=get_post_meta($post->ID, '_ignite_hide_sidebar', true); if ($sidebar) {
+  global $sidebar;
+  $sidebar = get_post_meta(get_the_ID(), '_ignite_hide_sidebar', true); if ($sidebar) {
   $classes[] = $sidebar.'-sidebar';
    }
    return $classes;

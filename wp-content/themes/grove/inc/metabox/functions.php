@@ -36,7 +36,7 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 	$meta_boxes[] = array(
 		'id'         => 'sidebar_options',
 		'title'      => 'Sidebar Options',
-		'pages'      => array( 'post', 'page' ), // Post type
+		'pages'      => array( 'post', 'page', 'tribe_events' ), // Post type
 		'context'    => 'normal',
 		'priority'   => 'high',
 		'show_names' => true, // Show field names on the left

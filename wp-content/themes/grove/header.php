@@ -45,6 +45,8 @@
 
 <body <?php body_class(); ?>>
 
+<?php  ?>
+
 <div id="page" class="hfeed site">
 	<?php do_action( 'before' ); $header_image = get_header_image(); ?>
 	<header id="masthead" class="site-header<?php if ( ! empty( $header_image ) ) { echo ' image'; }; ?>" role="banner" <?php if ( ! empty( $header_image ) ) { ?>style="height:<?php echo get_custom_header()->height; ?>px"<?php } ?>>
