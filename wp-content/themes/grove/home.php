@@ -14,7 +14,7 @@
 
 get_header(); ?>
 
-		<?php do_action( 'home_before_slider' ); ?>
+		<?php do_action( 'grove_home_before_slider' ); ?>
 
 			<?php if (get_option( 'small_slider' )) { ?>
 
@@ -37,11 +37,11 @@ get_header(); ?>
 			</div>
 			<?php } ?>
 
-			<?php do_action( 'home_after_slider' ); ?>
+			<?php do_action( 'grove_home_after_slider' ); ?>
 
 			<?php get_template_part('hot', 'buttons'); ?> 
 
-			<?php do_action( 'home_after_hotbuttons' ); ?>
+			<?php do_action( 'grove_home_after_hotbuttons' ); ?>
 
 			<?php if (get_option('show_tweet_ticker') AND get_option('tweet_ticker_user')) {
 				
@@ -86,7 +86,7 @@ get_header(); ?>
 					</div>
 				</div>
 
-				<?php do_action( 'home_after_ticker' ); ?>
+				<?php do_action( 'grove_home_after_ticker' ); ?>
 
 					<?php if (count_sidebar_widgets('homepage-featured-content', false) > 0) { ?>
 			<div class="homepage-featured-content-outer">
@@ -96,7 +96,7 @@ get_header(); ?>
 			</div>
 			<?php } ?>
 
-			<?php do_action( 'home_after_widgets' ); ?>
+			<?php do_action( 'grove_home_after_widgets' ); ?>
 
 		
 

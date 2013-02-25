@@ -12,6 +12,9 @@
 	</div><!-- #main .site-main -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
+
+			<?php do_action( 'grove_before_footer' ); ?>
+
 		<div class="site-info">
 			<?php do_action( 'grove_credits' ); ?>
 
@@ -50,6 +53,9 @@
 			
 
 		</div><!-- .site-info -->
+
+		<?php do_action( 'grove_after_footer' ); ?>
+
 	</footer><!-- #colophon .site-footer -->
 </div><!-- #page .hfeed .site -->
 
