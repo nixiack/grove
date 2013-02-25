@@ -30,28 +30,33 @@
 	 
 			// This is an example of how to include a plugin pre-packaged with a theme
 			array(
-				'name'				=> 'JetPack', // The plugin name
-				'slug'				=> 'jetpack', // The plugin slug (typically the folder name)
-				'source'			=> get_stylesheet_directory() . '/lib/plugins/tgm-example-plugin.zip', // The plugin source
-				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
-				'force_activation'	=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
-				'force_deactivation'=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-				//'external_url'		=> '', // If set, overrides default API URL and points to an external URL
+				'name'	=> 'JetPack',
+				'slug'	=> 'jetpack',
+				'required' => true,
+			),
+
+			array(
+				'name'	  => 'Akismet',
+				'slug'	  => 'akismet',
+				'required'  => true,
+			),
+
+			array(
+				'name'	  => '5sec Google Maps',
+				'slug'	  => '5sec-gmaps',
+				'required'  => true,
 			),
 	 
-			
-			
 			array(
 				'name'	  => 'Make Clickable Tweet',
 				'slug'	  => 'make-clickable-tweet',
-				'required'  => false,
+				'required'  => true,
 			),
 			
 			array(
 				'name'	  => 'Social Bartender',
 				'slug'	  => 'social-bartender',
-				'required'  => false,
+				'required'  => true,
 			),
 			
 			array(
@@ -69,13 +74,7 @@
 			array(
 				'name'	  => 'Woo Slider',
 				'slug'	  => 'wooslider',
-				'required'  => false,
-			),
-			
-			array(
-				'name'	  => 'Woothemes Updater',
-				'slug'	  => 'woothemes-updater',
-				'required'  => false,
+				'required'  => true,
 			),
 			
 			array(
@@ -105,8 +104,8 @@
 		$config = array(
 			'domain'			=> $theme_text_domain,		   // Text domain - likely want to be the same as your theme.
 			'default_path'	  => '',						   // Default absolute path to pre-packaged plugins
-			'parent_menu_slug'  => 'themes.php',		 // Default parent menu slug
-			'parent_url_slug'   => 'themes.php',		 // Default parent URL slug
+			'parent_menu_slug'  => 'plugins.php',		 // Default parent menu slug
+			'parent_url_slug'   => 'plugins.php',		 // Default parent URL slug
 			'menu'			  => 'install-required-plugins',   // Menu slug
 			'has_notices'	   => true,						 // Show admin notices or not
 			'is_automatic'	  => false,			// Automatically activate plugins after installation or not
