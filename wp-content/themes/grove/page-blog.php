@@ -29,7 +29,7 @@ get_header(); ?>
 				// Loop
 				?>
 
-			<?php echo get_post_meta($post->ID, '_ignite_tags', true) ?>
+			
 
 			
         <?php while (have_posts()): the_post(); ?>

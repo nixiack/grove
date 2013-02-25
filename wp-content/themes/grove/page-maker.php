@@ -51,7 +51,7 @@ function make_content_callback() {
 	#wpbody-content{}
 	.picker{width:48%; float: left;}
 	.types{position: relative;  float: left; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 30px 20px 40px 0; }
-	.types li, .types span{display: inline; float:left; }
+	.types li, .types span{display: inline; float:left; margin:0;}
 	.types span{font-size: 24px; font-weight: bold;}
 	.types li a{display: none; position: relative; margin: 0; font-size: 16px !important; font-weight: bold;}
 	.types ul li{float:none; }
