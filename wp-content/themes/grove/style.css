@@ -617,6 +617,16 @@ a.button{background:blue; border-radius:3px; padding:10px 15px; font-weight:bold
 .homepage-featured-content aside:last-child{margin-right: 0;}
 .homepage-featured-content .widget_text p{margin:1.0em 0;}
 
+#secondary h1{margin:0 0 10px 0;}
+#secondary ul {list-style: none; margin: 0; padding:0;}
+#secondary ul li {margin:0 0 10px 0;}
+
+.commentlist{list-style:none; padding: 0; margin: 15px 0 0 0;}
+.commentlist li{position: relative; padding: 0 0 0 50px;}
+.commentlist li .avatar{position: absolute; top:3px; left: 0;}
+
+.sharedaddy{margin-bottom: 30px;}
+.page-template-page-contact-php .sharedaddy{display: none;}
 
 footer.site-footer{margin:40px 0 0 0; position: relative; overflow: auto; min-height: 100px; clear: both; padding:0; border-top: 1px solid #ccc; background:#fff;}
 footer.site-footer .social{position: absolute; top:0; right:0;}
