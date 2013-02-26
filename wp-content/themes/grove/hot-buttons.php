@@ -36,6 +36,14 @@
 
 				echo '<a href="'.$link.'"><strong>'.$title.'</strong></a>';
 
+			} elseif (!$title AND $image AND $excerpt) {
+
+				echo '<a href="'.$link.'"><img src="'.$image.'"><span>'.$excerpt.'</span></a>';
+
+			} elseif (!$title AND $image AND !$excerpt) {
+
+				echo '<a href="'.$link.'"><img src="'.$image.'"></a>';
+
 			}
 
 		}

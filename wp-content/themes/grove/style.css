@@ -593,8 +593,8 @@ object {
 .hotbuttons a{width: 300px; overflow: hidden; margin-right: 30px; display: inline-block; float: left;}
 .hotbuttons a:last-child{margin:0;}
 .hotbuttons a img{max-width: 300px; display: block;}
-.hotbuttons a strong{display: block; font-size: 140%; margin: 10px 0 5px;}
-.hotbuttons a span{color:#666;}
+.hotbuttons a strong{display: block; font-size: 140%; margin: 10px 0 0 0;}
+.hotbuttons a span{color:#666; display: block; margin: 10px 0 0 0;}
 .hotbuttons-4 a{width:225px; margin-right: 20px;}
 .hotbuttons-4 a img{max-width: 225px;}
 .hotbuttons-5 a{width:176px; margin-right: 20px;}
