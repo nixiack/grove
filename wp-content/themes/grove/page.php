@@ -26,6 +26,8 @@ if ($banner!='hide') { if ($banner=='large' OR $sidebar=='hide') { the_post_thum
 		<div id="primary" class="content-area">
 			<div id="content" class="site-content" role="main">
 
+				<?php do_action( 'grove_before_page_content' ); ?>
+
 				<?php echo $image; ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
@@ -35,6 +37,8 @@ if ($banner!='hide') { if ($banner=='large' OR $sidebar=='hide') { the_post_thum
 					<?php comments_template( '', true ); ?>
 
 				<?php endwhile; // end of the loop. ?>
+
+				<?php do_action( 'grove_after_page_content' ); ?>
 
 			</div><!-- #content .site-content -->
 		</div><!-- #primary .content-area -->

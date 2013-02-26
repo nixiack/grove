@@ -8,12 +8,12 @@
 ?>
 		<div id="secondary" class="widget-area" role="complementary">
 
-			<?php do_action( 'before_sidebar' ); ?>
+			<?php do_action( 'grove_before_sidebar' ); ?>
 
 			<?php get_template_part('inc/sidebar', 'nav') ?>
 
 			<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : endif; // end sidebar widget area ?>
 
-			<?php do_action( 'after_sidebar' ); ?>
+			<?php do_action( 'grove_after_sidebar' ); ?>
 
 		</div><!-- #secondary .widget-area -->

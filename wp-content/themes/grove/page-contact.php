@@ -27,7 +27,7 @@ if ($banner!='hide') { if ($banner=='large' OR $sidebar=='hide') { the_post_thum
 
 					<?php get_template_part( 'content', 'page' ); ?>
 
-					<?php add_action('before_sidebar', 'sidebar_map');
+					<?php add_action('grove_before_sidebar', 'sidebar_map');
 
 					 function sidebar_map() {
 						if (get_option('address')) { echo '<div class="location">'.do_shortcode('[gmap height="240px"]'.get_option('address').'[/gmap]'); echo '<strong>'.get_option('address').'</strong></div>'; } else { }

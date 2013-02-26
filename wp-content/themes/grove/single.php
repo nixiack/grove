@@ -22,7 +22,7 @@ if ($banner!='hide') { if ($banner=='large' OR $sidebar=='hide') { the_post_thum
 
 			<div id="content" class="site-content" role="main">
 
-			<?php do_action( 'before_single_content' ); ?>
+			<?php do_action( 'grove_before_single_content' ); ?>
 
 			<?php echo $image; ?>
 
@@ -40,7 +40,7 @@ if ($banner!='hide') { if ($banner=='large' OR $sidebar=='hide') { the_post_thum
 
 			<?php endwhile; // end of the loop. ?>
 
-			<?php do_action( 'after_single_content' ); ?>
+			<?php do_action( 'grove_after_single_content' ); ?>
 
 			</div><!-- #content .site-content -->
 			
