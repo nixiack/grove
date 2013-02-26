@@ -53,7 +53,7 @@ function make_content_callback() {
 	#wpbody-content{}
 	.picker{width:48%; float: left;}
 	.types{position: relative;  float: left; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 30px 20px 40px 0; }
-	.types li, .types span{display: inline; float:left; margin:0;}
+	.types li, .types span{display: inline; float:left;}
 	.types span{font-size: 24px; font-weight: bold;}
 	.types li a{display: none; position: relative; margin: 0; font-size: 16px !important; font-weight: bold;}
 	.types ul li{float:none; }
@@ -67,6 +67,7 @@ function make_content_callback() {
 	.preview-pane span{position: absolute; top:50%; padding: 0 20%; text-align: center; font-size: 18px; color: #999; display: block; line-height: 25px; margin-top:-25px; width:100%; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 	.layouts{overflow: hidden; display: none; clear:both;}
 	.layouts.selected{display: block;}
+	.layouts li{margin:0;}
 		.layouts li a{width:180px; height: 125px; text-align: center; border:1px solid #eee; display: block; float: left; margin: 0 20px 25px 0; padding: 125px 0 0 0; font-weight: bold; border-radius:3px; text-decoration: none; background-size: 100% auto; line-height: 40px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 		.layouts li a.selected{border-color: #00a99d; border-width:4px;}
 		.make-content-submit{text-align:center; display:block; position:absolute; top:-60px; width:100%; font-size:18px !important; font-weight:bold; text-decoration:none; display: none; height: 40px !important; line-height: 40px !important;}
