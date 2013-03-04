@@ -16,26 +16,7 @@ get_header(); ?>
 
 		<?php do_action( 'grove_home_before_slider' ); ?>
 
-			<?php if (get_option( 'small_slider' )) { ?>
-
-			<div class="small-slider-outer">
-			<div class="slider half">
-			<?php echo do_shortcode('[wooslider slide_page="'.get_option("slide_page").'" slider_type="slides" limit="5"]') ?>
-			</div>
-
-			
-			<div class="homepage-features">
-			<?php echo get_option('slide_feature_static') ?>
-			</div>
-			</div>
-
-			<?php } else {?>
-			<div class="slider-outer">
-			<div class="slider">
-			<?php echo do_shortcode('[wooslider slide_page="'.get_option("slide_page").'" slider_type="slides" limit="5"]') ?>
-			</div>
-			</div>
-			<?php } ?>
+			<?php get_template_part( 'inc/slider', 'home'); ?>
 
 			<?php do_action( 'grove_home_after_slider' ); ?>
 
@@ -43,61 +24,18 @@ get_header(); ?>
 
 			<?php do_action( 'grove_home_after_hotbuttons' ); ?>
 
-			<?php if (get_option('show_tweet_ticker') AND get_option('tweet_ticker_user')) {
-				
+			<?php get_template_part('inc/ticker') ?>
 
-					$recent_tweets = get_transient('recent_tweets_'.get_option('tweet_ticker_user'));
-					if (!$recent_tweets){
-					$tweets = wp_remote_retrieve_body( wp_remote_get('http://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='.get_option('tweet_ticker_user').'&count=10') );
-					$recent_tweets = json_decode($tweets, true);
-					set_transient('recent_tweets_'.get_option('tweet_ticker_user'), $recent_tweets, 60 * 10);
-					}
+			<?php do_action( 'grove_home_after_ticker' ); ?>
 
-					if ($recent_tweets){ 
-
-					 ?>
-<div class="tweets-container-outer">				 
-<div class="tweets-container">
-						<ul class="tweetscroll">
-						<?php
-					foreach ($recent_tweets as $tweet) {?>
-
-						<li class="tweet">
-							<span class="tweet-body">
-								<?php echo make_clickable_tweet($tweet['text']); ?>
-							</span>
-							<span class="tweet-stamp">
-								<?php echo human_time_diff( strtotime($tweet['created_at']), current_time('timestamp') ) . ' ago';  ?>
-							</span>
-						</li>
-					<?php }	echo '</ul>'; } ?>
-
-					<script>
-	    				jQuery(document).ready(function(){
-						jQuery("ul.tweetscroll").show().liScroll();
-						});
-						</script>
-
-						<a class="follow-button" href="http://twitter.com/<?php echo get_option('tweet_ticker_user'); ?>"><i class="ss-icon ss-social">Twitter</i>Follow @<?php echo get_option('tweet_ticker_user'); ?></a>
-
-					 <?php } ?>
-
-					
-					</div>
+			<?php if (count_sidebar_widgets('homepage-featured-content', false) > 0) { ?>
+				<div class="homepage-featured-content-outer">
+				<div class="homepage-featured-content widgets-<?php count_sidebar_widgets('homepage-featured-content') ?>">
+				<?php if ( ! dynamic_sidebar( 'homepage-featured-content' ) ) : endif; ?>
 				</div>
-
-				<?php do_action( 'grove_home_after_ticker' ); ?>
-
-					<?php if (count_sidebar_widgets('homepage-featured-content', false) > 0) { ?>
-			<div class="homepage-featured-content-outer">
-			<div class="homepage-featured-content widgets-<?php count_sidebar_widgets('homepage-featured-content') ?>">
-			<?php if ( ! dynamic_sidebar( 'homepage-featured-content' ) ) : endif; ?>
-			</div>
-			</div>
+				</div>
 			<?php } ?>
 
 			<?php do_action( 'grove_home_after_widgets' ); ?>
-
-		
 
 <?php get_footer(); ?>
