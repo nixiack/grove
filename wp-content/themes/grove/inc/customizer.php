@@ -656,7 +656,7 @@ function grove_insert_css() {
 
 	$style = '<style type="text/css">';
 
-	if (get_option( 'background_image' ) OR get_option( 'background_position_x') OR get_option( 'background_repeat' ) OR get_option( 'background_color' ) OR get_option( 'body-font' )) {
+	if (get_option( 'background_image' ) OR get_option( 'background_position_x') OR get_option( 'background_repeat' ) OR get_theme_mod( 'background_color' ) OR get_option( 'body-font' )) {
 	$style .= 'body {';
 	if (get_option( 'background_image' )) { $style .= 'background-image:url('.get_option( 'background_image' ).');'; };
 	if (get_option( 'background_position_x' )) { $style .= 'background-position:top '.get_option( 'background_position_x' ).';'; };
