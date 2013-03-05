@@ -580,6 +580,7 @@ object {
 .social a{margin:0 5px 0 0;}
 .social a:last-child{margin: 0;}
 
+.slider-outer{clear:both;}
 .small-slider-outer{width:960px; margin:0 auto;}
 .slider{width: 960px; margin: 0 auto;}
 .slider.half{width:480px; float: right;}
