@@ -161,7 +161,7 @@ function make_content_callback() {
 
 <ul class="layouts contact">
 	<li><a href="admin.php?page=make-content&type=page&sidebar=right&template=contact&noheader=true" rel="contact-sidebar-right.png">Map/Sidebar on Right</a></li>
-	<li><a href="admin.php?page=make-content&type=page&sidebar=left&template=contact&noheader=true" rel="contact-sidebar-right.png">Map/Sidebar on Left</a></li>
+	<li><a href="admin.php?page=make-content&type=page&sidebar=left&template=contact&noheader=true" rel="contact-sidebar-left.png">Map/Sidebar on Left</a></li>
 </ul>
 
 </div>
