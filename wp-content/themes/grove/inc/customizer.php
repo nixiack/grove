@@ -669,9 +669,14 @@ function grove_insert_css() {
 	$style .= '}';
 	}
 
-	$background=get_post_meta( $post->ID, '_ignite_background', true );
-	if($background) {
-	$style .= 'body {background-image:url('.$background.');}';
+	$background_image=get_post_meta( $post->ID, '_grove_background_image', true );
+	if($background_image) {
+	$style .= 'body {background-image:url('.$background_image.');}';
+	}
+
+	$background_color=get_post_meta( $post->ID, '_grove_background_color', true );
+	if($background_color) {
+	$style .= 'body {background-color:'.$background_color.';}';
 	}
 
 	if(get_option('link_color')){

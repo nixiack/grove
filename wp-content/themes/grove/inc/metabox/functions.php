@@ -31,7 +31,7 @@ add_filter( 'cmb_meta_boxes', 'cmb_sample_metaboxes' );
 function cmb_sample_metaboxes( array $meta_boxes ) {
 
 	// Start with an underscore to hide fields from custom fields list
-	$prefix = '_ignite_';
+	$prefix = '_grove_';
 
 	$meta_boxes[] = array(
 		'id'         => 'sidebar_options',
@@ -102,9 +102,15 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 			array(
 				'name'    => 'Image',
 				'desc'    => 'Should this page have a custom background?',
-				'id'      => $prefix . 'background',
+				'id'      => $prefix . 'background_image',
 				'type'    => 'file'
-			)
+			),
+			array(
+			            'name' => 'Color',
+			            'desc' => 'Select a background color',
+			            'id'   => $prefix . 'background_color',
+			            'type' => 'colorpicker'
+			        )
 			
 		),
 	);
