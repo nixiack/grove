@@ -168,7 +168,7 @@ function theme_customize() {
 }
 
 function ignite_parent() {
-	echo '<div class="wrap"><h3>Enjoy your stay in the Grove.</h3></div>';
+	echo '<div class="wrap"><h3>Enjoy your stay in the Grove.</h3><p style="max-width:600px">This site is built on Grove, a brand-new WordPress framework from Ignite360. While we\'re still kicking the tires, we\'re thrilled to have you in the family and hope your stay in Grove is a pleasant one. If you need any help, with anything, don\'t hesitate to <a href="#">contact us</a>.</p><a class="button" href="customize.php?">Customize Theme</a> <a class="button" href="admin.php?page=make-content">Make Content</a></div>';
 	
 }
 
