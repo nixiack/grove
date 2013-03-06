@@ -91,7 +91,23 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		),
 	);
 
-
+	$meta_boxes[] = array(
+		'id'         => 'background_options',
+		'title'      => 'Custom Background',
+		'pages'      => array('page'),
+		'context'    => 'normal',
+		'priority'   => 'high',
+		'show_names' => true, // Show field names on the left
+		'fields'     => array(
+			array(
+				'name'    => 'Image',
+				'desc'    => 'Should this page have a custom background?',
+				'id'      => $prefix . 'background',
+				'type'    => 'file'
+			)
+			
+		),
+	);
 
 	
 

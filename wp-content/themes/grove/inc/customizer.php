@@ -654,16 +654,24 @@ function grove_insert_css() {
 
 	$typekit = get_option( 'typekit' ); if ($typekit) { echo $typekit;	};
 
+	global $post;
+
 	$style = '<style type="text/css">';
 
-	if (get_theme_mod( 'background_image' ) OR get_option( 'background_position_x') OR get_option( 'background_repeat' ) OR get_theme_mod( 'background_color' ) OR get_option( 'body-font' )) {
+	if (get_theme_mod( 'background_image' ) OR get_theme_mod( 'background_position_x') OR get_theme_mod( 'background_repeat' ) OR get_theme_mod( 'background_color' ) OR get_option( 'body-font' )) {
 	$style .= 'body {';
 	if (get_theme_mod( 'background_image' )) { $style .= 'background-image:url('.get_theme_mod( 'background_image' ).');'; };
-	if (get_option( 'background_position_x' )) { $style .= 'background-position:top '.get_option( 'background_position_x' ).';'; };
-	if (get_option( 'background_repeat' )) { $style .= 'background-repeat:'.get_option( 'background_repeat' ).';'; };
+	if (get_theme_mod( 'background_position_x' )) { $style .= 'background-position:top '.get_theme_mod( 'background_position_x' ).';'; };
+	if (get_theme_mod( 'background_repeat' )) { $style .= 'background-repeat:'.get_theme_mod( 'background_repeat' ).';'; };
 	if (get_theme_mod( 'background_color' )) { $style .= 'background-color:#'.get_theme_mod('background_color').';'; };
+	if (get_theme_mod( 'background_attachment' )) { $style .= 'background-attachment:'.get_theme_mod('background_attachment').';'; };
 	if (get_option( 'body-font' )) { $style .= 'font-family:'.get_option( 'body-font' ).' !important;'; };
 	$style .= '}';
+	}
+
+	$background=get_post_meta( $post->ID, '_ignite_background', true );
+	if($background) {
+	$style .= 'body {background-image:url('.$background.');}';
 	}
 
 	if(get_option('link_color')){
