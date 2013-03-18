@@ -4,7 +4,7 @@ Plugin Name: 5sec Google Maps
 Plugin URI: http://5sec-gmap.webfactoryltd.com/
 Description: No setup. No code. No bulls**t! Just Google Maps! In 5 sec! Usage: [gmap]my address, my city, my country[/gmap]
 Author: Web factory Ltd
-Version: 1.4
+Version: 1.5
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -19,19 +19,22 @@ class wf_gmap {
   static $js_functions = '';
 
   public function init() {
+    if(is_admin) {
+      add_filter('plugin_row_meta', array(__CLASS__, 'plugin_meta_links'), 10, 2);
+    }
     // check wp_footer()
     self::check_wp_footer();
 
     // add shortcode
     global $shortcode_tags;
     if (isset($shortcode_tags[GMAP_SHORTCODE])) {
-      add_action('admin_footer', array('wf_gmap', 'warning'));
+      add_action('admin_footer', array(__CLASS__, 'warning'));
     } else {
-      add_shortcode(GMAP_SHORTCODE, array('wf_gmap', 'shortcode'));
+      add_shortcode(GMAP_SHORTCODE, array(__CLASS__, 'shortcode'));
     }
 
     // add JS include files
-    add_action('wp_footer', array('wf_gmap', 'footer'), 2);
+    add_action('wp_footer', array(__CLASS__, 'footer'), 2);
 
     // add shortcode support in sidebar text widget
     if (has_filter('widget_text', 'do_shortcode') === false) {
@@ -40,6 +43,20 @@ class wf_gmap {
 
     return;
   }
+
+  // add links to plugin's description in plugins table
+  function plugin_meta_links($links, $file) {
+    $documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . 'documentation/' .
+                          '" title="View documentation">Documentation</a>';
+    $support_link = '<a target="_blank" href="http://codecanyon.net/user/WebFactory#from" title="Contact Web factory">Support</a>';
+
+    if ($file == plugin_basename(__FILE__)) {
+      $links[] = $documentation_link;
+      $links[] = $support_link;
+    }
+
+    return $links;
+  } // plugin_meta_links
 
   public function check_wp_footer() {
     if(get_transient('wp_footer_ok')) {
@@ -185,7 +202,7 @@ function gmaps_fullscreen(map_id) {
       $tmp = explode('|', $atts['description']);
       $atts['description'] = '<b>' . $tmp[0] . '</b><br />' . $tmp[1];
     }
-    
+
     // add directions to description
     $directions = 'http://maps.google.com/?daddr=' . urlencode($atts['address']);
     $atts['description'] = str_replace('DIRECTIONS', '<a href=\'' . $directions . '\'>directions</a>', $atts['description']);
@@ -389,7 +406,7 @@ function gmaps_fullscreen(map_id) {
     $address_hash = md5($address);
 
     if ($force_refresh || ($coordinates = get_transient($address_hash)) === false) {
-      $url = 'http://maps.google.com/maps/geo?q=' . urlencode($address) . '&output=xml';
+      $url = 'http://maps.googleapis.com/maps/api/geocode/xml?address=' . urlencode($address) . '&sensor=false';
 
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $url);
@@ -400,28 +417,24 @@ function gmaps_fullscreen(map_id) {
 
       if ($ch_info['http_code'] == 200) {
         $data = new SimpleXMLElement($xml);
-        if ($data->Response->Status->code == 200) {
-          $coordinates = $data->Response->Placemark->Point->coordinates;
-
-          //Placemark->Point->coordinates;
-          $coordinates = explode(',', $coordinates[0]);
-          $cache_value['lat'] = $coordinates[1];
-          $cache_value['lng'] = $coordinates[0];
-          $cache_value['address'] = (string) $data->Response->Placemark->address[0];
+        if ($data->status == 'OK') {
+          $cache_value['lat']     = (string) $data->result->geometry->location->lat;
+          $cache_value['lng']     = (string) $data->result->geometry->location->lng;
+          $cache_value['address'] = (string) $data->result->formatted_address;
 
           // cache coordinates for 3 months
           set_transient($address_hash, $cache_value, 3600*24*30*3);
           $data = $cache_value;
-        } elseif ($data->Response->Status->code == 602) {
-          return 'Unable to parse entered address. API response code: ' . @$data->Response->Status->code;
+        } elseif (!$data->status) {
+          return 'XML parsing error. Please try again later.';
         } else {
-           return 'XML parsing error. Please try again later. API response code: ' . @$data->Response->Status->code;
+          return 'Unable to parse entered address. API response code: ' . @$data->status;
         }
       } else {
-         return 'Unable to contact Google API service.';
+         return 'Unable to contact Google Maps API service.';
       }
     } else {
-       // Cache je u bazi, nadi ga i izvuci podatke
+       // data is cached, get it
        $data = get_transient($address_hash);
     }
 
