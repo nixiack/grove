@@ -8,12 +8,14 @@ function register_make_content() {
 
 function make_content_callback() {
 	
-	if ($_GET['type']!='event' AND $_GET['sidebar']) {
+	if ($_GET['type'] AND $_GET['sidebar']) {
 
 		if ($_GET['type'] == 'page') {
 			$title = 'New page';
 		} elseif ($_GET['type'] == 'post') {
 			$title = 'New post';
+		} elseif ($_GET['type'] == 'tribe_events') {
+			$title = 'New event';
 		}
 			
 			$post = array(
@@ -27,25 +29,14 @@ function make_content_callback() {
 
 			$post_id = wp_insert_post($post); 
 
-			update_post_meta($post_id, '_ignite_hide_sidebar', $_GET['sidebar']);
+			update_post_meta($post_id, '_grove_hide_sidebar', $_GET['sidebar']);
 
 			if ($_GET['template']=="contact") { update_post_meta( $post_id, '_wp_page_template', 'page-contact.php' ); };
 			if ($_GET['template']=="blog") { update_post_meta( $post_id, '_wp_page_template', 'page-blog.php' ); };
 
 			wp_redirect('/wp-admin/post.php?post='.$post_id.'&action=edit');
 
-	} elseif ($_GET['type']=='event') {
-
-		$post = array(
-		   'post_title' => 'New event',
-		   'post_status' => 'draft',
-		);
-
-		$post_id = tribe_create_event( $post );
-
-		wp_redirect('/wp-admin/post.php?post='.$post_id.'&action=edit');
-
-	}
+	} 
 
 	?>
 
@@ -149,9 +140,9 @@ function make_content_callback() {
 </ul>
 
 <ul class="layouts event">
-	<li><a href="admin.php?page=make-content&type=event&sidebar=right&noheader=true" rel="event-sidebar-right.png">Sidebar on Right</a></li>
-	<li><a href="admin.php?page=make-content&type=event&sidebar=left&noheader=true" rel="event-sidebar-left.png">Sidebar on Left</a></li>
-	<li><a href="admin.php?page=make-content&type=event&sidebar=hide&noheader=true" rel="event-sidebar-none.png">No sidebar</a></li>
+	<li><a href="admin.php?page=make-content&type=tribe_events&sidebar=right&noheader=true" rel="event-sidebar-right.png">Sidebar on Right</a></li>
+	<li><a href="admin.php?page=make-content&type=tribe_events&sidebar=left&noheader=true" rel="event-sidebar-left.png">Sidebar on Left</a></li>
+	<li><a href="admin.php?page=make-content&type=tribe_events&sidebar=hide&noheader=true" rel="event-sidebar-none.png">No sidebar</a></li>
 </ul>
 
 <ul class="layouts archive">
