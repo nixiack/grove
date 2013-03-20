@@ -389,7 +389,7 @@ function grove_customize($wp_customize) {
 			 };
 
 	$wp_customize->add_control( 'slide_page', array(
-	'label'   => 'Slide category',
+	'label'   => 'Slide group',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $slides,
