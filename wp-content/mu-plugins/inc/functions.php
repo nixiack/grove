@@ -53,17 +53,17 @@ function chromeless () {
   }
 }
 
-function ignite_update_complete(){
+function grove_update_complete(){
   if ( $_GET["chromeless"] ) {
     echo '<a href="#" onclick="window.close(); return false;" class="simple">When you\'re done making changes, simply close this window</a>';
   }
 }
-add_action('admin_notices', 'ignite_update_complete');
+add_action('admin_notices', 'grove_update_complete');
 
 function sidebar_status($classes) {
   global $post;
   global $sidebar;
-  $sidebar = get_post_meta(get_the_ID(), '_ignite_hide_sidebar', true); if ($sidebar) {
+  $sidebar = get_post_meta(get_the_ID(), '_grove_hide_sidebar', true); if ($sidebar) {
   $classes[] = $sidebar.'-sidebar';
    }
    return $classes;

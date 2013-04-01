@@ -19,8 +19,8 @@ get_header(); ?>
 				global $paged;
 				 
 				query_posts(array(
-				'category_name' => get_post_meta($post->ID, '_ignite_category', true),
-				'tag' => get_post_meta($post->ID, '_ignite_tags', true),
+				'category_name' => get_post_meta($post->ID, '_grove_category', true),
+				'tag' => get_post_meta($post->ID, '_grove_tags', true),
 				'paged' => $paged // set the current page
 				));
 				 

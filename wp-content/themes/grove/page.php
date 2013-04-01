@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-<?php	$banner = get_post_meta($post->ID, '_ignite_banner_size', true);
+<?php	$banner = get_post_meta($post->ID, '_grove_banner_size', true);
 
 if (has_post_thumbnail()) {
 			$attr = array(
