@@ -164,7 +164,7 @@ function simple_ecards_send_callback()
 
 		add_filter('wp_mail_content_type', 'set_html_content_type');
 		$body = generate_ecard($card_info['card'], $card_info['message']);
-		$sent = wp_mail($card_info['send_to'], $card_info['subject'], $body);
+		$sent = wp_mail($card_info['send_to'], stripslashes($card_info['subject']), $body);
 		remove_filter('wp_mail_content_type', 'set_html_content_type');
 		if($sent)
 		{
@@ -270,13 +270,13 @@ function generate_ecard($card_id, $message = '')
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 </head>
-<body leftmargin='0' marginwidth='0' topmargin='0' marginheight='0' offset='0' style='margin: 0;padding: 0; background:#f4f4f4;'>
+<body leftmargin='0' marginwidth='0' topmargin='0' marginheight='0' offset='0' style='margin: 0;padding: 20px; background:#f4f4f4;'>
 	<center style='padding:0 20px;'>
 		<table border='0' cellpadding='10' cellspacing='0' height='100%' width='100%' style='border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:20px 0 0 0;padding:0;height:100% !important;width:100% !important;max-width:600px; background:#fff; border-right:5px solid #eaeaea;border-bottom:5px solid #eaeaea;'>
 			<tr>
 				<td align='center' valign='top' style='border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;'>";
 	$body .= "<img src='$image_url' alt border='0' style='width:100%;margin:0;padding:0;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;'>";
-	if($message != '') $body .= "<p style='font-family:Helvetica, Arial, sans-serif; font-size:18px; line-height:26px; text-align:left; padding:10px;'>$message</p>";
+	if($message != '') $body .= "<p style='font-family:Helvetica, Arial, sans-serif; font-size:18px; line-height:26px; text-align:left; padding:10px;'>".stripslashes($message)."</p>";
 	$body .= 
 				"</td>
 			</tr>
