@@ -164,7 +164,9 @@ function simple_ecards_send_callback()
 
 		add_filter('wp_mail_content_type', 'set_html_content_type');
 		$body = generate_ecard($card_info['card'], $card_info['message']);
-		$sent = wp_mail($card_info['send_to'], stripslashes($card_info['subject']), $body);
+		$headers = 'From: E-Invite Card <gracemail@gracebaptist-somerset.com>' . "\r\n";
+
+		$sent = wp_mail($card_info['send_to'], stripslashes($card_info['subject']), $body,$headers);
 		remove_filter('wp_mail_content_type', 'set_html_content_type');
 		if($sent)
 		{
