@@ -565,7 +565,7 @@ object {
 #masthead .social{position: absolute; top:0; right:0;}
 #masthead .social-middle{top:50%; margin-top: -8px;}
 #masthead .social-bottom{bottom:0; top:auto;}
-#masthead .site-logo img{max-width: 250px; height: auto; max-height: 100px; width: auto;}
+#masthead .site-logo img{height: auto; width: auto;}
 #masthead.image{padding:0;}
 #masthead.image .social-top{top:20px; right:20px;}
 #masthead.image .social-middle{right:20px;}
