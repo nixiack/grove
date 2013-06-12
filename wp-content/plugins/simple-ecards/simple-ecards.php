@@ -41,6 +41,23 @@ function simple_ecards_init()
 	simple_ecards_register();
 	simple_ecards_register_shortcodes();
 	simple_ecards_register_callbacks();
+
+	$new_general_setting = new new_general_setting();
+ 
+
+}
+class new_general_setting {
+    function new_general_setting( ) {
+        add_filter( 'admin_init' , array( &$this , 'register_fields' ) );
+    }
+    function register_fields() {
+        register_setting( 'general', 'simple_ecard_from_email', 'esc_attr' );
+        add_settings_field('simple_ecard_from_emailaddr', '<label for="simple_ecard_from_email">'.__('Simple Ecard From Email' , 'simple_ecard_from_email' ).'</label>' , array(&$this, 'fields_html') , 'general' );
+    }
+    function fields_html() {
+        $value = get_option( 'simple_ecard_from_email', '' );
+        echo '<input style="width:300px" type="text" id="simple_ecard_from_email" name="simple_ecard_from_email" value="' . $value . '" />';
+    }
 }
 
 function simple_ecards_register()
@@ -164,8 +181,10 @@ function simple_ecards_send_callback()
 
 		add_filter('wp_mail_content_type', 'set_html_content_type');
 		$body = generate_ecard($card_info['card'], $card_info['message']);
-		$headers = 'From: E-Invite Card <gracemail@gracebaptist-somerset.com>' . "\r\n";
-
+		$fromtemp = get_option('simple_ecard_from_email');
+		if ($fromtemp != ''){
+			$headers = 'From: E-Invite Card <'.$fromtemp.'>' . "\r\n";
+		}
 		$sent = wp_mail($card_info['send_to'], stripslashes($card_info['subject']), $body,$headers);
 		remove_filter('wp_mail_content_type', 'set_html_content_type');
 		if($sent)
