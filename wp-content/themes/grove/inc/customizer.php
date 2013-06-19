@@ -367,15 +367,64 @@ function grove_customize($wp_customize) {
 		'priority'       => 43,
 	) );
 
-	$wp_customize->add_setting( 'small_slider', array(
+	$wp_customize->add_setting( 'slide_type', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_type', array(
+	'label'   => 'Pull Slide Show From',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('sliderstype'=>'Slideshows','posttype'=>'Posts'),
+	'priority' => 1, 
+	) );
+	
+	
+	$wp_customize->add_setting( 'slide_pcat', array(
 		'default'        => '',
 		'type'	=> 'option',
 	) );
 
-	$wp_customize->add_control( 'small_slider', array(
-		'label'   => 'Small slider?',
-		'section' => 'grove_slider_settings',
-		'type'    => 'checkbox',
+	$post_categories = get_terms( 'category', 'orderby=name' ); 
+			foreach ( $post_categories as $pcat ) {
+			$pcats[$pcat->slug] = $pcat->name;
+			 };
+
+	$wp_customize->add_control( 'slide_pcat', array(
+	'label'   => 'If From Posts, Choose Category',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => $pcats,
+	'priority' => 2, 
+	) );
+	
+
+	$wp_customize->add_setting( 'slide_text_side', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_text_side', array(
+	'label'   => 'Slide Text Align',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('left'=>'Align Left','right'=>'Align Right','top'=>'Align Top','bottom'=>'Align Bottom'),
+	'priority' => 3, 
+	) );
+	
+
+	$wp_customize->add_setting( 'slide_text_overlay', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_text_overlay', array(
+	'label'   => 'Overlay',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('none'=>'None','full'=>'Full','natural'=>'Natural'),
+	'priority' => 4, 
 	) );
 
 	$wp_customize->add_setting( 'slide_page', array(
@@ -389,10 +438,62 @@ function grove_customize($wp_customize) {
 			 };
 
 	$wp_customize->add_control( 'slide_page', array(
-	'label'   => 'Slide group',
+	'label'   => 'If From Slideshow, Choose Slide Group',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $slides,
+	'priority' => 5, 
+	) );
+	
+	
+
+	$wp_customize->add_setting( 'slide_num', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_num', array(
+	'label'   => 'How Many Slides To Display?',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12'),
+	'priority' => 6, 
+	) );
+	
+	$wp_customize->add_setting( 'slider_linking', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'slider_linking', array(
+		'label'   => 'Link Slide To It\'s Post?',
+		'section' => 'grove_slider_settings',
+		'type'    => 'checkbox',
+		'priority' => 7, 
+	) );
+	
+	$wp_customize->add_setting( 'slide_custom_id', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_custom_id', array(
+	'label'   => 'Custom ID',
+	'section' => 'grove_slider_settings',
+	'type'    => 'text',
+	'priority' => 8, 
+	) );
+
+	$wp_customize->add_setting( 'small_slider', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'small_slider', array(
+		'label'   => 'Small slider?',
+		'section' => 'grove_slider_settings',
+		'type'    => 'checkbox',
+		'priority' => 9, 
 	) );
 
 	$wp_customize->add_setting( 'slide_feature_static', array(
@@ -404,6 +505,7 @@ function grove_customize($wp_customize) {
 	'label'   => 'Feature content (for use with small slider)',
 	'section' => 'grove_slider_settings',
 	'settings'   => 'slide_feature_static',
+	'priority' => 10, 
 	) ) );
 
 	$wp_customize->add_section( 'grove_social_settings', array(
