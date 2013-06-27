@@ -346,7 +346,7 @@ a:active {
 ----------------------------------------------- */
 
 .main-navigation {
-	position: absolute;
+	position: relative;
 }
 .main-navigation ul {
 	list-style: none;
