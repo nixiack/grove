@@ -386,6 +386,7 @@ a:active {
 	white-space: nowrap;
 }
 .main-navigation ul ul li {
+	width: 100%;
 }
 .main-navigation li:hover > a {
 }
