@@ -1,12 +1,12 @@
 <?php
 /*
 	Plugin Name: Simple Ecards
-	Description: Users may send a card and add a custom message.
+	Description: Users may send a card and add a custom message. <strong>[simple_ecards]</strong>
 	Version: 1.0
-	Author: Joseph Carrington & Clark Wimberly
+	Author: Ignite360, Inc.
 	License: GPL2
 
-	Copyright 2013  Joseph Carrington  (email : joseph.carrington@gmail.com)
+	Copyright 2013  Ignite360, Inc.  (email : support@ignite360.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as 
