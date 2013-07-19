@@ -586,6 +586,18 @@ object {
 .wooslider.wooslider-type-slides img{height:auto !important;}
 .wooslider .slide-content{margin: 0 !important;}
 
+.minifeatures{width:960px; clear: both; overflow: auto; margin: 0 auto 30px auto;}
+.minifeatures a{width: 300px; overflow: hidden; margin-right: 30px; display: inline-block; float: left;}
+.minifeatures a:last-child{margin:0;}
+.minifeatures a img{max-width: 300px; display: block;}
+.minifeatures a strong{display: block; font-size: 140%; margin: 10px 0 0 0;}
+.minifeatures a span{color:#666; display: block; margin: 10px 0 0 0;}
+.minifeatures-4 a{width:225px; margin-right: 20px;}
+.minifeatures-4 a img{max-width: 225px;}
+.minifeatures-5 a{width:176px; margin-right: 20px;}
+.minifeatures-5 a img{max-width: 176px;}
+.minifeatures-2 a{width:465px; margin-right: 30px;}
+.minifeatures-2 a img{max-width: 465px;}
 
 .hotbuttons{width:960px; clear: both; overflow: auto; margin: 0 auto 30px auto;}
 .hotbuttons a{width: 300px; overflow: hidden; margin-right: 30px; display: inline-block; float: left;}
