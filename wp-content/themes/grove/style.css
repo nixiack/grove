@@ -655,6 +655,10 @@ footer.site-footer .footer-text{margin-bottom: 30px;}
 .footer-bar.bottom{margin-top: 30px;}
 .footer-bar.top{margin-bottom: 15px;}
 
+.credit{float: right; padding: 10px;}
+.credit img{vertical-align: middle;}
+.credit p{font-style: italic; font-size: 85%;}
+
 .wooslider-control-paging li a{background:rgba(0,0,0,0.2);}
 
 .tweets-container-outer{}
