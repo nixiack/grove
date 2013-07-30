@@ -56,6 +56,10 @@
 
 		<?php do_action( 'grove_after_footer' ); ?>
 
+			<div class="credit">
+				<p>Designed by <a href="http://ignite360.com"><img src="/images/ignite360logo.png" width="75" height="16" alt="Ignite360" /></a></p>
+			</div>
+
 	</footer><!-- #colophon .site-footer -->
 </div><!-- #page .hfeed .site -->
 
