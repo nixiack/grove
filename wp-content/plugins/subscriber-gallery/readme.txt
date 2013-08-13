@@ -32,5 +32,10 @@ Why, yes it sure is!
 
 == Changelog ==
 
+Added ability to add custom thank you page URL.
+
+= 1.1 =
+Fix applied
+
 = 1.0 =
 First release

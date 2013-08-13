@@ -30,6 +30,20 @@ register_deactivation_hook( __FILE__, 'sg_remove' );
 
 
 
+
+function cg_curPageURL() {
+ $pageURL = 'http';
+ if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ if ($_SERVER["SERVER_PORT"] != "80") {
+  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
+}
+
+
 function sg_show_authors_without_posts($sg_template) {
 		global $wp_query;
 		if( !is_author() && get_query_var('author') && (0 == $wp_query->posts->post) ) {
@@ -62,7 +76,14 @@ function sg_possibly_redirect(){
   global $pagenow;
   if( 'wp-login.php' == $pagenow ) {
 	if(isset($_GET['checkemail']) && $_GET['checkemail']=='registered') {
-		wp_redirect( home_url().'/register/?cg-reg=1' );
+		
+		if(get_option('cg_tyurl') != '') {
+			$cg_ty_url = get_option('cg_tyurl');
+		} else {
+			$cg_ty_url = home_url().'/register/?cg-reg=1';
+		}
+		
+		wp_redirect( $cg_ty_url );
     	exit();
 	} else {
 		return;	
@@ -548,6 +569,8 @@ function sg_save_extra_profile_fields( $user_id ) {
           	wp_update_user( array ( 'ID' => $user_id, 'last_name' => $sg_u_names[1] ) ) ;
 		}
 	}
+	
+	
 	if($_POST['user_website'] != '') {
 		wp_update_user( array ( 'ID' => $user_id, 'user_url' => $_POST['user_website'] ) ) ;
 	}
@@ -633,6 +656,7 @@ add_filter('registration_errors', 'sg_myplugin_registration_errors', 10, 3);
           	wp_update_user( array ( 'ID' => $user_id, 'last_name' => $sg_u_names[1] ) ) ;
 		}
 		
+		
         if (( isset( $_POST['user_occupation'] ) ) && ($_POST['user_occupation'] != 'Occupation')) {
             update_user_meta($user_id, 'user_occupation', $_POST['user_occupation']); }
 			
@@ -677,10 +701,18 @@ add_filter('registration_errors', 'sg_myplugin_registration_errors', 10, 3);
 
 
 
+
+
+
+
 ///////////////////////////
 // MAIN PLUGIN ACTIVATION SCRIPT
 
 function sg_install() {
+	
+	
+	
+	
 	
 add_option('sg_do_activation_redirect', true);
 
@@ -698,6 +730,7 @@ ob_start(); ?>
 		</div>
         
 			<form action="<?php echo site_url("wp-login.php?action=register", "login_post"); ?>" method="post">
+            
 			<input type="text" name="user_login" value="Username" id="user_login" class="input" onfocus="repl_user()" onblur="repl_user()" />
 			<input type="text" name="user_email" value="E-Mail" id="user_email" class="input" onfocus="repl_email()" onblur="repl_email()"  />
             <hr />
@@ -1106,8 +1139,7 @@ if ( is_admin() ){
 
 
 	function sg_register_mysettings() {
-		register_setting( 'sg-settings-group', 'sg_title' );
-		register_setting( 'sg-settings-group', 'sg_show_number' );
+		register_setting( 'sg-settings-group', 'cg_tyurl' );
 	}
 
 	function sg_settings_page() { ?>
@@ -1115,6 +1147,28 @@ if ( is_admin() ){
 		<div class="wrap">
 		
         	<h2>Subscriber Gallery</h2>
+            
+            
+            <form method="post" action="options.php">
+    			<?php settings_fields( 'sg-settings-group' ); ?>
+    			<?php //do_settings( 'sg-settings-group' ); ?>
+            
+            <h2>Custom Thank You Page</h2>
+            
+    			<table class="form-table">
+        			<tr valign="top">
+        				<th scope="row">Page URL</th>
+        				<td><input type="text" name="cg_tyurl" value="<?php echo get_option('cg_tyurl'); ?>" /></td>
+        			</tr>
+    			</table>
+    
+    			<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+
+			</form>
+            
+            <hr />
+            
+            <h2>Installation Instructions</h2>
 
 			<p>A Registration and a Members page has been created automatically.</p>
             
@@ -1145,6 +1199,7 @@ if ( is_admin() ){
 		</div>
         
 			<form action="<?php echo site_url("wp-login.php?action=register", "login_post"); ?>" method="post">
+            
 			<input type="text" name="user_login" value="Username" id="user_login" class="input" onfocus="repl_user()" onblur="repl_user()" />
 			<input type="text" name="user_email" value="E-Mail" id="user_email" class="input" onfocus="repl_email()" onblur="repl_email()"  />
             <hr />
