@@ -61,5 +61,8 @@
 
 <?php wp_footer(); ?>
 
+
+<?php if(get_option( 'trackcodef' ) != '') { echo get_option( 'trackcodef' ); } ?>
+
 </body>
 </html>
