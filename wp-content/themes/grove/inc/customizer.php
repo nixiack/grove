@@ -912,6 +912,50 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'section' => 'grove_tweet_ticker',
 		'type'    => 'text',
 	) );
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$wp_customize->add_section( 'grove_tracking_code', array(
+		'title'          => 'Tracking Code',
+		'description'	 => 'Add yout tracking code here',
+		'priority'       => 24,
+	) );
+
+	$wp_customize->add_setting( 'trackcode', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'trackcode', array(
+	'label'   => 'Tracking Code (inside head area)',
+	'section' => 'grove_tracking_code',
+	'settings'   => 'trackcode',
+	) ) );
+	
+	
+
+	$wp_customize->add_setting( 'trackcodef', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Textarea_Control( $wp_customize, 'trackcodef', array(
+	'label'   => 'Tracking Code (bottom of footer)',
+	'section' => 'grove_tracking_code',
+	'settings'   => 'trackcodef',
+	) ) );
+	
+	
+	
+	
+	
+	
 
 	$wp_customize->add_section( 'grove_custom_logo', array(
 		'title'          => 'Logo',
