@@ -296,7 +296,7 @@ function generate_ecard($card_id, $message = '')
 		<table border='0' cellpadding='10' cellspacing='0' height='100%' width='100%' style='border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:20px 0 0 0;padding:0;height:100% !important;width:100% !important;max-width:600px; background:#fff; border-right:5px solid #eaeaea;border-bottom:5px solid #eaeaea;'>
 			<tr>
 				<td align='center' valign='top' style='border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;'>";
-	$body .= "<img src='$image_url' alt border='0' style='width:100%;margin:0;padding:0;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;'>";
+	$body .= "<a href='".$_SERVER['HTTP_HOST']."'><img src='$image_url' alt border='0' style='width:100%;margin:0;padding:0;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;'></a>";
 	if($message != '') $body .= "<p style='font-family:Helvetica, Arial, sans-serif; font-size:18px; line-height:26px; text-align:left; padding:10px;'>".stripslashes($message)."</p>";
 	$body .= 
 				"</td>
