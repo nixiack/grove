@@ -77,7 +77,7 @@
 		<nav role="navigation" class="site-navigation main-navigation">
 			<h1 class="assistive-text ss-rows"></h1>
 			<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'grove' ); ?>"><?php _e( 'Skip to content', 'grove' ); ?></a></div>
-
+			<div id="gr_mob_nav_trg">Go to...<img id="gr_mob_nav_trg_icon" src="<?php echo get_template_directory_uri(); ?>/images/mob-menu-togl.png" width="48" height="29" border="0" align="absmiddle"></div>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 		</nav><!-- .site-navigation .main-navigation -->
 
