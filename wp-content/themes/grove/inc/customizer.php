@@ -60,35 +60,21 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		<textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
 		</label>
 
-		<style type="text/css">
-		#customize-section-grove_minifeature_1_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_minifeature_2_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_minifeature_3_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_minifeature_4_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_minifeature_5_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_minifeature_2_settings{display: none;}
-		#customize-section-grove_minifeature_3_settings{display: none;}
-		#customize-section-grove_minifeature_4_settings{display: none;}
-		#customize-section-grove_minifeature_5_settings{display: none;}
-		#mini{position: absolute; top:20px; left: 20px;}
-		#mini a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}
-		</style>
-
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
 
 		jQuery("#clear").live("click", function(){
-		  	jQuery(this).parents(".customize-section-content").find('input:eq(1), textarea').val('');
-		  	jQuery(this).parents(".customize-section-content").find('input:eq(2)').val('http://').trigger('change');
-		  	jQuery(this).parents(".customize-section-content").find(".remove").click();
+		  	jQuery(this).parents(".accordion-section-content").find('input:eq(1), textarea').val('');
+		  	jQuery(this).parents(".accordion-section-content").find('input:eq(2)').val('http://').trigger('change');
+		  	jQuery(this).parents(".accordion-section-content").find(".remove").click();
 		  	return false;
 		  });
 
 		  jQuery("#mini a").click(function() {
 		  	var minicount = jQuery(this).text();
-		  	jQuery(".customize-section.open").removeClass("open").hide();
-		  	jQuery("#customize-section-grove_minifeature_" + minicount + "_settings").show();
-		  	jQuery("#customize-section-grove_minifeature_" + minicount + "_settings").addClass("open");
+		  	jQuery(".accordion-section.open").removeClass("open").hide();
+		  	jQuery("#accordion-section-grove_minifeature_" + minicount + "_settings").show();
+		  	jQuery("#accordion-section-grove_minifeature_" + minicount + "_settings").addClass("open");
 		  	return false;
 		  });
 
@@ -369,37 +355,23 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		<textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
 		</label>
 
-		<style type="text/css">
-		#customize-section-static_front_page{display:none;}
-		#customize-control-blogdescription{display: none;}
-		#customize-section-grove_hotbutton_1_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_hotbutton_2_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_hotbutton_3_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_hotbutton_4_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_hotbutton_5_settings .customize-section-content {padding-top:60px !important; position: relative;}
-		#customize-section-grove_hotbutton_2_settings{display: none;}
-		#customize-section-grove_hotbutton_3_settings{display: none;}
-		#customize-section-grove_hotbutton_4_settings{display: none;}
-		#customize-section-grove_hotbutton_5_settings{display: none;}
-		#hb{position: absolute; top:20px; left: 20px;}
-		#hb a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}
-		</style>
+		
 
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
 
 		jQuery("#clear").live("click", function(){
-		  	jQuery(this).parents(".customize-section-content").find('input:eq(1), textarea').val('');
-		  	jQuery(this).parents(".customize-section-content").find('input:eq(2)').val('http://').trigger('change');
-		  	jQuery(this).parents(".customize-section-content").find(".remove").click();
+		  	jQuery(this).parents(".accordion-section-content").find('input:eq(1), textarea').val('');
+		  	jQuery(this).parents(".accordion-section-content").find('input:eq(2)').val('http://').trigger('change');
+		  	jQuery(this).parents(".accordion-section-content").find(".remove").click();
 		  	return false;
 		  });
 
 		  jQuery("#hb a").click(function() {
 		  	var hbcount = jQuery(this).text();
-		  	jQuery(".customize-section.open").removeClass("open").hide();
-		  	jQuery("#customize-section-grove_hotbutton_" + hbcount + "_settings").show();
-		  	jQuery("#customize-section-grove_hotbutton_" + hbcount + "_settings").addClass("open");
+		  	jQuery(".accordion-section.open").removeClass("open").hide();
+		  	jQuery("#accordion-section-grove_hotbutton_" + hbcount + "_settings").show();
+		  	jQuery("#accordion-section-grove_hotbutton_" + hbcount + "_settings").addClass("open");
 		  	return false;
 		  });
 

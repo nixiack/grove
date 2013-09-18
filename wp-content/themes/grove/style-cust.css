@@ -1,0 +1,25 @@
+		#accordion-section-grove_minifeature_1_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_minifeature_2_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_minifeature_3_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_minifeature_4_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_minifeature_5_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_minifeature_2_settings{display: none;}
+		#accordion-section-grove_minifeature_3_settings{display: none;}
+		#accordion-section-grove_minifeature_4_settings{display: none;}
+		#accordion-section-grove_minifeature_5_settings{display: none;}
+		#mini{position: absolute; top:20px; left: 20px;}
+		#mini a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}
+		
+		#accordion-section-static_front_page{display:none;}
+		#accordion-control-blogdescription{display: none;}
+		#accordion-section-grove_hotbutton_1_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_hotbutton_2_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_hotbutton_3_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_hotbutton_4_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_hotbutton_5_settings .accordion-section-content {padding-top:60px !important; position: relative;}
+		#accordion-section-grove_hotbutton_2_settings{display: none;}
+		#accordion-section-grove_hotbutton_3_settings{display: none;}
+		#accordion-section-grove_hotbutton_4_settings{display: none;}
+		#accordion-section-grove_hotbutton_5_settings{display: none;}
+		#hb{position: absolute; top:20px; left: 20px;}
+		#hb a{padding: 3px 5px; display: inline-block; background:#eee; border-radius: 2px; color: #777;}

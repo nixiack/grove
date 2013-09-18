@@ -183,3 +183,9 @@ function wp_make_content() {
 
 }
 add_action( 'admin_bar_menu', 'wp_make_content', 1000 );
+
+add_action('admin_init', function() {
+  wp_register_style('grove_cust_st', get_template_directory_uri() . '/style-cust.css', null, "1.0.0", "all");
+  wp_enqueue_style('grove_cust_st');
+  
+});
