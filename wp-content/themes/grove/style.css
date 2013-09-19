@@ -610,7 +610,7 @@ object {
 
 
 .hotbuttons{width:960px; clear: both; overflow: auto; margin: 0 auto 30px auto;max-width: 100%;}
-.hotbuttons a{width: 300px; overflow: hidden; margin-right: 4%; display: inline-block; float: left;}
+.hotbuttons a{width: 300px; overflow: hidden; margin-right: 3%; display: inline-block; float: left;}
 .hotbuttons a:last-child{margin:0;}
 .hotbuttons a img{max-width: 300px; display: block;}
 .hotbuttons a strong{display: block; font-size: 140%; margin: 10px 0 0 0;}
