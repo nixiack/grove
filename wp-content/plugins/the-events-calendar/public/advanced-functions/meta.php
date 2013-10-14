@@ -76,7 +76,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'before' => '',
 				'sep' => ', ',
 				'after' => '',
-				'label' => null,
+				'label' => $_tribe_meta_factory->meta[$meta_id]['label'],
 				'label_before' => $template['label_before'],
 				'label_after' => $template['label_after'],
 				'wrap_before' => $template['meta_before'],
@@ -244,7 +244,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta_group( 'tribe_event_details', array(
 			'label' => __('Details', 'tribe-events-calendar' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group'),
+				'before'=>array('tribe-events-meta-group tribe-events-meta-group-details'),
 				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
@@ -283,6 +283,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array( 'meta_before' => array( 'tribe-events-event-categories')),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_category' ),
 			'priority' => 30,
+			'label' => null,
 			'group' => 'tribe_event_details'
 		) );
 
@@ -330,7 +331,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta_group( 'tribe_event_venue', array(
 			'label' => __('Venue', 'tribe-events-calendar' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group','vcard'),
+				'before'=>array('tribe-events-meta-group tribe-events-meta-group-venue','vcard'),
 				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
@@ -392,7 +393,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta_group( 'tribe_event_organizer', array(
 			'label' => __('Organizer', 'tribe-events-calendar' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group','vcard'),
+				'before'=>array('tribe-events-meta-group tribe-events-meta-group-organizer','vcard'),
 				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 

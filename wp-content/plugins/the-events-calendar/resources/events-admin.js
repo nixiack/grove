@@ -105,7 +105,7 @@ jQuery(document).ready(function($) {
 
 		var savedVenue = $("#saved_venue");
 		
-		if ( savedVenue.size() > 0 && savedVenue.val() != '0' && !$('.nosaved').get(0) ) {
+		if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {
 			venueFields.hide();
 			$('[name="venue[Venue]"]').val('');
 		}
@@ -127,7 +127,7 @@ jQuery(document).ready(function($) {
 
 		var savedorganizer = $("#saved_organizer");
 		
-		if ( savedorganizer.size() > 0 && savedorganizer.val() != '0' && !$('.nosaved_organizer').get(0) ) {
+		if ( savedorganizer.length > 0 && savedorganizer.val() != '0' ) {
 			organizerFields.hide();
 			$('input',organizerFields).val('');
 		}
@@ -400,7 +400,7 @@ jQuery(document).ready(function($) {
  * credits: http://www.johngadbois.com/adding-your-own-callbacks-to-wordpress-ajax-requests/
  */
 jQuery(document).ajaxSuccess(function(e, xhr, settings) {
-	if(settings.data.search('action=save-widget') != -1) {
+	if(typeof settings !== 'undefined' && typeof settings.data !== 'undefined' && settings.data.search('action=save-widget') != -1) {
 		jQuery("#widgets-right .chosen").chosen();
 	}
 });

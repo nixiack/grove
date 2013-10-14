@@ -29,7 +29,7 @@ class WooThemes_Updater_Update_Checker {
 	private $api_url;
 	private $product_id;
 	private $file_id;
-	private $license_hash;
+	//private $license_hash;
 
 	/**
 	 * Constructor.
@@ -38,7 +38,7 @@ class WooThemes_Updater_Update_Checker {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function __construct ( $file, $product_id, $file_id, $license_hash ) {
+	public function __construct ( $file, $product_id, $file_id, $license_hash = '' ) {
 		$this->api_url = 'http://www.woothemes.com/?wc-api=woothemes-installer-api&';
 		$this->file = $file;
 		$this->product_id = $product_id;
@@ -46,10 +46,10 @@ class WooThemes_Updater_Update_Checker {
 		$this->license_hash = $license_hash;
 
 		// Check For Updates
-		add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'update_check' ) );
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'update_check' ) );
 
 		// Check For Plugin Information
-		add_filter( 'plugins_api', array( &$this, 'plugin_information' ), 10, 3 );
+		add_filter( 'plugins_api', array( $this, 'plugin_information' ), 10, 3 );
 	} // End __construct()
 
 	/**
@@ -61,6 +61,7 @@ class WooThemes_Updater_Update_Checker {
 	 * @return object $transient
 	 */
 	public function update_check ( $transient ) {
+
 	    // Check if the transient contains the 'checked' information
 	    // If no, just return its value without hacking it
 	    if( empty( $transient->checked ) )
@@ -81,13 +82,12 @@ class WooThemes_Updater_Update_Checker {
 	    // Send request checking for an update
 	    $response = $this->request( $args );
 
-
 	    // If response is false, don't alter the transient
 	    if( false !== $response ) {
 
 	    	if( isset( $response->errors ) && isset ( $response->errors->woo_updater_api_license_deactivated ) ){
 
-	    		add_action('admin_notices', array( &$this, 'error_notice_for_deactivated_plugin') );
+	    		add_action('admin_notices', array( $this, 'error_notice_for_deactivated_plugin') );
 
 	    	}else{
 
@@ -105,7 +105,7 @@ class WooThemes_Updater_Update_Checker {
 	 * @param  strin $message The message
 	 * @return void
 	 */
-	public function error_notice_for_deactivated_plugin( $message ){
+	public function error_notice_for_deactivated_plugin( $message ) {
 
 		$plugins = get_plugins();
 
@@ -125,13 +125,13 @@ class WooThemes_Updater_Update_Checker {
 		$transient = get_site_transient( 'update_plugins' );
 
 		// Check if this plugins API is about this plugin
-		if( $args->slug != dirname( $this->file ) ) {
+		if( $args->slug != $this->file ) {
 			return $false;
 		}
 
 		// POST data to send to your API
 		$args = array(
-			'action' => 'plugininformation',
+			'request' => 'plugininformation',
 			'plugin_name' => $this->file,
 			'version' => $transient->checked[$this->file],
 			'product_id' => $this->product_id,
@@ -173,7 +173,7 @@ class WooThemes_Updater_Update_Checker {
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking' => true,
-			'headers' => array(),
+			'headers' => array( 'user-agent' => 'WooThemesUpdater/1.1.0' ),
 			'body' => $args,
 			'cookies' => array(),
 			'sslverify' => false

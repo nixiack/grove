@@ -44,7 +44,7 @@ class WooThemes_Updater_Licenses_Table extends WP_List_Table {
 	 * @return string              Output for the current column.
 	 */
 	public function column_default ( $item, $column_name ) {
-	    switch( $column_name ) { 
+	    switch( $column_name ) {
 	        case 'product':
 	        case 'product_status':
 	        case 'product_version':
@@ -69,8 +69,8 @@ class WooThemes_Updater_Licenses_Table extends WP_List_Table {
 	 */
 	public function get_columns () {
         $columns = array(
-            'product_name' => __( 'Product', 'woothemes-updater' ),  
-            'product_version' => __( 'Version', 'woothemes-updater' ), 
+            'product_name' => __( 'Product', 'woothemes-updater' ),
+            'product_version' => __( 'Version', 'woothemes-updater' ),
             'product_status' => __( 'License Key', 'woothemes-updater' )
         );
          return $columns;
@@ -95,7 +95,7 @@ class WooThemes_Updater_Licenses_Table extends WP_List_Table {
 	public function column_product_status ( $item ) {
 		$response = '';
 		if ( 'active' == $item['product_status'] ) {
-			$deactivate_url = wp_nonce_url( add_query_arg( 'action', 'deactivate-product', add_query_arg( 'filepath', $item['product_file_path'], add_query_arg( 'page', 'woothemes-licenses', admin_url( 'index.php' ) ) ) ), 'bulk-licenses' );
+			$deactivate_url = wp_nonce_url( add_query_arg( 'action', 'deactivate-product', add_query_arg( 'filepath', $item['product_file_path'], add_query_arg( 'page', 'woothemes-licenses', network_admin_url( 'index.php' ) ) ) ), 'bulk-licenses' );
 			$response = '<a href="' . esc_url( $deactivate_url ) . '">' . __( 'Deactivate', 'woothemes-updater' ) . '</a>' . "\n";
 		} else {
 			$response .= '<input name="license_keys[' . esc_attr( $item['product_file_path'] ) . ']" id="license_keys-' . esc_attr( $item['product_file_path'] ) . '" type="text" value="" size="40" aria-required="true" placeholder="' . esc_attr( sprintf( __( 'Place %s license key here', 'woothemes-updater' ), $item['product_name'] ) ) . '" />' . "\n";

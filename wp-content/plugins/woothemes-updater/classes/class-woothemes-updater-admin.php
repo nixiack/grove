@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * private $installed_products
  * private $pending_products
- * 
+ *
  * - __construct()
  * - register_settings_screen()
  * - settings_screen()
@@ -52,7 +52,7 @@ class WooThemes_Updater_Admin {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @access  public
 	 * @since    1.0.0
 	 * @return    void
@@ -75,22 +75,23 @@ class WooThemes_Updater_Admin {
 		$this->pending_products = array();
 
 		// Load the updaters.
-		$this->load_updater_instances();
+		add_action( 'admin_init', array( $this, 'load_updater_instances') ); //$this->load_updater_instances();
 
-		add_action( 'admin_menu', array( &$this, 'register_settings_screen' ) );
+		$menu_hook = is_multisite() ? 'network_admin_menu' : 'admin_menu';
+		add_action( $menu_hook, array( $this, 'register_settings_screen' ) );
 	} // End __construct()
 
 	/**
 	 * Register the admin screen.
-	 * 
+	 *
 	 * @access public
 	 * @since   1.0.0
 	 * @return   void
 	 */
 	public function register_settings_screen () {
-		$hook = add_dashboard_page( $this->name, $this->menu_label, 'manage_options', $this->page_slug, array( &$this, 'settings_screen' ) );
+		$hook = add_dashboard_page( $this->name, $this->menu_label, 'manage_options', $this->page_slug, array( $this, 'settings_screen' ) );
 
-		add_action( 'load-' . $hook, array( &$this, 'process_request' ) );
+		add_action( 'load-' . $hook, array( $this, 'process_request' ) );
 	} // End register_settings_screen()
 
 	/**
@@ -104,7 +105,11 @@ class WooThemes_Updater_Admin {
 		$this->installed_products = $this->get_detected_products();
 		$this->pending_products = $this->get_pending_products();
 
-		require_once( $this->screens_path . 'screen-manage.php' );
+		if( $this->api->ping() ){
+			require_once( $this->screens_path . 'screen-manage.php' );
+		}else{
+			require_once( $this->screens_path . 'woothemes-api-unreachable.php' );
+		}
 	} // End settings_screen()
 
 	/**
@@ -129,10 +134,11 @@ class WooThemes_Updater_Admin {
 	 * @return  void
 	 */
 	public function process_request () {
-		add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+		$notices_hook = is_multisite() ? 'network_admin_notices' : 'admin_notices';
+		add_action( $notices_hook, array( $this, 'admin_notices' ) );
 
 		$supported_actions = array( 'activate-products', 'deactivate-product' );
-		
+
 		$action = $this->get_post_or_get_action( $supported_actions );
 
 		if ( $action && in_array( $action, $supported_actions ) && check_admin_referer( 'bulk-' . 'licenses' ) ) {
@@ -173,7 +179,7 @@ class WooThemes_Updater_Admin {
 				$status = 'true';
 			}
 
-			wp_safe_redirect( add_query_arg( 'type', urlencode( $type ), add_query_arg( 'status', urlencode( $status ), add_query_arg( 'page', urlencode( $this->page_slug ),  admin_url( 'index.php' ) ) ) ) );
+			wp_safe_redirect( add_query_arg( 'type', urlencode( $type ), add_query_arg( 'status', urlencode( $status ), add_query_arg( 'page', urlencode( $this->page_slug ),  network_admin_url( 'index.php' ) ) ) ) );
 			exit;
 		}
 	} // End process_request()
@@ -186,7 +192,7 @@ class WooThemes_Updater_Admin {
 	public function admin_notices () {
 		$message = '';
 		$response = '';
-		
+
 		if ( isset( $_GET['status'] ) && in_array( $_GET['status'], array( 'true', 'false' ) ) && isset( $_GET['type'] ) ) {
 			$classes = array( 'true' => 'updated', 'false' => 'error' );
 
@@ -253,7 +259,7 @@ class WooThemes_Updater_Admin {
 
 		$response = get_option( $this->token . '-activated', array() );
 
-		if ( ! is_array( $response ) ) { $response = array(); }
+		if ( ! is_array( $response ) ) $response = array();
 
 		return $response;
 	} // End get_activated_products()
@@ -302,7 +308,7 @@ class WooThemes_Updater_Admin {
 
 	/**
 	 * Get an array of products that haven't yet been activated.
-	 * 
+	 *
 	 * @access public
 	 * @since   1.0.0
 	 * @return  array Products awaiting activation.
@@ -383,7 +389,7 @@ class WooThemes_Updater_Admin {
 
 			if ( isset( $already_active[ $filename ][0] ) ) {
 				$key = $already_active[ $filename ][2];
-				
+
 				$deactivated = $this->api->deactivate( $key );
 			}
 
@@ -403,14 +409,17 @@ class WooThemes_Updater_Admin {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	protected function load_updater_instances () {
-		$products = $this->get_activated_products();
+	public function load_updater_instances () {
+		$products = $this->get_detected_products();
+		$activated_products = $this->get_activated_products();
 		if ( 0 < count( $products ) ) {
 			require_once( 'class-woothemes-updater-update-checker.php' );
 			foreach ( $products as $k => $v ) {
-				if ( isset( $v[0] ) && isset( $v[1] ) && isset( $v[2] ) ) {
-					// file path. 0: product_id. 1: file_id. 2: md5 hash of license key.
-					new WooThemes_Updater_Update_Checker( $k, $v[0], $v[1], $v[2] );
+				if ( isset( $v['product_id'] ) && isset( $v['file_id'] ) ) {
+
+					$license_hash = isset( $activated_products[ $k ][2] ) ? $activated_products[ $k ][2] : '';
+					new WooThemes_Updater_Update_Checker( $k, $v['product_id'], $v['file_id'], $license_hash );
+
 				}
 			}
 		}

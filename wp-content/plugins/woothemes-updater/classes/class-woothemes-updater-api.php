@@ -91,6 +91,13 @@ class WooThemes_Updater_API {
 		return ! isset( $request->error );
 	} // End check()
 
+	public function ping () {
+		$response = false;
+
+		$request = $this->request( 'ping' );
+
+		return isset( $request->success );
+	}
 	/**
 	 * Make a request to the WooThemes API.
 	 *
@@ -103,7 +110,7 @@ class WooThemes_Updater_API {
 	private function request ( $endpoint = 'check', $params = array() ) {
 		$url = add_query_arg( 'wc-api', 'product-key-api', $this->api_url );
 
-		$supported_methods = array( 'check', 'activation', 'deactivation' );
+		$supported_methods = array( 'check', 'activation', 'deactivation', 'ping' );
 		$supported_params = array( 'licence_key', 'file_id', 'product_id', 'home_url' );
 
 		if ( in_array( $endpoint, $supported_methods ) ) {
@@ -118,6 +125,9 @@ class WooThemes_Updater_API {
 			}
 		}
 
+		// Pass if this is a network install on all requests
+		$url = add_query_arg( 'network', is_multisite() ? 1 : 0, $url );
+
 		$response = wp_remote_get( $url, array(
 			'method' => 'GET',
 			'timeout' => 45,
@@ -126,7 +136,8 @@ class WooThemes_Updater_API {
 			'blocking' => true,
 			'headers' => array(),
 			'cookies' => array(),
-			'ssl_verify' => false
+			'ssl_verify' => false,
+			'user-agent' => 'WooThemes Updater; http://www.woothemes.com'
 		    )
 		);
 
@@ -142,6 +153,9 @@ class WooThemes_Updater_API {
 			$error = esc_html( $data->error );
 			$error = '<strong>' . $error . '</strong>';
 			if ( isset( $data->additional_info ) ) { $error .= '<br /><br />' . esc_html( $data->additional_info ); }
+			$this->log_request_error( $error );
+		}elseif ( empty( $data ) ) {
+			$error = '<strong>There was an error making your request, please try again.</strong>';
 			$this->log_request_error( $error );
 		}
 

@@ -87,6 +87,11 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 			<a href="#">3</a>
 			<a href="#">4</a>
 			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">7</a>
+			<a href="#">8</a>
+			<a href="#">9</a>
+			<a href="#">10</a>
 		</nav>
 
 		<a href="#clear" id="clear">Clear</a>
@@ -343,6 +348,269 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_minifeature_5_settings',
 	'settings'   => 'mini_5_excerpt',
 	) ) );
+	
+	
+
+	$wp_customize->add_section( 'grove_minifeature_6_settings', array(
+		'title'          => 'Mini Features 6',
+		'priority'       => 43,
+	) );
+
+	$wp_customize->add_setting( 'mini_6_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mini_6_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_minifeature_6_settings',
+		'settings'   => 'mini_6_image',
+	) ) );
+
+	$wp_customize->add_setting( 'mini_6_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_6_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_minifeature_6_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_6_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_6_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_minifeature_6_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_6_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_minifeature( $wp_customize, 'mini_6_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_minifeature_6_settings',
+	'settings'   => 'mini_6_excerpt',
+	) ) );
+
+
+
+
+	$wp_customize->add_section( 'grove_minifeature_7_settings', array(
+		'title'          => 'Mini Features 7',
+		'priority'       => 43,
+	) );
+
+	$wp_customize->add_setting( 'mini_7_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mini_7_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_minifeature_7_settings',
+		'settings'   => 'mini_7_image',
+	) ) );
+
+	$wp_customize->add_setting( 'mini_7_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_7_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_minifeature_7_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_7_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_7_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_minifeature_7_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_7_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_minifeature( $wp_customize, 'mini_7_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_minifeature_7_settings',
+	'settings'   => 'mini_7_excerpt',
+	) ) );
+	
+	
+
+	$wp_customize->add_section( 'grove_minifeature_8_settings', array(
+		'title'          => 'Mini Features 8',
+		'priority'       => 43,
+	) );
+
+	$wp_customize->add_setting( 'mini_8_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mini_8_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_minifeature_8_settings',
+		'settings'   => 'mini_8_image',
+	) ) );
+
+	$wp_customize->add_setting( 'mini_8_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_8_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_minifeature_8_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_8_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_8_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_minifeature_8_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_8_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_minifeature( $wp_customize, 'mini_8_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_minifeature_8_settings',
+	'settings'   => 'mini_8_excerpt',
+	) ) );
+
+
+
+
+
+	$wp_customize->add_section( 'grove_minifeature_9_settings', array(
+		'title'          => 'Mini Features 9',
+		'priority'       => 43,
+	) );
+
+	$wp_customize->add_setting( 'mini_9_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mini_9_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_minifeature_9_settings',
+		'settings'   => 'mini_9_image',
+	) ) );
+
+	$wp_customize->add_setting( 'mini_9_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_9_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_minifeature_9_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_9_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_9_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_minifeature_9_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_9_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_minifeature( $wp_customize, 'mini_9_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_minifeature_9_settings',
+	'settings'   => 'mini_9_excerpt',
+	) ) );
+	
+	
+
+
+
+	$wp_customize->add_section( 'grove_minifeature_10_settings', array(
+		'title'          => 'Mini Features 10',
+		'priority'       => 43,
+	) );
+
+	$wp_customize->add_setting( 'mini_10_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mini_10_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_minifeature_10_settings',
+		'settings'   => 'mini_10_image',
+	) ) );
+
+	$wp_customize->add_setting( 'mini_10_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_10_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_minifeature_10_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_10_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'mini_10_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_minifeature_10_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_10_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_minifeature( $wp_customize, 'mini_10_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_minifeature_10_settings',
+	'settings'   => 'mini_10_excerpt',
+	) ) );
+	
+	
+	
 
 
 	class WP_Customize_Hotbutton extends WP_Customize_Control {
@@ -384,6 +652,11 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 			<a href="#">3</a>
 			<a href="#">4</a>
 			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">7</a>
+			<a href="#">8</a>
+			<a href="#">9</a>
+			<a href="#">10</a>
 		</nav>
 
 		<a href="#clear" id="clear">Clear</a>
@@ -640,6 +913,276 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_hotbutton_5_settings',
 	'settings'   => 'hb_5_excerpt',
 	) ) );
+	
+	
+	
+	
+	
+		
+	
+
+	$wp_customize->add_section( 'grove_hotbutton_6_settings', array(
+		'title'          => 'Hot Button 6',
+		'priority'       => 44,
+	) );
+
+	$wp_customize->add_setting( 'hb_6_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_6_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_hotbutton_6_settings',
+		'settings'   => 'hb_6_image',
+	) ) );
+
+	$wp_customize->add_setting( 'hb_6_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_6_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_hotbutton_6_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_6_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_6_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_hotbutton_6_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_6_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_6_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_hotbutton_6_settings',
+	'settings'   => 'hb_6_excerpt',
+	) ) );
+	
+	
+	
+
+	$wp_customize->add_section( 'grove_hotbutton_7_settings', array(
+		'title'          => 'Hot Button 7',
+		'priority'       => 44,
+	) );
+
+	$wp_customize->add_setting( 'hb_7_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_7_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_hotbutton_7_settings',
+		'settings'   => 'hb_7_image',
+	) ) );
+
+	$wp_customize->add_setting( 'hb_7_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_7_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_hotbutton_7_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_7_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_7_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_hotbutton_7_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_7_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_7_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_hotbutton_7_settings',
+	'settings'   => 'hb_7_excerpt',
+	) ) );
+	
+	
+	
+
+	$wp_customize->add_section( 'grove_hotbutton_8_settings', array(
+		'title'          => 'Hot Button 8',
+		'priority'       => 44,
+	) );
+
+	$wp_customize->add_setting( 'hb_8_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_8_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_hotbutton_8_settings',
+		'settings'   => 'hb_8_image',
+	) ) );
+
+	$wp_customize->add_setting( 'hb_8_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_8_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_hotbutton_8_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_8_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_8_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_hotbutton_8_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_8_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_8_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_hotbutton_8_settings',
+	'settings'   => 'hb_8_excerpt',
+	) ) );
+	
+	
+	
+
+	$wp_customize->add_section( 'grove_hotbutton_9_settings', array(
+		'title'          => 'Hot Button 9',
+		'priority'       => 44,
+	) );
+
+	$wp_customize->add_setting( 'hb_9_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_9_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_hotbutton_9_settings',
+		'settings'   => 'hb_9_image',
+	) ) );
+
+	$wp_customize->add_setting( 'hb_9_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_9_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_hotbutton_9_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_9_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_9_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_hotbutton_9_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_9_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_9_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_hotbutton_9_settings',
+	'settings'   => 'hb_9_excerpt',
+	) ) );
+	
+	
+	
+
+	$wp_customize->add_section( 'grove_hotbutton_10_settings', array(
+		'title'          => 'Hot Button 10',
+		'priority'       => 44,
+	) );
+
+	$wp_customize->add_setting( 'hb_10_image', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hb_10_image', array(
+		'label'   => 'Image Setting',
+		'section' => 'grove_hotbutton_10_settings',
+		'settings'   => 'hb_10_image',
+	) ) );
+
+	$wp_customize->add_setting( 'hb_10_title', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_10_title', array(
+		'label'   => 'Title',
+		'section' => 'grove_hotbutton_10_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_10_link', array(
+		'default'        => 'http://',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'hb_10_link', array(
+		'label'   => 'Link',
+		'section' => 'grove_hotbutton_10_settings',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_10_excerpt', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Hotbutton( $wp_customize, 'hb_10_excerpt', array(
+	'label'   => 'Excerpt (optional)',
+	'section' => 'grove_hotbutton_10_settings',
+	'settings'   => 'hb_10_excerpt',
+	) ) );
+	
+	
+	
+	
+	
+	
 
 	$wp_customize->add_section( 'grove_slider_settings', array(
 		'title'          => 'Slider (Homepage)',

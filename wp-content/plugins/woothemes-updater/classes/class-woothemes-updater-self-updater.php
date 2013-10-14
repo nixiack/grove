@@ -32,16 +32,14 @@ class WooThemes_Updater_Self_Updater {
 	 * @return void
 	 */
 	public function __construct ( $file ) {
-		global $woodojo;
-
 		$this->api_url = 'http://www.woothemes.com/woo-dojo-api/';
 		$this->file = plugin_basename( $file );
 
 		// Check For Updates
-		add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'update_check' ) );
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'update_check' ) );
 
 		// Check For Plugin Information
-		add_filter( 'plugins_api', array( &$this, 'plugin_information' ), 10, 3 );
+		add_filter( 'plugins_api', array( $this, 'plugin_information' ), 10, 3 );
 	} // End __construct()
 
 	/**
@@ -85,7 +83,7 @@ class WooThemes_Updater_Self_Updater {
 		$transient = get_site_transient( 'update_plugins' );
 
 		// Check if this plugins API is about this plugin
-		if( $args->slug != dirname( $this->file ) ) {
+		if( ! isset( $args->slug ) || $args->slug != dirname( $this->file ) ) {
 			return $false;
 		}
 
@@ -128,7 +126,7 @@ class WooThemes_Updater_Self_Updater {
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking' => true,
-			'headers' => array(),
+			'headers' => array( 'user-agent' => 'WooThemesUpdater/1.1.0' ),
 			'body' => $args,
 			'cookies' => array(),
 			'sslverify' => false

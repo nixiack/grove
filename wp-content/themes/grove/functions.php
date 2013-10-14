@@ -77,7 +77,10 @@ function grove_setup() {
 	 */
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'grove' ),
+      	'footer-nav' => __( 'Footer Navigation', 'grove' )
 	) );
+	
+	
 }
 endif; // grove_setup
 add_action( 'after_setup_theme', 'grove_setup' );
@@ -189,3 +192,6 @@ add_action('admin_init', function() {
   wp_enqueue_style('grove_cust_st');
   
 });
+
+
+

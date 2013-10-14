@@ -111,7 +111,14 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * @return string
 	 */
 	function column_order_id( $item ) {
-		return sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
+
+		//back compat
+		if ( empty( $item['order_id_link'] ) )
+			$id = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
+		else
+			$id = $item['order_id_link'];
+
+		return $id;
 	}
 
 	/**
@@ -213,13 +220,15 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 				foreach ( $_GET['attendee'] as $attendee_provider ) {
 					$vars = explode( "|", $attendee_provider );
-					if ( isset( $vars[1] ) ) {
+					if ( isset( $vars[1] ) && is_callable( array( $vars[1], 'get_instance' ) ) ) {
 						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
+
+						if ( ! is_subclass_of( $obj, 'TribeEventsTickets' ) )
+							return;
+
 						$obj->checkin( $vars[0] );
 					}
-
 				}
-
 			}
 		}
 
@@ -229,8 +238,12 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 				foreach ( $_GET['attendee'] as $attendee_provider ) {
 					$vars = explode( "|", $attendee_provider );
-					if ( isset( $vars[1] ) ) {
+					if ( isset( $vars[1] ) && is_callable( array( $vars[1], 'get_instance' ) ) ) {
 						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
+
+						if ( ! is_subclass_of( $obj, 'TribeEventsTickets' ) )
+							return;
+
 						$obj->uncheckin( $vars[0] );
 					}
 

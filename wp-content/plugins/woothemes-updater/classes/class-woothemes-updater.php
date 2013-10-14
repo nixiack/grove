@@ -48,6 +48,17 @@ class WooThemes_Updater {
 	 * @return  void
 	 */
 	public function __construct ( $file ) {
+
+		// If multisite, plugin must be network activated. First make sure the is_plugin_active_for_network function exists
+		if( is_multisite() && ! is_network_admin() ) {
+			remove_action( 'admin_notices', 'woothemes_updater_notice' ); // remove admin notices for plugins outside of network admin
+			if ( !function_exists( 'is_plugin_active_for_network' ) )
+				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			if( !is_plugin_active_for_network( plugin_basename( $file ) ) )
+				add_action( 'admin_notices', array( $this, 'admin_notice_require_network_activation' ) );
+			return;
+		}
+
 		$this->file = $file;
 		$this->plugin_url = trailingslashit( plugins_url( '', $plugin = $file ) );
 		$this->plugin_path = trailingslashit( dirname( $file ) );
@@ -55,10 +66,10 @@ class WooThemes_Updater {
 		$this->products = array();
 
 		$this->load_plugin_textdomain();
-		add_action( 'init', array( &$this, 'load_localisation' ), 0 );
+		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
 		// Run this on activation.
-		register_activation_hook( $this->file, array( &$this, 'activation' ) );
+		register_activation_hook( $this->file, array( $this, 'activation' ) );
 
 		if ( is_admin() ) {
 			// Load the self-updater.
@@ -70,8 +81,13 @@ class WooThemes_Updater {
 			$this->admin = new WooThemes_Updater_Admin( $file );
 
 			// Get queued plugin updates
-			add_action( 'plugins_loaded', array( &$this, 'load_queued_updates' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_queued_updates' ) );
 		}
+
+		$this->add_notice_unlicensed_product();
+
+		add_filter( 'site_transient_' . 'update_plugins', array( $this, 'change_update_information' ) );
+
 	} // End __construct()
 
 	/**
@@ -140,7 +156,7 @@ class WooThemes_Updater {
 	/**
 	 * Add a product to await a license key for activation.
 	 *
-	 * Add an product into the array, to be processed with the other products.
+	 * Add a product into the array, to be processed with the other products.
 	 *
 	 * @since  1.0.0
 	 * @param string $file The base file of the product to be activated.
@@ -172,5 +188,65 @@ class WooThemes_Updater {
 	public function get_products () {
 		return (array) $this->products;
 	} // End get_products()
+
+	/**
+	 * Display require network activation error.
+	 * @since  1.0.0
+	 * @return  void
+	 */
+	public function admin_notice_require_network_activation () {
+		echo '<div class="error"><p>' . __( 'WooThemes Updater must be network activated when in multisite environment.', 'woothemes-updater' ) . '</p></div>';
+	} // End admin_notice_require_network_activation()
+
+	/**
+	 * Add action for queued products to display message for unlicensed products
+	 */
+	public function add_notice_unlicensed_product () {
+		global $woothemes_queued_updates;
+		if( !is_array( $woothemes_queued_updates ) || count( $woothemes_queued_updates ) < 0 ) return;
+
+		foreach ( $woothemes_queued_updates as $key => $update ) {
+			add_action( 'in_plugin_update_message-' . $update->file, array( $this, 'need_license_message'), 10, 2 );
+		}
+	} // End add_notice_unlicensed_product()
+
+	/**
+	 * Message displayed if license not activated
+	 * @param  array $plugin_data
+	 * @param  object $r
+	 * @return void
+	 */
+	public function need_license_message ( $plugin_data, $r ) {
+		if( empty( $r->package ) ) {
+			_e( ' To enable updates for this WooThemes product, please activate your license.', 'woothemes-updater' );
+		}
+	} // End need_license_message()
+
+	/**
+	 * Change the update information for unlicense WooThemes products
+	 * @param  object $transient The update-plugins transient
+	 * @return object
+	 */
+	public function change_update_information ( $transient ) {
+		//If we are on the update core page, change the update message for unlicensed products
+		global $pagenow;
+		if ( ( 'update-core.php' == $pagenow ) && $transient && isset( $transient->response ) && ! isset( $_GET['action'] ) ) {
+
+			global $woothemes_queued_updates;
+
+			if( empty( $woothemes_queued_updates ) ) return $transient;
+
+			foreach ( $woothemes_queued_updates as $key => $value ) {
+				if( isset( $transient->response[ $value->file ] ) && isset( $transient->response[ $value->file ]->package ) && '' == $transient->response[ $value->file ]->package && ( FALSE === stristr($transient->response[ $value->file ]->upgrade_notice, 'To enable this update please activate your WooThemes license. ') ) ){
+					$message = __( 'To enable this update please activate your WooThemes license. ' . $transient->response[ $value->file ]->upgrade_notice , 'woothemes-updater' );//@WARREN - Fix this message
+					$transient->response[ $value->file ]->upgrade_notice = $message;
+				}
+			}
+
+		}
+
+		return $transient;
+	} // End change_update_information()
+
 } // End Class
 ?>

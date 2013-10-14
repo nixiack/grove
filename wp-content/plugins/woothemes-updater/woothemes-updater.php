@@ -3,10 +3,11 @@
 Plugin Name: WooThemes Updater
 Plugin URI: http://woothemes.com/
 Description: Manage updates for your purchased WooThemes products.
-Version: 1.0.4
+Version: 1.1.3
 Author: WooThemes
 Author URI: http://woothemes.com/
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Network: true
 */
 /*  Copyright 2012  WooThemes  (email : info@woothemes.com)
 
@@ -31,6 +32,6 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
     	global $woothemes_updater;
     	$woothemes_updater = new WooThemes_Updater( __FILE__ );
-    	$woothemes_updater->version = '1.0.4';
+    	$woothemes_updater->version = '1.1.3';
     }
 ?>
