@@ -1330,6 +1330,41 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'settings'   => 'slide_feature_static',
 	'priority' => 10, 
 	) ) );
+	
+	
+	
+	
+	$wp_customize->add_section( 'grove_countdown_settings', array(
+		'title'          => 'Homepage Event Countdown',
+		'description'	 => 'Countdown settings',
+		'priority'       => 26,
+	) );
+	
+	$wp_customize->add_setting( 'header_countdown_settings', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+	
+	
+	$cdown['No Coundown'] = 'no';
+	$cdownterms = get_terms("tribe_events_cat");
+ 		$cdowncount = count($cdownterms);
+ 		if ( $cdowncount > 0 ){
+			foreach ( $cdownterms as $cdownterm ) {
+				$cdown[$cdownterm->term_id] = $cdownterm->name;
+			}
+		}
+		
+
+	$wp_customize->add_control( 'header_countdown_settings', array(
+	'label'   => 'Assign An Event Category',
+	'section' => 'grove_countdown_settings',
+	'type'    => 'select',
+	'choices'    => $cdown,
+	) );
+	
+	
+	
 
 	$wp_customize->add_section( 'grove_social_settings', array(
 		'title'          => 'Social Settings',

@@ -734,6 +734,79 @@ ul.tweetscroll li .tweet-stamp{	font-size:12px;	font-weight: normal;}
 .credit p{font-style: italic; font-size: 85%;}
 
 
+
+
+/* COUNTDOWN */
+
+#timer {
+	background:#00d5d2;
+	color:#fff;
+	padding: 20px 20px 10px 20px;
+	font-weight: bold;
+	line-height: 26px;
+	text-align: center;
+}
+
+#timer a {
+	color:#fff;
+}
+
+/* jQuery Countdown styles 1.6.3. */
+.hasCountdown {
+	color: #772f92;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+}
+.countdown_rtl {
+	direction: rtl;
+}
+.countdown_holding span {
+	color: #888;
+}
+.countdown_row {
+	clear: both;
+	width: 100%;
+	padding: 0px 2px;
+	text-align: center;
+}
+.countdown_show1 .countdown_section {
+	width: 98%;
+}
+.countdown_show2 .countdown_section {
+	width: 48%;
+}
+.countdown_show3 .countdown_section {
+	width: 32.5%;
+}
+.countdown_show4 .countdown_section {
+	width: 24.5%;
+}
+.countdown_show5 .countdown_section {
+	width: 19.5%;
+}
+.countdown_show6 .countdown_section {
+	width: 16.25%;
+}
+.countdown_show7 .countdown_section {
+	width: 14%;
+}
+.countdown_section {
+	display: block;
+	float: left;
+	font-size: 75%;
+	text-align: center;
+}
+.countdown_amount {
+	font-size: 200%;
+}
+.countdown_descr {
+	display: block;
+	width: 100%;
+}
+
+
+
 @media screen and (max-width: 800px) {
 	
 	#gr_mob_nav_trg {
