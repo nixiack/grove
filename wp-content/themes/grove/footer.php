@@ -52,15 +52,17 @@
 			<?php 
 			} ?>
             
+            <?php if ( has_nav_menu('footer-nav' ) ) { ?>
             
+                <div class="footer-nav"><?php 
+                            
+                    wp_nav_menu( array('theme_location' => 'footer-nav' )); ?>
+                                                   
+                    <div style="clear:both;"></div>
+                            
+                </div>
             
-            <div class="footer-nav"><?php 
-                        
-                   		wp_nav_menu( array('theme_location' => 'footer-nav' )); ?>
-                                               
-                    	<div style="clear:both;"></div>
-                        
-            </div>
+			<?php }  ?>
 
 			
 
