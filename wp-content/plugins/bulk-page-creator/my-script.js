@@ -42,6 +42,10 @@ jQuery(document).ready(function(){
             }
         }
     }
+
+    jQuery('form#sc-add-pages').on('submit', function(e){
+        return jQuery('#sc-page-name').val().length>0 ? sc_add_page() : true;
+    });
 });
 
 function sc_add_page(){

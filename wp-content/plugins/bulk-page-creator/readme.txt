@@ -40,6 +40,9 @@ Added a multiple page addition with comma seperation
 = 1.0.6 =
 Amended potential issue with safari and draft pages in JavaScript
 
+= 1.0.7 =
+Added script to add pages in the page section when accedently submitting form
+
 == Screenshots ==
 
 1. View of bulk page creator screen

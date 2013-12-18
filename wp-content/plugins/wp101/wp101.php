@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP101
 Description: WordPress tutorial videos, delivered directly in the WordPress dashboard.
-Version: 2.0.6
+Version: 2.0.5
 Author: WP101Plugin.com
 Author URI: http://wp101plugin.com/
 */
@@ -139,8 +139,6 @@ class WP101_Plugin {
 	public function api_key_expired_message() {
 		echo '<div class="updated"><p>' . sprintf( __( 'The WP101Plugin.com API key you provided has expired. Please <a href="%s">renew your subscription</a>!', 'wp101' ), esc_url( self::$renew_url ) ) . '</p></div>';
 	}
-
-	public function api_key_notset_message(){ /* no message needed */ }
 
 	private function enqueue() {
 		wp_enqueue_script( 'wp101', plugins_url( "js/wp101.js", __FILE__ ), array( 'jquery' ), '20120418b' );
