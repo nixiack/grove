@@ -103,7 +103,7 @@ textarea {
 }
 
 #page {
-	max-width: 95%;
+	width: 100%;
 	margin: 0 auto;	
 }
 
@@ -617,6 +617,8 @@ object {
 .wooslider.wooslider-type-slides img{height:auto !important;}
 .wooslider .slide-content{margin: 0 !important;}
 
+.banner-outer{background: #ccc;min-height: 132px; border-top: 3px solid #333; border-bottom: 3px solid #333; margin-bottom: 15px;margin-top: 15px;}
+.banner-inner{font-size: 150%;color: #fff;margin: 0 auto; max-width: 960px;text-align: center; text-shadow: 2px 2px #333;padding: 20px;}
 
 .hotbuttons{width:960px; clear: both; overflow: auto; margin: 0 auto 30px auto;max-width: 100%;}
 .hotbuttons a{width: 300px; overflow: hidden; margin-right: 3%; display: inline-block; float: left;}
@@ -809,6 +811,9 @@ ul.tweetscroll li .tweet-stamp{	font-size:12px;	font-weight: normal;}
 
 @media screen and (max-width: 800px) {
 	
+	#page{
+		max-width: 95%;
+	}
 	#gr_mob_nav_trg {
 		display:block;	
 	}

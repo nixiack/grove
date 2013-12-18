@@ -4,7 +4,7 @@ Plugin Name: 5sec Google Maps
 Plugin URI: http://5sec-gmap.webfactoryltd.com/
 Description: No setup. No code. No bulls**t! Just Google Maps! In 5 sec! Usage: [gmap]my address, my city, my country[/gmap]
 Author: Web factory Ltd
-Version: 1.5
+Version: 1.6
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -165,6 +165,7 @@ function gmaps_fullscreen(map_id) {
                                   'icon' => plugins_url('/icons/red-pin.png', __FILE__),
                                   'type' => 'ROADMAP',
                                   'disable_cache' => false,
+                                  'scroll' => true,
                                   'debug' => false,
                                   'post_id' => $post->ID),
                            $atts);
@@ -314,6 +315,9 @@ function gmaps_fullscreen(map_id) {
         $atts['type'] = 'ROADMAP';
     }
 
+    // scroll
+    $atts['scroll'] = (int) (bool) $atts['scroll'];
+
     // cache usage
     $atts['disable_cache'] = (bool) $atts['disable_cache'];
 
@@ -359,6 +363,7 @@ function gmaps_fullscreen(map_id) {
                 var myOptions = {
                   zoom: ' . $atts['zoom'] . ',
                   center: myLatlng,
+                  scrollwheel: ' . $atts['scroll'] . ',
                   mapTypeId: google.maps.MapTypeId.' . $atts['type'] . '
                 }
                 map_' . $map_id . ' = new google.maps.Map(document.getElementById("gmap_' . $map_id . '"), myOptions);

@@ -43,7 +43,7 @@
 
 			array(
 				'name'	  => '5sec Google Maps',
-				'slug'	  => '5sec-gmaps',
+				'slug'	  => '5sec-google-maps',
 				'required'  => true,
 			),
 	 
