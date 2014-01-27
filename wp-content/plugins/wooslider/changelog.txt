@@ -1,5 +1,31 @@
 *** WooSlider Changelog ***
 
+2013.12.19 - version 2.0.1
+ * New - Add order settings for Slides post type by date or menu order
+   /classes/class-wooslider-admin.php,
+   /classes/class-wooslider-sliders.php,
+   /classes/class-wooslider-utils.php
+
+ * Fix - Slide URL not saving
+   /classes/class-wooslider-posttypes.php,
+   /classes/class-wooslider-sliders.php 
+
+ * Fix - Incorrect callback API variables
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Removed extra quote causing validation issue
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Multiple slide pages not working in a Slides type slider
+   /classes/class-wooslider-sliders.php
+
+ * Fix - IDs with capital letters and spaces causing errors
+   /inc/wooslider-template.php
+
+ * Tweak - Rename 'wooslidercontent' to 'data-wooslidercontent' for HTML5 validation
+   /classes/class-wooslider-frontend.php,
+   /classes/class-wooslider-sliders.php
+
 2013.09.09 - version 2.0.0
  * /classes/class-wooslider-admin.php - Change thumbnail option from checkbox to select. generate_default_conditional_fields() now uses a filter instead of looking for internal methods.
  * /classes/class-wooslider-fontend.php - add callbacks, add support for carousel.

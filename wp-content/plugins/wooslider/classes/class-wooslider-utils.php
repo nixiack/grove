@@ -64,6 +64,32 @@ class WooSlider_Utils {
 	} // End get_thumbnail_options()
 
 	/**
+	 * Get an array of the supported order options.
+	 * @since  2.0.1
+	 * @return array The navigation types supported by WooSlider.
+	 */
+	public static function get_order_options () {
+		return (array)apply_filters( 'wooslider_order_options', array(
+																'DESC' => array( 'name' => __( 'Descending', 'wooslider' ) ),
+																'ASC' => array( 'name' => __( 'Ascending', 'wooslider' ) )
+																)
+									);
+	} // End get_order_options()
+
+	/**
+	 * Get an array of the supported order_by options.
+	 * @since  2.0.1
+	 * @return array The navigation types supported by WooSlider.
+	 */
+	public static function get_order_by_options () {
+		return (array)apply_filters( 'wooslider_order_by_options', array(
+																	'date' => array( 'name' => __( 'Date', 'wooslider' ) ),
+																	'menu_order' => array( 'name' => __( 'Menu Order', 'wooslider' ) )
+																	)
+									);
+	} // End get_order_by_options()
+
+	/**
 	 * Return an array of supported slider effects.
 	 * @since  1.0.0
 	 * @uses  filter: 'wooslider_supported_effects'

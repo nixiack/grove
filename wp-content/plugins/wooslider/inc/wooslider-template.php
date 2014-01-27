@@ -27,7 +27,7 @@ function wooslider ( $args = array(), $extra_args = array(), $echo = true ) {
 
 	// Generate an ID for this slider.
 	if ( isset( $extra_args['id'] ) ) {
-		$settings['id'] = $extra_args['id'];
+		$settings['id'] = str_replace( ' ', '', strtolower( $extra_args['id'] ) );
 	} else {
 		$settings['id'] = 'wooslider-id-' . $wooslider->slider_count++;
 	}

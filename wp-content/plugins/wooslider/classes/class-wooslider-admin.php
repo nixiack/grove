@@ -153,6 +153,8 @@ class WooSlider_Admin {
 		$settings['display_title'] = '';
 		$settings['display_content'] = '1';
 		$settings['imageslide'] = '';
+		$settings['order'] = '';
+		$settings['order_by'] = '';
 		// $settings['as_nav_for'] = '';
 		$settings = (array)apply_filters( 'wooslider_popup_settings', $settings );
 
@@ -527,7 +529,17 @@ class WooSlider_Admin {
 
 		$overlay_args = array( 'key' => 'overlay', 'data' => array( 'options' => $overlay_options, 'images' => $overlay_images ) );
 
+		$order_values = WooSlider_Utils::get_order_options();
+		$order_options = array();
+	    foreach ( $order_values as $k => $v ) {
+	    	$order_options[$k] = $v['name'];
+	    }
 
+	    $order_by_values = WooSlider_Utils::get_order_by_options();
+		$order_by_options = array();
+	    foreach ( $order_by_values as $k => $v ) {
+	    	$order_by_options[$k] = $v['name'];
+	    }
 
 		$limit_args = array( 'key' => 'limit', 'data' => array( 'options' => $limit_options, 'default' => 5 ) );
 		$link_slide_args = array( 'key' => 'link_slide', 'data' => array() );
@@ -537,6 +549,8 @@ class WooSlider_Admin {
 		$carousel_args = array( 'key' => 'carousel', 'data' => array() );
 		$thumbnails_args = array( 'key' => 'thumbnails', 'data' => array('options' => $thumbnails_options , 'default' => 'Default' ) );
 		$display_featured_image_args = array( 'key' => 'display_featured_image', 'data' => array() );
+		$order_args = array( 'key' => 'order', 'data' => array( 'options' => $order_options, 'default' => 'DESC' ) );
+		$order_by_args = array( 'key' => 'order_by', 'data' => array( 'options' => $order_by_options, 'default' => 'date' ) );
 
 		// Create final array.
 		$fields['limit'] = array( 'name' => __( 'Number of Slides', 'wooslider' ), 'type' => 'select', 'args' => $limit_args, 'description' => __( 'The maximum number of slides to display', 'wooslider' ) );
@@ -549,6 +563,8 @@ class WooSlider_Admin {
 		$fields['display_content'] = array( 'name' => __( 'Display the slide\'s content', 'wooslider' ), 'type' => 'checkbox', 'args' => $display_content_args, 'description' => __( 'Display the slide\'s content on each slide', 'wooslider' ) );
 		$fields['layout'] = array( 'name' => __( 'Layout', 'wooslider' ), 'type' => 'images', 'args' => $layouts_args, 'description' => __( 'The layout to use when displaying posts', 'wooslider' ) );
 		$fields['overlay'] = array( 'name' => __( 'Overlay', 'wooslider' ), 'type' => 'images', 'args' => $overlay_args, 'description' => __( 'The type of overlay to use when displaying the post text', 'wooslider' ) );
+		$fields['order_by'] = array( 'name' => __( 'Order By', 'wooslider' ), 'type' => 'select', 'args' => $order_by_args, 'description' => __( 'Parameter by which to order slides', 'wooslider' ) );
+		$fields['order'] = array( 'name' => __( 'Order of Slides', 'wooslider' ), 'type' => 'select', 'args' => $order_args, 'description' => __( 'Display in increasing or decreasing order', 'wooslider' ) );
 
 		return $fields;
 	} // End generate_conditional_fields_slides()

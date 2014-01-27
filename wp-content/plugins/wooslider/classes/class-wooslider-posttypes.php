@@ -444,7 +444,7 @@ class WooSlider_PostTypes {
 		$fields = array();
 
 		// Container
-		$fields['url'] = array(
+		$fields['wooslider_url'] = array(
 		    'name' => __( 'URL', 'wooslider' ),
 		    'description' => __( 'Specify a URL for this slide to link to.', 'wooslider' ),
 		    'type' => 'url',

@@ -99,7 +99,7 @@ class WooSlider_Sliders {
 						}
 					}
 					if($slide_count > 2 ) {
-						$atts .=' wooslidercontent="' . esc_attr($v['content']) . '"';
+						$atts .=' data-wooslidercontent="' . esc_attr($v['content']) . '"';
 						$html .= '<li class="slide"' . $atts . '></li>' . "\n";
 
 					} else {
@@ -303,12 +303,14 @@ class WooSlider_Sliders {
 						//'size' => 'large',
 						'display_title' => '',
 						'overlay' => 'none', // none, full or natural
-						'display_content' => 'true'
+						'display_content' => 'true',
+						'order' => 'DESC',
+						'order_by' => 'date'
 						);
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$query_args = array( 'post_type' => 'slide', 'numberposts' => intval( $args['limit'] ) );
+		$query_args = array( 'post_type' => 'slide', 'numberposts' => intval( $args['limit']), 'orderby' => $args['order_by'], 'order' => $args['order']  );
 
 		if( true == $settings['randomize'] ) {
 			$query_args['orderby'] = 'rand';
@@ -316,14 +318,13 @@ class WooSlider_Sliders {
 
 		if ( '' != $args['slide_page'] ) {
 			$cats_split = explode( ',', $args['slide_page'] );
-			$query_args['tax_query'] = array();
-			foreach ( $cats_split as $k => $v ) {
-				$query_args['tax_query'][] = array(
-						'taxonomy' => 'slide-page',
-						'field' => 'slug',
-						'terms' => esc_attr( trim( rtrim( $v ) ) )
-					);
-			}
+			$query_args['tax_query'] = array( 
+				array(
+					'taxonomy' => 'slide-page',
+					'field' => 'slug',
+					'terms' => $cats_split
+				)
+			);
 		}
 
 		$posts = get_posts( $query_args );
@@ -357,7 +358,7 @@ class WooSlider_Sliders {
 			    if ( isset( $args['carousel'] ) && 'true' == $args['carousel'] ) {
 			    	$image = get_the_post_thumbnail( get_the_ID() );
 					if ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) {
-						$wooslider_url = get_post_meta( get_the_ID(), '_url', true );
+						$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
 						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
 					}
 
@@ -378,7 +379,7 @@ class WooSlider_Sliders {
 
 					$image = get_the_post_thumbnail( get_the_ID() );
 					if ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) {
-						$wooslider_url = get_post_meta( get_the_ID(), '_url', true );
+						$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
 						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
 					}
 
@@ -410,7 +411,7 @@ class WooSlider_Sliders {
 
 					$layed_out_content = apply_filters( 'wooslider_slides_layout_html', $content, $args, $post );
 
-					$content = '<div class="slide-content ' . esc_attr( $class ) . '"">' . $layed_out_content . '</div>';
+					$content = '<div class="slide-content ' . esc_attr( $class ) . '">' . $layed_out_content . '</div>';
 
 					$data = array( 'content' => $content );
 

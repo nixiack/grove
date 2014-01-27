@@ -369,7 +369,7 @@ class WooSlider_Frontend {
 			$before = apply_filters( 'wooslider_callback_before', $before, $id, $args, $extra );
 			$before = apply_filters( 'wooslider_callback_before_' . sanitize_key( $id ), $before, $id, $args, $extra );
 			if ( isset( $args['slider_type'] ) && '' != $args['slider_type'] ) {
-				$before = apply_filters( 'wooslider_callback_before_type_' . sanitize_key( $args['slider_type'] ), $start, $id, $args, $extra );
+				$before = apply_filters( 'wooslider_callback_before_type_' . sanitize_key( $args['slider_type'] ), $before, $id, $args, $extra );
 			}
 			$args_output .= ', before: function(slider){' . $before . '}';
 
@@ -378,7 +378,7 @@ class WooSlider_Frontend {
 			$after = apply_filters( 'wooslider_callback_after', $after, $id, $args, $extra );
 			$after = apply_filters( 'wooslider_callback_after_' . sanitize_key( $id ), $after, $id, $args, $extra );
 			if ( isset( $args['slider_type'] ) && '' != $args['slider_type'] ) {
-				$after = apply_filters( 'wooslider_callback_after_type_' . sanitize_key( $args['slider_type'] ), $start, $id, $args, $extra );
+				$after = apply_filters( 'wooslider_callback_after_type_' . sanitize_key( $args['slider_type'] ), $after, $id, $args, $extra );
 			}
 			$args_output .= ', after: function(slider){' . $after . '}';
 
@@ -387,7 +387,7 @@ class WooSlider_Frontend {
 			$end = apply_filters( 'wooslider_callback_end', $end, $id, $args, $extra );
 			$end = apply_filters( 'wooslider_callback_end_' . sanitize_key( $id ), $end, $id, $args, $extra );
 			if ( isset( $args['slider_type'] ) && '' != $args['slider_type'] ) {
-				$end = apply_filters( 'wooslider_callback_end_type_' . sanitize_key( $args['slider_type'] ), $start, $id, $args, $extra );
+				$end = apply_filters( 'wooslider_callback_end_type_' . sanitize_key( $args['slider_type'] ), $end, $id, $args, $extra );
 			}
 			$args_output .= ', end: function(slider){' . $end . '}';
 
@@ -396,7 +396,7 @@ class WooSlider_Frontend {
 			$added = apply_filters( 'wooslider_callback_added', $added, $id, $args, $extra );
 			$added = apply_filters( 'wooslider_callback_added_' .  sanitize_key( $id ) , $added, $id, $args, $extra );
 			if ( isset( $args['slider_type'] ) && '' != $args['slider_type'] ) {
-				$added = apply_filters( 'wooslider_callback_added_type_' . sanitize_key( $args['slider_type'] ), $start, $id, $args, $extra );
+				$added = apply_filters( 'wooslider_callback_added_type_' . sanitize_key( $args['slider_type'] ), $added, $id, $args, $extra );
 			}
 			$args_output .= ', added: function(slider){' . $added  . '}';
 
@@ -405,7 +405,7 @@ class WooSlider_Frontend {
 			$removed =  apply_filters( 'wooslider_callback_removed', $removed, $id, $args, $extra );
 			$removed =  apply_filters( 'wooslider_callback_removed_' . sanitize_key( $id ), $removed, $id, $args, $extra );
 			if ( isset( $args['slider_type'] ) && '' != $args['slider_type'] ) {
-				$removed = apply_filters( 'wooslider_callback_removed_type_' . sanitize_key( $args['slider_type'] ), $start, $id, $args, $extra );
+				$removed = apply_filters( 'wooslider_callback_removed_type_' . sanitize_key( $args['slider_type'] ), $removed, $id, $args, $extra );
 			}
 			$args_output .= ', removed: function(slider){' . $removed  . '}';
 
@@ -484,12 +484,12 @@ class WooSlider_Frontend {
 	} // End wooslider_load_video_api()
 
 	/**
-	 * Lazy load slide content by pulling the data out of the slides' "wooslidercontent" attribute. Used in the 'start' callback
+	 * Lazy load slide content by pulling the data out of the slides' "data-wooslidercontent" attribute. Used in the 'start' callback
 	 * @since  2.0.0
 	 * @return string
 	 */
 	public function wooslider_javascript_slide_load ( $start ) {
-			$start .= 'var wooslider_holder = jQuery(slider).find("li.slide"); if(0 !== wooslider_holder.length){ var wooslides = ([]).concat(wooslider_holder.splice(0,2), wooslider_holder.splice(-2,2), jQuery.makeArray(wooslider_holder)); jQuery.each(wooslides, function(i,el){ var content = jQuery(this).attr("wooslidercontent"); if(typeof content == "undefined" || false == content) return; jQuery(this).append(content).removeAttr("wooslidercontent"); }); } jQuery(slider).fitVids(); var maxHeight = 0; jQuery(slider).find(".wooslider-control-nav li").each(function(i,el) { maxHeight = maxHeight > jQuery(this).height() ? maxHeight : jQuery(this).height(); }); jQuery(slider).css("margin-bottom", maxHeight + 20 + "px");';
+			$start .= 'var wooslider_holder = jQuery(slider).find("li.slide"); if(0 !== wooslider_holder.length){ var wooslides = ([]).concat(wooslider_holder.splice(0,2), wooslider_holder.splice(-2,2), jQuery.makeArray(wooslider_holder)); jQuery.each(wooslides, function(i,el){ var content = jQuery(this).attr("data-wooslidercontent"); if(typeof content == "undefined" || false == content) return; jQuery(this).append(content).removeAttr("data-wooslidercontent"); }); } jQuery(slider).fitVids(); var maxHeight = 0; jQuery(slider).find(".wooslider-control-nav li").each(function(i,el) { maxHeight = maxHeight > jQuery(this).height() ? maxHeight : jQuery(this).height(); }); jQuery(slider).css("margin-bottom", maxHeight + 20 + "px");';
 			return $start;
 	} // End wooslider_javascript_slide_load()
 
@@ -574,8 +574,8 @@ class WooSlider_Frontend {
 	public function enqueue_styles () {
 		global $wooslider;
 
-		wp_register_style( $this->token . '-flexslider', esc_url( $wooslider->plugin_url . 'assets/css/flexslider.css' ), '', '2.0.0', 'all' );
-		wp_register_style( $this->token . '-common', esc_url( $wooslider->plugin_url . 'assets/css/style.css' ), array( $this->token . '-flexslider' ), '2.0.0', 'all' );
+		wp_register_style( $this->token . '-flexslider', esc_url( $wooslider->plugin_url . 'assets/css/flexslider.css' ), '', '2.0.1', 'all' );
+		wp_register_style( $this->token . '-common', esc_url( $wooslider->plugin_url . 'assets/css/style.css' ), array( $this->token . '-flexslider' ), '2.0.1', 'all' );
 
 		wp_enqueue_style( $this->token . '-common' );
 	} // End enqueue_styles()
