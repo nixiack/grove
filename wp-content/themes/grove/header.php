@@ -59,93 +59,100 @@
 
 		<div class="masthead-inner">
         
-        <?php if(get_option('header_countdown_settings')) { 
+        <?php 
 		
-			$cdown_cat = get_option('header_countdown_settings');
+			if(get_option('header_countdown_settings') != 'No Coundown') {
 			
-			$cdown_event_args = array( 'posts_per_page' => 100, 'category' => $cdown_cat, 'order'=> 'DESC', 'orderby' => 'post_date' );
+				if(get_option('header_countdown_settings')) { 
 			
-			
-			$cdown_events = tribe_get_events(
-				array(
-					'eventDisplay'=>'all',
-					'posts_per_page'=>100,
-					'tax_query'=> array(
+					$cdown_cat = get_option('header_countdown_settings');
+					
+					
+					$cdown_event_args = array( 'posts_per_page' => 100, 'category' => $cdown_cat, 'order'=> 'DESC', 'orderby' => 'post_date' );
+					
+					
+					$cdown_events = tribe_get_events(
 						array(
-							'taxonomy' => 'tribe_events_cat',
-							'field' => 'term_id',
-							'terms' => $cdown_cat
+							'eventDisplay'=>'all',
+							'posts_per_page'=>100,
+							'tax_query'=> array(
+								array(
+									'taxonomy' => 'tribe_events_cat',
+									'field' => 'term_id',
+									'terms' => $cdown_cat
+								)
+							)
 						)
-					)
-			)
-			);
-			
-			function personSort( $a, $b ) {
-   		 		return $a->EventStartDate == $b->EventStartDate ? 0 : ( $a->EventStartDate > $b->EventStartDate ) ? 1 : -1;
-			}
-
-			usort( $cdown_events, 'personSort' );
-
-			$cdown_i = 0;
-			$cdown_i_x = 'x';
-
-			foreach($cdown_events as $cdown_event) {
+					);
 				
-				//print_r($cdown_event);
-				
-				$cdown_event_date = strtotime($cdown_event->EventStartDate);
-				$cdown_now_date = strtotime(gmdate('r', time()));
-				
-				//echo $cdown_event->post_title.' '.$cdown_event->EventStartDate.' '.strtotime($cdown_event->EventStartDate).'='.$cdown_now_date.' ';
-				
-				if($cdown_event_date > $cdown_now_date) {
-					if($cdown_i_x == 'x') { $cdown_i_x = $cdown_i; }
-				}
-				
-				$cdown_i++;
-				
-			}
-	
-			
-			$cdown_date['y'] = date('Y',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
-			$cdown_date['m'] = date('m',strtotime($cdown_events[$cdown_i_x]->EventStartDate))-1;
-			$cdown_date['d'] = date('j',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
-			$cdown_date['h'] = date('H',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
-			$cdown_date['i'] = date('i',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
-			$cdown_date['s'] = date('s',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
-			
+					function personSort( $a, $b ) {
+						return $a->EventStartDate == $b->EventStartDate ? 0 : ( $a->EventStartDate > $b->EventStartDate ) ? 1 : -1;
+					}
 		
+					usort( $cdown_events, 'personSort' );
+		
+					$cdown_i = 0;
+					$cdown_i_x = 'x';
+		
+					foreach($cdown_events as $cdown_event) {
+						
+						//print_r($cdown_event);
+						
+						$cdown_event_date = strtotime($cdown_event->EventStartDate);
+						$cdown_now_date = strtotime(gmdate('r', time()));
+						
+						//echo $cdown_event->post_title.' '.$cdown_event->EventStartDate.' '.strtotime($cdown_event->EventStartDate).'='.$cdown_now_date.' ';
+						
+						if($cdown_event_date > $cdown_now_date) {
+							if($cdown_i_x == 'x') { $cdown_i_x = $cdown_i; }
+						}
+						
+						$cdown_i++;
+						
+					}
 			
-
-
-		?>
-        
-        	<div id="timer">
-            
-            	<span id="fafas"></span>
-            
-            	<a href="<?php echo get_permalink($cdown_events[$cdown_i_x]->ID); ?>">NEXT ONLINE EXPERIENCE IN
-            
-            	<div id="thetimer">test</div></a>
-            
-            	<script>
+					
+					$cdown_date['y'] = date('Y',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
+					$cdown_date['m'] = date('m',strtotime($cdown_events[$cdown_i_x]->EventStartDate))-1;
+					$cdown_date['d'] = date('j',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
+					$cdown_date['h'] = date('H',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
+					$cdown_date['i'] = date('i',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
+					$cdown_date['s'] = date('s',strtotime($cdown_events[$cdown_i_x]->EventStartDate));
+					
+				
+					
+	
+	
+					?>
 			
-				var $ = jQuery.noConflict();
-			
-				var liftoffTime = new Date(Date.UTC(<?php echo $cdown_date['y']; ?>, <?php echo $cdown_date['m']; ?>, <?php echo $cdown_date['d']; ?>, <?php echo $cdown_date['h']; ?>, <?php echo $cdown_date['i']; ?>, <?php echo $cdown_date['s']; ?>));
-				//liftoffTime.setDate(liftoffTime);
-            
-				//$('#fafas').html(liftoffTime);
-			
-				$('#thetimer').countdown({until: liftoffTime, 
-					format: 'HMS', expiryUrl: '<?php echo curPageURL(); ?>', compact: true, 
-					layout: '{hnn}{sep}{mnn}{sep}{snn}</b> {desc}', description: ''});
-			
-				</script>
-          	
-            </div>
-            
-        <?php } ?>
+					<div id="timer">
+					
+						<span id="fafas"></span>
+					
+						<a href="<?php echo get_permalink($cdown_events[$cdown_i_x]->ID); ?>">NEXT ONLINE EXPERIENCE IN
+					
+						<div id="thetimer">test</div></a>
+					
+						<script>
+					
+						var $ = jQuery.noConflict();
+					
+						var liftoffTime = new Date(Date.UTC(<?php echo $cdown_date['y']; ?>, <?php echo $cdown_date['m']; ?>, <?php echo $cdown_date['d']; ?>, <?php echo $cdown_date['h']; ?>, <?php echo $cdown_date['i']; ?>, <?php echo $cdown_date['s']; ?>));
+						//liftoffTime.setDate(liftoffTime);
+					
+						//$('#fafas').html(liftoffTime);
+					
+						$('#thetimer').countdown({until: liftoffTime, 
+							format: 'HMS', expiryUrl: '<?php echo curPageURL(); ?>', compact: true, 
+							layout: '{hnn}{sep}{mnn}{sep}{snn}</b> {desc}', description: ''});
+					
+						</script>
+					
+					</div>
+				
+		<?php 	} 
+		
+			} ?>
 
 		<?php
 	if ( ! empty( $header_image ) ) { ?>

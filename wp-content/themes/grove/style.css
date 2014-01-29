@@ -372,8 +372,11 @@ a:active {
 	padding: 5px 0;
 }
 
-.main-navigation, .footer-nav {
+.footer-nav {
 	position: relative;
+}
+.main-navigation {
+	position: absolute;
 }
 .main-navigation ul, .footer-nav ul {
 	list-style: none;
