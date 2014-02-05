@@ -619,6 +619,7 @@ object {
 .wooslider{border:none !important;}
 .wooslider.wooslider-type-slides img{height:auto !important;}
 .wooslider .slide-content{margin: 0 !important;}
+.wooslider-direction-nav .wooslider-next { right: 0px !important;}
 
 .banner-outer{background: #ccc; border-top: 3px solid #333; border-bottom: 3px solid #333; margin-bottom: 15px;margin-top: 15px;}
 .banner-inner{margin: 0 auto; max-width: 960px;text-align: center; padding: 20px;}
