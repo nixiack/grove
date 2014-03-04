@@ -65,20 +65,24 @@ class WooSlider_Frontend {
 	 * @return string The oembed HTML
 	 */
 	public function oembed_video_output($html,$url,$args){
-	    $video_source_provider = $this->get_embedded_video_id($url);
-	    if(isset($video_source_provider[0]) && isset($video_source_provider[1]) ){
 
-		    if ($video_source_provider[0] === 'youtube') {
-		        return '<iframe id="' . $video_source_provider[1] . '" class="wooslider-youtube"   width="'.$args['width'].'" height="281" src="http://www.youtube.com/embed/'.$video_source_provider[1].'?enablejsapi=1&version=3&wmode=transparent&rel=0&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>';
-		    }
-		    else if ($video_source_provider[0] === 'vimeo') {
-		        return '<iframe class="wooslider-vimeo" id="' . $video_source_provider[1] . '"   width="'.$args['width'].'" height="281" src="http://player.vimeo.com/video/'.$video_source_provider[1].'?api=1&player_id='.$video_source_provider[1].'" frameborder="0" rel="vimeo" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-		    }
-		    else if ($video_source_provider[0] === 'wistia') {
-		        return '<iframe class="wooslider-wistia wistia_embed" id="' . $video_source_provider[1] . '" width="'.$args['width'].'" height="281"  src="http://fast.wistia.net/embed/iframe/'.$video_source_provider[1].'?version=v1" name="wistia_embed" frameborder="0" rel="wistia" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-		    }
+		global $post;
+		if( 'slide' == get_post_type( $post ) ) {
+		    $video_source_provider = $this->get_embedded_video_id($url);
+		    if(isset($video_source_provider[0]) && isset($video_source_provider[1]) ){
+
+			    if ($video_source_provider[0] === 'youtube') {
+			        return '<iframe id="' . $video_source_provider[1] . '" class="wooslider-youtube"   width="'.$args['width'].'" height="281" src="http://www.youtube.com/embed/'.$video_source_provider[1].'?enablejsapi=1&version=3&wmode=transparent&rel=0&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>';
+			    }
+			    else if ($video_source_provider[0] === 'vimeo') {
+			        return '<iframe class="wooslider-vimeo" id="' . $video_source_provider[1] . '"   width="'.$args['width'].'" height="281" src="http://player.vimeo.com/video/'.$video_source_provider[1].'?api=1&player_id='.$video_source_provider[1].'" frameborder="0" rel="vimeo" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+			    }
+			    else if ($video_source_provider[0] === 'wistia') {
+			        return '<iframe class="wooslider-wistia wistia_embed" id="' . $video_source_provider[1] . '" width="'.$args['width'].'" height="281"  src="http://fast.wistia.net/embed/iframe/'.$video_source_provider[1].'?version=v1" name="wistia_embed" frameborder="0" rel="wistia" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+			    }
+			}
 		}
-
+		
 	    return $html;
 	} // End oembed_video_output()
 
@@ -100,6 +104,7 @@ class WooSlider_Frontend {
 	    } else if (fnmatch('*.wistia.com', $video_host) ) {
 	    	$video_source = 'wistia';
 	    }
+
 	    return $video_source;
 	} // End get_embedded_video_source()
 
@@ -159,7 +164,7 @@ class WooSlider_Frontend {
 					$html .= $video_content . "\n";
 				}
 			}
-			$html .= 'jQuery(window).ready(function() {' . "\n";
+			$html .= 'jQuery(window).load(function() {' . "\n";
 			foreach ( $this->sliders->sliders as $k => $v ) {
 				if ( isset( $v['args']['id'] ) ) {
 					$html .= $this->generate_single_slider_javascript( $v['args']['id'], $v['args'], $v['extra'] );
@@ -224,8 +229,8 @@ class WooSlider_Frontend {
 			foreach ( $options as $k => $v ) {
 				$args_carousel_output .= ', ' . esc_js( $k ) . ': ' . htmlspecialchars_decode(esc_js( $v) );
 			}
-			$args_carousel_output .= ',asNavFor: "#' .  esc_js( sanitize_key( $id ) ) . '"}';
-			$html .= "\n" . 'jQuery( \'#carousel-' . esc_js( sanitize_key( $id ) ) . '\' ).flexslider2(' . $args_carousel_output . ');' . "\n";
+			$args_carousel_output .= ', asNavFor: "#' .  esc_js( sanitize_key( $id ) ) . '"}';
+			$html = 'jQuery( \'#carousel-' . esc_js( sanitize_key( $id ) ) . '\' ).flexslider2(' . $args_carousel_output . ');' . "\n" . $html;
 
 		}
 		return $html;
@@ -286,10 +291,7 @@ class WooSlider_Frontend {
 			$options['control_nav'] = 'controlNav';
 		}
 
-		if(isset( $extra['thumbnails'] ) && ($extra['thumbnails'] == 2 || $extra['thumbnails'] == 'carousel' ) ){
-			$args_output_array['slideshow'] = 'false';
-		}
-		else if ( isset( $args['autoslide'] ) && ( ( $args['autoslide'] == 'true' && $args['autoslide'] != 'false' ) || $args['autoslide'] == 1 ) ) {
+		if ( isset( $args['autoslide'] ) && ( ( $args['autoslide'] == 'true' && $args['autoslide'] != 'false' ) || $args['autoslide'] == 1 ) ) {
 				$args_output_array['slideshow'] = 'true';
 		} else {
 			$args_output_array['slideshow'] = 'false';
@@ -347,7 +349,7 @@ class WooSlider_Frontend {
 			$args_output_array['itemWidth'] = 300;
 			$args_output_array['minItems'] = 3;
 			$args_output_array['maxItems'] = 3;
-			//$args_output_array['move'] = 0;
+			//$args_output_array['move'] = 3;
 		}
 		//loop through array, create string of arguments
 		$args_output_array = apply_filters( 'wooslider_modify_javascript', $args_output_array );

@@ -1,6 +1,34 @@
 *** WooSlider Changelog ***
 
-2013.12.19 - version 2.0.1
+2014.01.28 - version 2.0.2
+ * New - Add 'display_title' parameter to Posts slider
+   /classes/class-wooslider-sliders.php
+
+ * New - Add "has-featured-image" class to slides that have one.
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Fix empty link tags in slides
+   /classes/class-wooslider-sliders.php
+
+ * New - Add falback to slides with no featured image in the image slider, they now default to the content only slide layout
+   /classes/class-wooslider-sliders.php
+
+ * New - Add support for shortcodes to the Slides slider content.
+   /classes/class-wooslider-sliders.php
+
+ * New - Added filters on content output
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Fix issue with initial slider height
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Fix issue with oembed data being modified on all videos, now applied only to videos in 'slide' post type
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Fix issue with videos not being properly discovered by provider APIs on first page load
+   /classes/class-wooslider-sliders.php
+
+wi.12.19 - version 2.0.1
  * New - Add order settings for Slides post type by date or menu order
    /classes/class-wooslider-admin.php,
    /classes/class-wooslider-sliders.php,
@@ -8,7 +36,7 @@
 
  * Fix - Slide URL not saving
    /classes/class-wooslider-posttypes.php,
-   /classes/class-wooslider-sliders.php 
+   /classes/class-wooslider-sliders.php
 
  * Fix - Incorrect callback API variables
    /classes/class-wooslider-frontend.php

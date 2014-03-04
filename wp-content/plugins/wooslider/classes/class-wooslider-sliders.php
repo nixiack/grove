@@ -204,7 +204,8 @@ class WooSlider_Sliders {
 						'size' => 'large',
 						'link_title' => '',
 						'overlay' => 'none', // none, full or natural
-						'display_excerpt' => 'true'
+						'display_excerpt' => 'true',
+						'display_title' => 'true'
 						);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -233,26 +234,52 @@ class WooSlider_Sliders {
 		$posts = get_posts( $query_args );
 
 		if ( ! is_wp_error( $posts ) && ( count( $posts ) > 0 ) ) {
-			// Setup the CSS class.
-			$class = 'layout-' . esc_attr( $args['layout'] ) . ' overlay-' . esc_attr( $args['overlay'] );
 
 			foreach ( $posts as $k => $post ) {
 				setup_postdata( $post );
+
+				// Setup the CSS class.
+				$class = 'layout-' . esc_attr( $args['layout'] ) . ' overlay-' . esc_attr( $args['overlay'] );
+
 				$image = get_the_post_thumbnail( get_the_ID(), $args['size'] );
+
+				// If there is an image, add "has-featured-image" class
+				if ( '' != $image ) {
+					$class .= ' has-featured-image';
+				}
 
 				// Allow plugins/themes to filter here.
 				$excerpt = '';
-				if ( ( $args['display_excerpt'] == 'true' || $args['display_excerpt'] == 1 ) ) { $excerpt = wpautop( get_the_excerpt() ); }
+				if ( ( $args['display_excerpt'] == 'true' || $args['display_excerpt'] == 1 ) ) {
+					$excerpt = wpautop( apply_filters( 'wooslider_posts_excerpt', get_the_excerpt() ) );
+				}
 
 				$title = get_the_title( get_the_ID() );
 				if ( $args['link_title'] == 'true' || $args['link_title'] == 1 ) {
 					$title = '<a href="' . get_permalink( $post ) . '">' . $title . '</a>';
 					$image = '<a href="' . get_permalink( $post ) . '">' . $image . '</a>';
 				}
-				$content = $image . '<div class="slide-excerpt"><h2 class="slide-title">' . $title . '</h2>' . $excerpt . '</div>';
-				if ( $args['layout'] == 'text-top' ) {
-					$content = '<div class="slide-excerpt"><h2 class="slide-title">' . $title . '</h2>' . $excerpt . '</div>' . $image;
+
+				// Start content HTML output
+				$content = '';
+
+				if ( 'text-top' != $args['layout'] ) {
+					$content .= $image;
 				}
+
+				$content .= '<div class="slide-excerpt">';
+
+				if ( 'true' == $args['display_title'] || 1 == $args['display_title'] ) {
+					$content .= '<h2 class="slide-title">' . $title . '</h2>';
+				}
+
+				$content .= $excerpt;
+				$content .= '</div>';
+
+				if ( 'text-top' == $args['layout'] ) {
+					$content .= $image;
+				}
+				// End content HTML output
 
 				$layed_out_content = apply_filters( 'wooslider_posts_layout_html', $content, $args, $post );
 
@@ -318,7 +345,7 @@ class WooSlider_Sliders {
 
 		if ( '' != $args['slide_page'] ) {
 			$cats_split = explode( ',', $args['slide_page'] );
-			$query_args['tax_query'] = array( 
+			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => 'slide-page',
 					'field' => 'slug',
@@ -334,10 +361,90 @@ class WooSlider_Sliders {
 
 				setup_postdata( $post );
 
+				
+
+			    if ( isset( $args['carousel'] ) && 'true' == $args['carousel'] ) {
+			    	$image = get_the_post_thumbnail( get_the_ID() );
+					$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
+					if ( ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) && ( '' != $wooslider_url ) ) {
+						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
+					}
+
+					$data = array( 'content' => '<div class="slide-content">' . "\n" . apply_filters( 'wooslider_slide_carousel_slides', $image, $args ) . "\n" . '</div>' . "\n" );
+
+			    } else if ( ( isset( $args['imageslide'] ) && 'true' == $args['imageslide'] || 1 == $args['imageslide'] ) && '' != get_the_post_thumbnail( get_the_ID() ) ) {
+
+					// Determine and validate the layout type.
+					$supported_layouts = WooSlider_Utils::get_posts_layout_types();
+					if ( ! in_array( $args['layout'], array_keys( $supported_layouts ) ) ) { $args['layout'] = $defaults['layout']; }
+
+					// Determine and validate the overlay setting.
+					if ( ! in_array( $args['overlay'], array( 'none', 'full', 'natural' ) ) ) { $args['overlay'] = $defaults['overlay']; }
+					if ( ( $args['display_content'] == 'true' || $args['display_content'] == 1 ) || ( $args['display_title'] == 'true' || $args['display_title'] == 1 ) ) {
+
+						$class = 'layout-' . esc_attr( $args['layout'] ) . ' overlay-' . esc_attr( $args['overlay'] );
+					}
+
+					$image = get_the_post_thumbnail( get_the_ID() );
+					$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
+
+					if ( ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) && ( '' != $wooslider_url ) ) {
+						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
+					}
+
+					$title = '';
+					if ( 'true' == $args['display_title'] || 1 == $args['display_title'] ) {
+						$title = get_the_title( get_the_ID() );
+						if ( ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) && ( '' != $wooslider_url ) ) {
+							$title = '<a href="' . esc_url( $wooslider_url ) . '">' . $title . '</a>';
+						}
+						$title = '<h2 class="slide-title">' . $title . '</h2>';
+					}
+
+					$content = '';
+					if ( ( 'true' == $args['display_content'] || 1 == $args['display_content'] ) ) {
+						$content = wpautop( apply_filters( 'wooslider_slides_excerpt', get_the_content() ) );
+					}
+
+					if ( ( 'true' == $args['display_content'] || 1 == $args['display_content'] ) || ( 'true' == $args['display_title'] || 1 == $args['display_title'] ) ) {
+						$content = '<div class="slide-excerpt">' . $title . $content . '</div>';
+						if ( $args['layout'] == 'text-top' ) {
+							$content = $content . $image;
+						} else {
+							$content = $image . $content;
+						}
+					} else {
+						$content = $image;
+					}
+
+					$layed_out_content = apply_filters( 'wooslider_slides_layout_html', $content, $args, $post );
+
+					// If there is an image, add "has-featured-image" class
+					if ( '' != $image ) {
+						$class .= ' has-featured-image';
+					}
+
+					$content = '<div class="slide-content ' . esc_attr( $class ) . '">' . $layed_out_content . '</div>';
+
+					$data = array( 'content' => $content );
+
+				} else {
+					$content = apply_filters( 'wooslider_slides_content', get_the_content() );
+				    $data = array( 'content' => '<div class="slide-content">' . "\n" . apply_filters( 'wooslider_slide_content_slides', $content, $args ) . "\n" . '</div>' . "\n" );
+				}
+
+				if ( 'true' == $args['thumbnails'] || 1 == $args['thumbnails'] || 2 == $args['thumbnails'] || 'carousel' == $args['thumbnails'] || 'thumbnails' == $args['thumbnails']) {
+					$thumb_url = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'medium' );
+					if ( ! is_bool( $thumb_url ) && isset( $thumb_url[0] ) ) {
+						$data['attributes'] = array( 'data-thumb' => esc_url( $thumb_url[0] ) );
+					} else {
+						$data['attributes'] = array( 'data-thumb' => esc_url( WooSlider_Utils::get_placeholder_image() ) );
+					}
+				}
+
 				$post_meta = get_post_custom( get_the_ID() );
 			    foreach( $post_meta as $meta=>$value ) {
 			        if( '_oembed' == substr( trim( $meta ) , 0 , 7 ) ) {
-
 			        	if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $value[0], $match)) {
 				   			$has_video['youtube'] = true;
 				   			add_filter( 'wooslider_callback_start_' . $settings['id'], array( 'WooSlider_Frontend', 'wooslider_youtube_start' ) );
@@ -354,81 +461,6 @@ class WooSlider_Sliders {
 			         	}
 			        }
 			    }
-
-			    if ( isset( $args['carousel'] ) && 'true' == $args['carousel'] ) {
-			    	$image = get_the_post_thumbnail( get_the_ID() );
-					if ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) {
-						$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
-						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
-					}
-
-					$data = array( 'content' => '<div class="slide-content">' . "\n" . apply_filters( 'wooslider_slide_carousel_slides', $image, $args ) . "\n" . '</div>' . "\n" );
-
-			    } else if ( isset( $args['imageslide'] ) && 'true' == $args['imageslide'] || 1 == $args['imageslide'] ) {
-
-					// Determine and validate the layout type.
-					$supported_layouts = WooSlider_Utils::get_posts_layout_types();
-					if ( ! in_array( $args['layout'], array_keys( $supported_layouts ) ) ) { $args['layout'] = $defaults['layout']; }
-
-					// Determine and validate the overlay setting.
-					if ( ! in_array( $args['overlay'], array( 'none', 'full', 'natural' ) ) ) { $args['overlay'] = $defaults['overlay']; }
-					if ( ( $args['display_content'] == 'true' || $args['display_content'] == 1 ) || ( $args['display_title'] == 'true' || $args['display_title'] == 1 ) ) {
-
-						$class = 'layout-' . esc_attr( $args['layout'] ) . ' overlay-' . esc_attr( $args['overlay'] );
-					}
-
-					$image = get_the_post_thumbnail( get_the_ID() );
-					if ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) {
-						$wooslider_url = get_post_meta( get_the_ID(), '_wooslider_url', true );
-						$image = '<a href="' . esc_url( $wooslider_url ) . '">' . $image . '</a>';
-					}
-
-					$title = '';
-					if ( 'true' == $args['display_title'] || 1 == $args['display_title'] ) {
-						$title = get_the_title( get_the_ID() );
-						if ( 'true' == $args['link_slide'] || 1 == $args['link_slide'] ) {
-							$title = '<a href="' . esc_url( $wooslider_url ) . '">' . $title . '</a>';
-						}
-						$title = '<h2 class="slide-title">' . $title . '</h2>';
-					}
-
-					$content = '';
-					if ( ( 'true' == $args['display_content'] || 1 == $args['display_content'] ) ) {
-						$content = wpautop( get_the_excerpt() );
-
-					}
-
-					if ( ( 'true' == $args['display_content'] || 1 == $args['display_content'] ) || ( 'true' == $args['display_title'] || 1 == $args['display_title'] ) ) {
-						$content = '<div class="slide-excerpt">' . $title . $content . '</div>';
-						if ( $args['layout'] == 'text-top' ) {
-							$content = $content . $image;
-						} else {
-							$content = $image . $content;
-						}
-					} else {
-						$content = $image;
-					}
-
-					$layed_out_content = apply_filters( 'wooslider_slides_layout_html', $content, $args, $post );
-
-					$content = '<div class="slide-content ' . esc_attr( $class ) . '">' . $layed_out_content . '</div>';
-
-					$data = array( 'content' => $content );
-
-				} else {
-					$content = get_the_content();
-
-				    $data = array( 'content' => '<div class="slide-content">' . "\n" . apply_filters( 'wooslider_slide_content_slides', $content, $args ) . "\n" . '</div>' . "\n" );
-				}
-
-				if ( 'true' == $args['thumbnails'] || 1 == $args['thumbnails'] || 2 == $args['thumbnails'] || 'carousel' == $args['thumbnails'] || 'thumbnails' == $args['thumbnails']) {
-					$thumb_url = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'medium' );
-					if ( ! is_bool( $thumb_url ) && isset( $thumb_url[0] ) ) {
-						$data['attributes'] = array( 'data-thumb' => esc_url( $thumb_url[0] ) );
-					} else {
-						$data['attributes'] = array( 'data-thumb' => esc_url( WooSlider_Utils::get_placeholder_image() ) );
-					}
-				}
 				$data['video'] = $has_video;
 
 				$slides[] = $data;
@@ -462,6 +494,7 @@ class WooSlider_Sliders {
 		}
 
 		add_filter( 'wooslider_slide_content_slides', 'do_shortcode', 4 );
+		add_filter( 'wooslider_slides_excerpt', 'do_shortcode', 4 );
 
 	} // End apply_default_filters_slides()
 
