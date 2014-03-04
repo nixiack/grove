@@ -78,12 +78,6 @@
 			),
 			
 			array(
-				'name'	  => 'Wordpress Importer',
-				'slug'	  => 'wordpress-importer',
-				'required'  => false,
-			),
-			
-			array(
 				'name'	  => 'Zilla Shortcodes',
 				'slug'	  => 'zilla-shortcodes',
 				'required'  => false,
