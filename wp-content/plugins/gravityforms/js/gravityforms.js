@@ -1,12 +1,7 @@
-// "prop" method fix for previous versions of jQuery
-var originalPropMethod = jQuery.fn.prop;
 
-jQuery.fn.prop = function() {
-    if(typeof originalPropMethod == 'undefined') {
-        return jQuery.fn.attr.apply(this, arguments);
-    } else {
-        return originalPropMethod.apply(this, arguments);
-    }
+// "prop" method fix for previous versions of jQuery (1.5 and below)
+if( typeof jQuery.fn.prop === 'undefined' ) {
+    jQuery.fn.prop = jQuery.fn.attr;
 }
 
 //Formatting free form currency fields to currency
@@ -828,15 +823,14 @@ var GFCalc = function(formId, formulaFields){
         }
         else {
 
-            var decimalSeparator, thousandSeparator;
-            if(formulaField.numberFormat == "decimal_comma"){
+            var decimalSeparator = ".";
+            var thousandSeparator = ",";
+
+            if(numberFormat == "decimal_comma"){
                 decimalSeparator = ",";
                 thousandSeparator = ".";
             }
-            else if(formulaField.numberFormat == "decimal_dot"){
-                decimalSeparator = ".";
-                thousandSeparator = ",";
-            }
+
             result = gformFormatNumber(result, !gformIsNumber(formulaField.rounding) ? -1 : formulaField.rounding, decimalSeparator, thousandSeparator);
         }
 
