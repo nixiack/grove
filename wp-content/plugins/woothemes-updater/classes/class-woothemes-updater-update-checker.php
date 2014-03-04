@@ -39,7 +39,7 @@ class WooThemes_Updater_Update_Checker {
 	 * @return void
 	 */
 	public function __construct ( $file, $product_id, $file_id, $license_hash = '' ) {
-		$this->api_url = 'http://www.woothemes.com/?wc-api=woothemes-installer-api&';
+		$this->api_url = 'http://www.woothemes.com/wc-api/woothemes-installer-api';
 		$this->file = $file;
 		$this->product_id = $product_id;
 		$this->file_id = $file_id;
@@ -183,7 +183,7 @@ class WooThemes_Updater_Update_Checker {
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking' => true,
-			'headers' => array( 'user-agent' => 'WooThemesUpdater/1.2.2' ),
+			'headers' => array( 'user-agent' => 'WooThemesUpdater/1.2.3' ),
 			'body' => $args,
 			'cookies' => array(),
 			'sslverify' => false

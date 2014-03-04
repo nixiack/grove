@@ -35,7 +35,7 @@ class WooThemes_Updater_API {
 
 	public function __construct () {
 		$this->token = 'woothemes-updater';
-		$this->api_url = 'http://www.woothemes.com/';
+		$this->api_url = 'http://www.woothemes.com/wc-api/product-key-api';
 		$this->errors = array();
 	} // End __construct()
 
@@ -108,7 +108,8 @@ class WooThemes_Updater_API {
 	 * @return array $data
 	 */
 	private function request ( $endpoint = 'check', $params = array() ) {
-		$url = add_query_arg( 'wc-api', 'product-key-api', $this->api_url );
+		// $url = add_query_arg( 'wc-api', 'product-key-api', $this->api_url );
+		$url = $this->api_url;
 
 		$supported_methods = array( 'check', 'activation', 'deactivation', 'ping' );
 		$supported_params = array( 'licence_key', 'file_id', 'product_id', 'home_url' );

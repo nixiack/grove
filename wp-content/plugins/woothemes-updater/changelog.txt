@@ -1,5 +1,8 @@
 *** WooThemes Updater Changelog ***
 
+2014.02.25 - version 1.2.3
+ * Fix - Adjusts the API URL to point to a newly formed version of the same endpoint on WooThemes.com.
+
 2013.11.27 - version 1.2.1
  * Adds an admin notice if there are products present on the installation which have not yet had their licenses activated.
  * Ensures the network admin screen works correctly when switching between the tabs.
