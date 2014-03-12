@@ -1520,6 +1520,51 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	$wp_customize->add_section( 'grove_sidebar_pos', array(
+		'title'          => 'Sidebar Position',
+		'description'	 => 'Switch default sidebar position',
+		'priority'       => 27,
+	) );
+	
+	$wp_customize->add_setting( 'grove_sidebar_pos', array(
+		'default'        => 'right',
+		'type'	=> 'option',
+	) );
+		
+
+	$wp_customize->add_control( 'grove_sidebar_pos', array(
+	'label'   => 'Align Sidebar',
+	'section' => 'grove_sidebar_pos',
+	'type'    => 'select',
+	'choices'    => array(
+		'left' => 'left',
+		'right' => 'right',
+		),
+	) );
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	$wp_customize->add_section( 'grove_custom_logo', array(
 		'title'          => 'Logo',

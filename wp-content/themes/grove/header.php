@@ -7,7 +7,39 @@
  * @package Grove
  * @since Grove 1.0
  */
-?><!DOCTYPE html>
+?>
+<?php  
+
+
+
+
+$grove_sidebar_pos = get_option('grove_sidebar_pos');
+
+if($grove_sidebar_pos != '') {
+
+
+	add_filter('body_class','grove_sidebar_pos_function');
+	function grove_sidebar_pos_function($classes) {
+		
+		$grove_sidebar_pos = get_option('grove_sidebar_pos');
+	
+		$sidebar_allignment_set = 0;
+		
+		if((in_array("right-sidebar",$classes)) || (in_array("left-sidebar",$classes))) {
+			$sidebar_allignment_set = 1;
+		}
+		
+		if($sidebar_allignment_set == 0) {
+			$classes[] = $grove_sidebar_pos.'-sidebar';
+		}
+		
+		return $classes;
+	}
+
+}
+
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -49,8 +81,6 @@
 </head>
 
 <body <?php body_class(); ?>>
-
-<?php  ?>
 
 <div id="page" class="hfeed site">
 	<?php do_action( 'before' ); $header_image = get_header_image(); ?>
