@@ -50,6 +50,7 @@ class WooThemes_Updater_API {
 		$response = false;
 
 		//Ensure we have a correct product id.
+		$product_id = trim( $product_id );
 		if( ! is_numeric( $product_id ) ){
 			$plugins = get_plugins();
 			$plugin_name = isset( $plugins[ $plugin_file ]['Name'] ) ? $plugins[ $plugin_file ]['Name'] : $plugin_file;

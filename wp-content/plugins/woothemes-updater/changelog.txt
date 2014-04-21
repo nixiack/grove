@@ -1,5 +1,8 @@
 *** WooThemes Updater Changelog ***
 
+2014.03.24 - version 1.2.4
+ * Fix - Ensure we have a numeric product id.
+
 2014.02.25 - version 1.2.3
  * Fix - Adjusts the API URL to point to a newly formed version of the same endpoint on WooThemes.com.
 
