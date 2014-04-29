@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: ZillaShortcodes
+Plugin Name: ZillaShortcodes-3.9-Patch
 Plugin URI: http://www.themezilla.com/plugins/zillashortcodes
 Description: A simple shortcode generator. Add buttons, columns, tabs, toggles and alerts to your theme.
 Version: 1.1
@@ -54,9 +54,14 @@ class ZillaShortcodes {
 	 */
 	function add_rich_plugins( $plugin_array )
 	{
+		if ( floatval(get_bloginfo('version')) >= 3.9){
 		$plugin_array['zillaShortcodes'] = ZILLA_TINYMCE_URI . '/plugin.js';
-		return $plugin_array;
+	}else{
+		$plugin_array['zillaShortcodes'] = ZILLA_TINYMCE_URI . '/plugin.old.js'; 
+		// For old versions of WP
 	}
+		return $plugin_array;
+	}	
 	
 	// --------------------------------------------------------------------------
 	
@@ -86,7 +91,12 @@ class ZillaShortcodes {
 		wp_enqueue_script( 'jquery-livequery', ZILLA_TINYMCE_URI . '/js/jquery.livequery.js', false, '1.1.1', false );
 		wp_enqueue_script( 'jquery-appendo', ZILLA_TINYMCE_URI . '/js/jquery.appendo.js', false, '1.0', false );
 		wp_enqueue_script( 'base64', ZILLA_TINYMCE_URI . '/js/base64.js', false, '1.0', false );
+		if ( floatval(get_bloginfo('version')) >= 3.9){
 		wp_enqueue_script( 'zilla-popup', ZILLA_TINYMCE_URI . '/js/popup.js', false, '1.0', false );
+		}else{
+		wp_enqueue_script( 'zilla-popup', ZILLA_TINYMCE_URI . '/js/popup.old.js', false, '1.0', false );
+		//For older versions of WP
+}
 		
 		wp_localize_script( 'jquery', 'ZillaShortcodes', array('plugin_folder' => WP_PLUGIN_URL .'/zilla-shortcodes') );
 	}

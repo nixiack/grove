@@ -143,11 +143,11 @@ jQuery(document).ready(function($) {
     		
     		// when insert is clicked
     		$('.zilla-insert', form).click(function() {    		 			
-    			if(parent.tinymce)
-                {
-                    parent.tinymce.activeEditor.execCommand('mceInsertContent',false,$('#_zilla_ushortcode', form).html());
-                    tb_remove();
-                }
+    			if(window.tinyMCE)
+				{
+					window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, $('#_zilla_ushortcode', form).html());
+					tb_remove();
+				}
     		});
     	}
 	}
