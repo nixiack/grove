@@ -1211,7 +1211,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 			 };
 
 	$wp_customize->add_control( 'slide_pcat', array(
-	'label'   => 'If From Posts, Choose Category',
+	'label'   => 'Choose Category (Posts)',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $pcats,
@@ -1233,17 +1233,30 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	) );
 	
 
-	$wp_customize->add_setting( 'slide_text_overlay', array(
+	$wp_customize->add_setting( 'slide_pagination', array(
 		'default'        => '',
 		'type'	=> 'option',
 	) );
 	
-	$wp_customize->add_control( 'slide_text_overlay', array(
-	'label'   => 'Overlay',
+	$wp_customize->add_control( 'slide_pagination', array(
+	'label'   => 'Pagination',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
-	'choices'    => array('none'=>'None','full'=>'Full','natural'=>'Natural'),
+	'choices'    => array('false'=>'Dots','true'=>'Thumbnails'),
 	'priority' => 4, 
+	) );
+
+	$wp_customize->add_setting( 'slide_order_by', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'slide_order_by', array(
+	'label'   => 'Order by (Slideshows)',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('date'=>'Date','menu_order'=>'Menu Order'),
+	'priority' => 5, 
 	) );
 
 	$wp_customize->add_setting( 'slide_page', array(
@@ -1257,11 +1270,11 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 			 };
 
 	$wp_customize->add_control( 'slide_page', array(
-	'label'   => 'If From Slideshow, Choose Slide Group',
+	'label'   => 'Choose Slide Group (Slideshows)',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $slides,
-	'priority' => 5, 
+	'priority' => 6, 
 	) );
 	
 	
@@ -1276,7 +1289,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12'),
-	'priority' => 6, 
+	'priority' => 7, 
 	) );
 	
 	$wp_customize->add_setting( 'slider_linking', array(
@@ -1288,7 +1301,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link Slide To It\'s Post?',
 		'section' => 'grove_slider_settings',
 		'type'    => 'checkbox',
-		'priority' => 7, 
+		'priority' => 8, 
 	) );
 	
 	$wp_customize->add_setting( 'slide_custom_id', array(
@@ -1300,7 +1313,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'label'   => 'Custom ID',
 	'section' => 'grove_slider_settings',
 	'type'    => 'text',
-	'priority' => 8, 
+	'priority' => 9, 
 	) );
 
 	$wp_customize->add_setting( 'small_slider', array(
@@ -1312,7 +1325,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Small slider?',
 		'section' => 'grove_slider_settings',
 		'type'    => 'checkbox',
-		'priority' => 9, 
+		'priority' => 10, 
 	) );
 
 	$wp_customize->add_setting( 'slide_feature_static', array(
@@ -1324,7 +1337,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'label'   => 'Feature content (for use with small slider)',
 	'section' => 'grove_slider_settings',
 	'settings'   => 'slide_feature_static',
-	'priority' => 10, 
+	'priority' => 11, 
 	) ) );	
 
 
@@ -1514,51 +1527,6 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_tracking_code',
 	'settings'   => 'trackcodef',
 	) ) );
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	$wp_customize->add_section( 'grove_sidebar_pos', array(
-		'title'          => 'Sidebar Position',
-		'description'	 => 'Switch default sidebar position',
-		'priority'       => 27,
-	) );
-	
-	$wp_customize->add_setting( 'grove_sidebar_pos', array(
-		'default'        => 'right',
-		'type'	=> 'option',
-	) );
-		
-
-	$wp_customize->add_control( 'grove_sidebar_pos', array(
-	'label'   => 'Align Sidebar',
-	'section' => 'grove_sidebar_pos',
-	'type'    => 'select',
-	'choices'    => array(
-		'left' => 'left',
-		'right' => 'right',
-		),
-	) );
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
