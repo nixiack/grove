@@ -30,10 +30,6 @@ body{
 	margin:0 40% 0 0;
 }
 
-.hide-sidebar #content {
-	margin: 0;
-}
-
 .left-sidebar #primary{
 	float: right;
 	margin: 0 0 0 -25%;
