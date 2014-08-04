@@ -14,9 +14,7 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_stylesheet_url' filter.
  *
  * @package TribeEventsCalendar
- * @since  1.0
- * @author Modern Tribe Inc.
- *s
+ *
  */
 
 .tribe-mobile #main {
@@ -29,6 +27,17 @@ a.tribe-events-gmap {
 
 #tribe-events-content {
 	width: 100%;
+}
+
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	margin-top: 2em;
+}
+
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 0;
 }
 
 /* = General Template Header/Footer Nav
@@ -92,7 +101,7 @@ a.tribe-events-gmap {
 	background: #666;
 }
 
-.tribe-events-sub-nav .tribe-events-nav-previous a span{
+.tribe-events-sub-nav .tribe-events-nav-left a span{
 	display:block;
 	content:"\ab";
 	position:absolute;
@@ -100,7 +109,7 @@ a.tribe-events-gmap {
 	top:10px;
 }
 
-.tribe-events-sub-nav .tribe-events-nav-next a span{
+.tribe-events-sub-nav .tribe-events-nav-right a span{
 	display:block;
 	content: "\00BB";
 	position:absolute;
@@ -362,9 +371,9 @@ a.tribe-events-gmap {
 	text-align: center;
 	margin-top: 10px;
 }
-#tribe-events-footer + a.tribe-events-ical.tribe-events-button {
+#tribe-events-footer ~ a.tribe-events-ical.tribe-events-button {
 	float: none;
-	margin: 0 auto;
+	margin: 0 auto 10px;
 	-webkit-border-radius: 0;
 			border-radius: 0;	
 	display: block;

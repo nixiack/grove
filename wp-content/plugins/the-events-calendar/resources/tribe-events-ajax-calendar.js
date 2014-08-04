@@ -19,10 +19,14 @@
 	$(document).ready(function () {
 
 		var $body = $('body'),
-			base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+            $nav_link = $('[class^="tribe-events-nav-"] a'),
+			base_url = '/',
 			initial_date = tf.get_url_param('tribe-bar-date'),
 			$tribedate = $('#tribe-bar-date'),
 			date_mod = false;
+
+        if($nav_link.length)
+            base_url = $nav_link.first().attr('href').slice(0, -8);
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date && initial_date.length > 7){
@@ -31,8 +35,34 @@
 			}
 		}
 
+        // begin display date formatting
+
+        var date_format = 'yyyy-mm';
+
+        if(ts.datepicker_format !== '0'){
+
+            // we are not using the default query date format, lets grab it from the data array
+
+            var arr_key = parseInt(ts.datepicker_format),
+                mask_key = 'm' + ts.datepicker_format.toString();
+
+            date_format = td.datepicker_formats.month[arr_key];
+
+            // if url date is set and datepicker format is different from query format
+            // we need to fix the input value to emulate that before kicking in the datepicker
+
+            if(initial_date){
+                if(initial_date.length <= 7)
+                    initial_date = initial_date + '-01';
+
+                $tribedate.val(tribeDateFormat(initial_date, mask_key));
+            }
+
+
+        }
+
 		td.datepicker_opts = {
-			format: 'yyyy-mm',
+			format: date_format,
 			minViewMode: 'months',
 			autoclose: true
 		};
@@ -40,6 +70,8 @@
 		$tribedate
 			.bootstrapDatepicker(td.datepicker_opts)
 			.on('changeDate', function(e){
+
+                ts.mdate = e.date;
 
 				var year = e.date.getFullYear(),
 					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
@@ -49,7 +81,7 @@
 				ts.date = year + '-' + month;
 
 				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-					if (ts.ajax_running)
+					if (ts.ajax_running || ts.updating_picker)
 						return;
 					if (ts.filter_cats)
 						td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
@@ -213,7 +245,13 @@
 					return;
 				var $this = $(this).find('a');
 				ts.date = $this.data("month");
-				tf.update_picker(ts.date);
+                ts.mdate = ts.date + '-01';
+                if(ts.datepicker_format !== '0'){
+                   tf.update_picker(tribeDateFormat(ts.mdate, mask_key));
+                } else {
+                   tf.update_picker(ts.date);
+                }
+
 				if (ts.filter_cats)
 					td.cur_url = $('#tribe-events-header').data('baseurl');
 				else
@@ -247,7 +285,6 @@
 
 		/**
 		 * @function tribe_events_bar_calendar_ajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the month view ajax handler.
 		 * @param {event} e The event object.
 		 */
@@ -258,7 +295,11 @@
 				if (ts.ajax_running)
 					return;
 				if ($tribedate.val().length) {
-					ts.date = $tribedate.val();
+                    if(ts.datepicker_format !== '0'){
+                        ts.date = tribeDateFormat($tribedate.bootstrapDatepicker('getDate'), 'tribeMonthQuery');
+                    } else {
+                        ts.date = $tribedate.val();
+                    }
 				} else {
 					if(!date_mod)
 						ts.date = td.cur_date.slice(0, -3);
@@ -295,7 +336,6 @@
 
 		/**
 		 * @function tribe_events_calendar_ajax_post
-		 * @since 3.0
 		 * @desc The ajax handler for month view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional paramters before actually launching the ajax post request.
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_monthView_ajaxSuccess' are fired on success.
@@ -303,6 +343,9 @@
 		 */
 
 		function tribe_events_calendar_ajax_post() {
+
+            if(tf.invalid_date(ts.date))
+                return;
 
 			$('.tribe-events-calendar').tribe_spin();
 			ts.pushcount = 0;

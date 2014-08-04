@@ -8,8 +8,6 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_stylesheet_url' filter.
  *
  * @package TribeEventsCalendar
- * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 
@@ -111,6 +109,20 @@ h2.tribe-events-page-title,
 /* General Template Header/Footer Nav */
 .single-tribe_events #tribe-events-header {
  	display: none;
+}
+
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	font-size: 21px;
+	margin: 1.5em 0 .25em;
+	background-color: transparent;
+	padding: 6px 10px;
+	background: #E0E0E0;
+	color:#fff;
+	text-align: center;
+	line-height: 1;
 }
 
 /* = List View Template Styles

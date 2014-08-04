@@ -19,11 +19,8 @@ if (!class_exists('TribeEventsAdminList')) {
 		 */
 		public static function init() {
 			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
-				//add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
-				//add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ), 10, 2 );
-				//add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ), 10, 2 );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ), 10, 2 );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ), 10, 2 );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
@@ -57,7 +54,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
+			$fields .= ", eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
 			return $fields;
 		}
 
@@ -75,8 +72,8 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $join;
 			}
 
-			$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON ( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate' ) ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON ( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate' ) ";
 
 			return $join;
 		}
@@ -113,11 +110,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			$endDateSQL = " eventEnd.meta_value ";
 			$order = $query->get('order') ? $query->get('order') : 'asc';
 			$orderby = $query->get('orderby') ? $query->get('orderby') : 'start-date';
+			if ( $orderby == 'event_date' ) { $orderby = 'start-date'; };
 		
 			if ($orderby == 'start-date') {
-				$orderby_sql = " {$wpdb->postmeta}.meta_value " . $order . ', ' . $endDateSQL . $order;
+				$orderby_sql = " eventStart.meta_value " . $order . ', ' . $endDateSQL . $order;
 			} else if ($orderby == 'end-date') {
-				$orderby_sql = $endDateSQL . $order . ", {$wpdb->postmeta}.meta_value " . $order;
+				$orderby_sql = $endDateSQL . $order . ", eventStart.meta_value " . $order;
 			}
 
 			return $orderby_sql;
