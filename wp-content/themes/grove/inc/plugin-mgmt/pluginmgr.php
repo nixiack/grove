@@ -78,9 +78,9 @@
 			),
 			
 			array(
-				'name'	  => 'Zilla Shortcodes',
-				'slug'	  => 'zilla-shortcodes',
-				'required'  => false,
+				'name'	  => 'Simple Shortcodes',
+				'slug'	  => 'smpl-shortcodes',
+				'required'  => true,
 			),
 	 
 		);
