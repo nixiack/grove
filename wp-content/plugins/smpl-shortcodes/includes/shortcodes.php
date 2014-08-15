@@ -62,18 +62,25 @@ function smpl_shortcode_column( $atts, $content = null, $tag = '' ) {
             $class .= 'one_sixth';
             break;
 
+        case 'five_sixth' :
+            $class .= 'five_sixth';
+            break;
+
         case 'one_fourth' :
             $class .= 'one_fourth';
             break;
 
+        case 'two_sixth' :
         case 'one_third' :
             $class .= 'one_third';
             break;
 
+        case 'three_sixth' :
         case 'one_half' :
             $class .= 'one_half';
             break;
 
+        case 'four_sixth' :
         case 'two_third' :
         case 'two_thirds' :
             $class .= 'two_thirds';
@@ -133,6 +140,22 @@ function smpl_shortcode_legacy_column_last( $atts, $content = null, $tag = '' ) 
 
         case 'one_sixth_last' :
             $class .= 'one_sixth last';
+            break;
+
+        case 'two_sixth_last' :
+            $class .= 'two_sixth last';
+            break;
+
+        case 'three_sixth_last' :
+            $class .= 'three_sixth last';
+            break;
+
+        case 'four_sixth_last' :
+            $class .= 'four_sixth last';
+            break;
+
+        case 'five_sixth_last' :
+            $class .= 'five_sixth last';
             break;
 
         case 'one_fourth_last' :

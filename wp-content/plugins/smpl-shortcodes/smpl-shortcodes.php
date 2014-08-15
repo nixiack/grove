@@ -2,7 +2,7 @@
 /*
 Plugin Name: Simple Shortcodes
 Description: This plugin works in conjuction with the SMPL framework to create shortcodes for many of the framework's internal elements.
-Version: 1.0.17
+Version: 1.0.18
 Author: simplethemes
 Author URI: http://www.simplethemes.com
 License: GPL2
@@ -79,6 +79,10 @@ function smpl_shortcodes_init() {
 
 		// Columns -- @todo clean this mess up, and create single [column] shortcode
 		add_shortcode( 'one_sixth', 'smpl_shortcode_column' );			// 1/6
+		add_shortcode( 'two_sixth', 'smpl_shortcode_column' );			// 2/6
+		add_shortcode( 'three_sixth', 'smpl_shortcode_column' );		// 3/6
+		add_shortcode( 'four_sixth', 'smpl_shortcode_column' );			// 4/6
+		add_shortcode( 'five_sixth', 'smpl_shortcode_column' );			// 5/6
 		add_shortcode( 'one_fourth', 'smpl_shortcode_column' );			// 1/4
 		add_shortcode( 'one_third', 'smpl_shortcode_column' );			// 1/3
 		add_shortcode( 'one_half', 'smpl_shortcode_column' );			// 1/2
@@ -111,6 +115,10 @@ function smpl_shortcodes_init() {
 		add_shortcode( 'three_fifths_last', 'smpl_shortcode_legacy_column_last' );		// 3/5
 		add_shortcode( 'four_fifth_last', 'smpl_shortcode_legacy_column_last' );		// 4/5
 		add_shortcode( 'four_fifths_last', 'smpl_shortcode_legacy_column_last' );		// 4/5
+		add_shortcode( 'two_sixth_last', 'smpl_shortcode_column' );						// 2/6
+		add_shortcode( 'three_sixth_last', 'smpl_shortcode_column' );					// 3/6
+		add_shortcode( 'four_sixth_last', 'smpl_shortcode_column' );					// 4/6
+		add_shortcode( 'five_sixth_last', 'smpl_shortcode_column' );					// 5/6
 
 		// Components
 		add_shortcode( 'button', 'smpl_shortcode_button' );
