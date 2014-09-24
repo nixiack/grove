@@ -190,7 +190,12 @@ class WooSlider_PostTypes {
 	 * @return void
 	 */
 	public function setup_slide_post_type () {
-		global $wooslider;
+		global $wooslider, $wp_version;
+
+		$admin_menu_icon = esc_url( $wooslider->plugin_url . 'assets/images/icon_slide_16.png' );
+		if ( '3.9' <= $wp_version ) {
+			$admin_menu_icon = 'dashicons-images-alt2';
+		}
 
 		$args = array(
 		    'labels' => $this->create_post_type_labels( 'slide', $this->labels['slide']['singular'], $this->labels['slide']['plural'], $this->labels['slide']['menu'] ),
@@ -204,7 +209,7 @@ class WooSlider_PostTypes {
 		    'has_archive' => false,
 		    'hierarchical' => false,
 		    'menu_position' => 20, // Below "Pages"
-		    'menu_icon' => esc_url( $wooslider->plugin_url . 'assets/images/icon_slide_16.png' ),
+		    'menu_icon' => $admin_menu_icon,
 		    'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes' )
 		);
 

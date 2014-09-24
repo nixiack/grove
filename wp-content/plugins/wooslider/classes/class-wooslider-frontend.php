@@ -82,7 +82,7 @@ class WooSlider_Frontend {
 			    }
 			}
 		}
-		
+
 	    return $html;
 	} // End oembed_video_output()
 
@@ -251,7 +251,7 @@ class WooSlider_Frontend {
 		// Animation
 		if ( isset( $args['animation'] ) && in_array( $args['animation'], WooSlider_Utils::get_supported_effects() ) ) {
 			$args_output_array['animation'] = '"' . $args['animation']. '"';
-			$args_output_array['useCSS'] = 'false';
+			$args_output_array['useCSS'] = 'true';
 		}
 
 		// Direction
@@ -349,6 +349,10 @@ class WooSlider_Frontend {
 			$args_output_array['itemWidth'] = 300;
 			$args_output_array['minItems'] = 3;
 			$args_output_array['maxItems'] = 3;
+			if ( isset( $extra['carousel_columns'] ) ) {
+				$args_output_array['minItems'] = $extra['carousel_columns'];
+				$args_output_array['maxItems'] = $extra['carousel_columns'];
+			}
 			//$args_output_array['move'] = 3;
 		}
 		//loop through array, create string of arguments

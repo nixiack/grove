@@ -1,5 +1,42 @@
 *** WooSlider Changelog ***
 
+2014.07.31 - version 2.1.0
+ * Fix - Fix issue with PHP noticed being shown when adding a slider via the Add Media screen.
+   classes/class-wooslider-sliders.php
+
+ * Fix - Fix 'Undefined Property' PHP notice.
+   classes/class-wooslider-settings-api.php
+
+ * Tweak - Update to FitVids to latest version - 1.1
+   assets/js/jquery.fitvids.js
+
+ * Tweak - Use CSS instead of JavaScript animations.
+   classes/class-wooslider-frontend.php
+
+ * New - Add option to display captions on attachments slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * Tweak - Add tweak to dynamically hide Slide options that cannot be used together.
+   assets/js/shortcode-creator.js,
+   assets/js/shortcode-creator.min.js,
+   classes/class-wooslider-admin.php
+
+ * New - Add option to remove sticky posts from displaying in the Posts slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * New - Add option to select the image size in the Slides slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * New - Add option to select the number of visible images in a carousel slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-frontend.php
+
+ * Fix - Fix mousewheel issue where the area bellow a slider with different slide heights would still repond to the event.
+   assets/css/style.css
+
 2014.01.28 - version 2.0.2
  * New - Add 'display_title' parameter to Posts slider
    /classes/class-wooslider-sliders.php
@@ -28,7 +65,7 @@
  * Fix - Fix issue with videos not being properly discovered by provider APIs on first page load
    /classes/class-wooslider-sliders.php
 
-wi.12.19 - version 2.0.1
+2013.12.19 - version 2.0.1
  * New - Add order settings for Slides post type by date or menu order
    /classes/class-wooslider-admin.php,
    /classes/class-wooslider-sliders.php,

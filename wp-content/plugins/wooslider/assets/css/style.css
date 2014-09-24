@@ -7,6 +7,7 @@
 .wooslider .wooslider-control-nav > li { margin: 0 6px; padding: 0; }
 
 body .wooslider.wooslider-type-posts img, body .wooslider.wooslider-type-attachments img { border: 0; padding: 0; margin: 0; height: auto; }
+body .wooslider ul.slides { overflow: hidden; }
 body .wooslider ul.slides, body .wooslider .wooslider-control-nav, body .wooslider .wooslider-direction-nav { padding: 0; margin: 0; }
 body .wooslider .wooslider-control-nav { position: absolute; top: 100%; margin-top: 15px; }
 body .wooslider .wooslider-control-nav.wooslider-control-thumbs { position: static; float: left; clear: both; margin-bottom: 15px; }
@@ -45,7 +46,7 @@ body .wooslider.wooslider-carousel .slides .wooslider-active-slide img { cursor:
 
 	body .wooslider .overlay-natural.layout-text-left .slide-excerpt { left: 0; top: 10%; overflow: hidden; }
 	body .wooslider .overlay-natural.layout-text-right .slide-excerpt { float: right; right: 0; top: 10%; overflow: hidden; }
-	body .wooslider .overlay-natural.layout-text-right .slide-excerpt .slide-title, 
+	body .wooslider .overlay-natural.layout-text-right .slide-excerpt .slide-title,
 	body .wooslider .overlay-natural.layout-text-right .slide-excerpt p { float: right; }
 	body .wooslider .overlay-natural.layout-text-top .slide-excerpt { left: 0; top: 0; overflow: hidden; }
 	body .wooslider .overlay-natural.layout-text-bottom .slide-excerpt { left: 0; bottom: 0; overflow: hidden; }

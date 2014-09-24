@@ -430,7 +430,7 @@ class WooSlider_Settings_API {
 				if ( $current_tab == $k ) {
 					$class .= ' nav-tab-active';
 				}
-				$url = add_query_arg( 'tab', $k, add_query_arg( 'page', $this->_token, admin_url( 'options-general.php' ) ) );
+				$url = add_query_arg( 'tab', $k, add_query_arg( 'page', $this->token, admin_url( 'options-general.php' ) ) );
 				$html .= '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $v ) . '</a>';
 			}
 		}
