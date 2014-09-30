@@ -3,12 +3,14 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.8.5
+Version: 1.8.17
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
+Text Domain: gravityforms
+Domain Path: /languages
 
 ------------------------------------------------------------------------
-Copyright 2009-2013 Rocketgenius Inc.
+Copyright 2009-2014 Rocketgenius Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -53,6 +55,10 @@ $gf_recaptcha_public_key = "";
 //define('GF_RECAPTCHA_PUBLIC_KEY','YOUR_PUBLIC_KEY_GOES_HERE');
 //------------------------------------------------------------------------------------------------------------------
 
+if(!defined("ABSPATH")){
+    die();
+}
+
 if(!defined("RG_CURRENT_PAGE"))
     define("RG_CURRENT_PAGE", basename($_SERVER['PHP_SELF']));
 
@@ -67,11 +73,14 @@ define("GF_SUPPORTED_WP_VERSION", version_compare(get_bloginfo("version"), GF_MI
 if(!defined("GRAVITY_MANAGER_URL"))
     define("GRAVITY_MANAGER_URL", "http://www.gravityhelp.com/wp-content/plugins/gravitymanager");
 
-require_once( plugin_dir_path( __FILE__ ). '/common.php');
-require_once( plugin_dir_path( __FILE__ ). '/forms_model.php');
-require_once( plugin_dir_path( __FILE__ ). '/widget.php');
-require_once( plugin_dir_path( __FILE__ ) . '/includes/api.php');
-require_once( plugin_dir_path( __FILE__ ) . '/includes/webapi/webapi.php');
+if(!defined("GRAVITY_MANAGER_PROXY_URL"))
+    define('GRAVITY_MANAGER_PROXY_URL', 'http://proxy.gravityplugins.com');
+
+require_once( plugin_dir_path( __FILE__ ) . 'common.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'forms_model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'widget.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/webapi/webapi.php' );
 
 // GFCommon::$version is deprecated, set it to current version for backwards compat
 GFCommon::$version = GFForms::$version;
@@ -94,9 +103,20 @@ if(is_admin() && (RGForms::is_gravity_page() || RGForms::is_gravity_ajax_action(
     add_action("admin_footer", array("RGForms", "no_conflict_mode_style"), 1);
 }
 
+add_action( 'plugins_loaded', array( 'GFForms', 'loaded' ) );
+
 class GFForms {
 
-    public static $version = '1.8.5';
+	public static $version = '1.8.17';
+
+	public static function loaded(){
+		do_action( 'gform_loaded' );
+
+		//initializing Add-Ons if necessary
+		if ( class_exists( 'GFAddOn' ) ) {
+			GFAddOn::init_addons();
+		}
+	}
 
     public static function has_members_plugin(){
         return function_exists( 'members_get_capabilities' );
@@ -228,7 +248,7 @@ class GFForms {
 
         }
         else{
-            add_action('wp_enqueue_scripts', array('RGForms', 'enqueue_scripts'));
+            add_action('wp_enqueue_scripts', array('RGForms', 'enqueue_scripts'), 11 );
             add_action('wp', array('RGForms', 'ajax_parse_request'), 10);
         }
 
@@ -261,7 +281,7 @@ class GFForms {
 
     public static function maybe_process_form(){
 
-        $form_id = isset($_POST["gform_submit"]) ? $_POST["gform_submit"] : 0;
+        $form_id = isset($_POST["gform_submit"]) ? absint($_POST["gform_submit"]) : 0;
         if($form_id){
             $form_info = RGFormsModel::get_form($form_id);
             $is_valid_form = $form_info && $form_info->is_active;
@@ -443,6 +463,7 @@ class GFForms {
               user_id bigint(20),
               date_created datetime not null,
               value longtext,
+              note_type varchar(50),
               PRIMARY KEY  (id),
               KEY lead_id (lead_id),
               KEY lead_user_key (lead_id,user_id)
@@ -755,7 +776,7 @@ class GFForms {
             include_once( ABSPATH.'wp-admin/includes/plugin.php');
 
         $update = GFCommon::get_version_info();
-        if( $update["is_valid_key"] == true && version_compare(GFCommon::$version, $update["version"], '<') ){
+        if( rgar($update, "is_valid_key") == true && version_compare(GFCommon::$version, $update["version"], '<') ){
             $gforms = get_plugin_data( __FILE__ );
             $gforms['type'] = 'plugin';
             $gforms['slug'] = 'gravityforms/gravityforms.php';
@@ -773,7 +794,7 @@ class GFForms {
             include_once( ABSPATH.'wp-admin/includes/plugin.php');
 
         $update = GFCommon::get_version_info();
-        if( $update["is_valid_key"] == true && version_compare(GFCommon::$version, $update["version"], '<') ){
+        if( rgar($update,"is_valid_key") == true && version_compare(GFCommon::$version, $update["version"], '<') ){
             $gforms = get_plugin_data( __FILE__ );
             $gforms['slug'] = 'gravityforms/gravityforms.php'; // If not set by default, always pass theme template
             $gforms['type'] = 'plugin';
@@ -784,7 +805,7 @@ class GFForms {
         return $premium_update;
     }
 
-    private static function drop_index($table, $index){
+    public static function drop_index($table, $index){
         global $wpdb;
         $has_index = $wpdb->get_var("SHOW INDEX FROM {$table} WHERE Key_name='{$index}'");
         if($has_index){
@@ -1096,9 +1117,9 @@ class GFForms {
 
         if (isset($_POST["gform_ajax"])) {
             parse_str($_POST["gform_ajax"]);
-
+            $tabindex = isset($tabindex) ? absint($tabindex) : 1;
             require_once(GFCommon::get_base_path() . "/form_display.php");
-           // GFCommon::$tab_index = $tabindex;
+
             $result = GFFormDisplay::get_form($form_id, $title, $description, false, $_POST["gform_field_values"], true, $tabindex);
             die($result);
         }
@@ -1229,7 +1250,7 @@ class GFForms {
         $key = GFCommon::get_key();
         $version_info = GFCommon::get_version_info();
 
-        if(!$version_info["is_valid_key"]){
+        if(!rgar($version_info, "is_valid_key")){
 
             $plugin_name = "gravityforms/gravityforms.php";
 
@@ -1262,8 +1283,7 @@ class GFForms {
             'Referer' => get_bloginfo("url")
         );
 
-        $raw_response = wp_remote_request(GRAVITY_MANAGER_URL . "/changelog.php?" . GFCommon::get_remote_request_params(), $options);
-
+       $raw_response = GFCommon::post_to_manager("changelog.php", GFCommon::get_remote_request_params(), $options);
         if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code']){
             $page_text = __("Oops!! Something went wrong.<br/>Please try again or <a href='http://www.gravityforms.com'>contact us</a>.", 'gravityforms');
         }
@@ -1695,8 +1715,7 @@ class GFForms {
         $body = array("plugins" => urlencode(serialize($installed_plugins)), "nonces" => urlencode(serialize($nonces)), "key" => GFCommon::get_key());
         $options = array('body' => $body, 'headers' => array('Referer' => get_bloginfo("url")), 'timeout' => 15);
 
-        $request_url = GRAVITY_MANAGER_URL . "/api.php?op=plugin_browser&{$_SERVER["QUERY_STRING"]}";
-        $raw_response = wp_remote_post($request_url, $options);
+        $raw_response = GFCommon::post_to_manager("api.php", "op=plugin_browser&{$_SERVER["QUERY_STRING"]}", $options);
 
          if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] != 200){
             echo "<div class='error' style='margin-top:50px; padding:20px;'>" . __("Add-On browser is currently unavailable. Please try again later.", "gravityforms") . "</div>";
@@ -1708,9 +1727,9 @@ class GFForms {
     }
 
     public static function get_addon_info($api, $action, $args){
-        if($action == "plugin_information" && empty($api) && !rgempty("rg", $_GET)){
-            $request_url = GRAVITY_MANAGER_URL . "/api.php?op=get_plugin&slug={$args->slug}";
-            $raw_response = wp_remote_post($request_url);
+
+		if($action == "plugin_information" && empty($api) && ( !rgempty("rg", $_GET) || $args->slug == 'gravityforms')){
+			$raw_response = GFCommon::post_to_manager("api.php", "op=get_plugin&slug={$args->slug}", array());
 
             if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] != 200)
                 return false;
@@ -1721,13 +1740,13 @@ class GFForms {
             $api->name = $plugin["title"];
             $api->version = $plugin["version"];
             $api->download_link = $plugin["download_url"];
+			$api->tested = '10.0';
         }
         return $api;
     }
 
     public static function get_addon_nonces(){
-        $request_url = GRAVITY_MANAGER_URL . "/api.php?op=get_plugins";
-        $raw_response = wp_remote_get($request_url);
+        $raw_response = GFCommon::post_to_manager("api.php", "op=get_plugins", array());
 
         if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] != 200)
             return false;
@@ -1882,7 +1901,7 @@ class GFForms {
         if(!is_array($notifications))
             die(__("No notifications have been selected. Please select a notification to be sent.", "gravityforms"));
 
-        if(rgpost('sendTo') && GFCommon::is_invalid_or_empty_email(rgpost('sendTo')))
+        if( ! rgempty( 'sendTo', $_POST ) && ! GFCommon::is_valid_email_list(rgpost('sendTo')))
             die(__("The <strong>Send To</strong> email address provided is not valid.", "gravityforms"));
 
         foreach($leads as $lead_id){
@@ -1956,7 +1975,9 @@ class GFForms {
             break;
 
             case "delete" :
-                RGFormsModel::delete_lead($lead_id);
+                if(GFCommon::current_user_can_any("gravityforms_delete_entries")){
+                    RGFormsModel::delete_lead($lead_id);
+                }
             break;
 
             default :
@@ -2021,6 +2042,9 @@ class GFForms {
         check_ajax_referer("rg_select_export_form", "rg_select_export_form");
         $form_id =  intval($_POST["form_id"]);
         $form = RGFormsModel::get_form_meta($form_id);
+
+        $form = apply_filters("gform_form_export_page_{$form_id}", apply_filters("gform_form_export_page", $form));
+
         $filter_settings = GFCommon::get_field_filter_settings($form);
         $filter_settings_json = json_encode($filter_settings);
         $fields = array();
