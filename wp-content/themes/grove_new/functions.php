@@ -115,6 +115,15 @@ function grove_widgets_init() {
 		'before_title' => '<h1 class="widget-title">',
 		'after_title' => '</h1>',
 	) );
+	register_sidebar( array(
+		'name' => 'Header Box',
+		'id' => 'headerbox-widget',
+		'description' => 'This is a widget box for the header.',
+		'before_widget' => '<div class="widget headerbox %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<header class="heading"><h2 class="section-title">',
+		'after_title' => '</h2></header>'
+	) );
 }
 add_action( 'widgets_init', 'grove_widgets_init' );
 

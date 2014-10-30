@@ -157,9 +157,11 @@ if($grove_sidebar_pos != '') {
 			
 					<div id="timer">
 					
+						<?php /*
+					
 						<span id="fafas"></span>
 					
-						<a href="<?php echo get_permalink($cdown_events[$cdown_i_x]->ID); ?>">NEXT ONLINE EXPERIENCE IN
+						<a href="/watch-live/"><div id="timer-title">Next Live Stream</div>
 					
 						<div id="thetimer">test</div></a>
 					
@@ -168,15 +170,34 @@ if($grove_sidebar_pos != '') {
 						var $ = jQuery.noConflict();
 					
 						var liftoffTime = new Date(Date.UTC(<?php echo $cdown_date['y']; ?>, <?php echo $cdown_date['m']; ?>, <?php echo $cdown_date['d']; ?>, <?php echo $cdown_date['h']; ?>, <?php echo $cdown_date['i']; ?>, <?php echo $cdown_date['s']; ?>));
+
+						<?php   // This is for local timers, but has not been completed. 
+							// Continue work here is this feature needs to be added.
+						
+							if($local_timer == 1) { ?>
+						
+								liftoffTime = new Date(<?php echo $cdown_date['y']; ?>, <?php echo $cdown_date['m']; ?>, <?php echo $cdown_date['d']; ?>, <?php echo $cdown_date['h']; ?>, <?php echo $cdown_date['i']; ?>, <?php echo $cdown_date['s']; ?>); <?php
+							
+							}
+						
+						?>
+
 						//liftoffTime.setDate(liftoffTime);
 					
 						//$('#fafas').html(liftoffTime);
-					
+
+						<?php //$strtime = strtotime('2014-10-28 15:00:00'); ?>
+						//alert(liftoffTime+' <?php echo $strtime.' -> '.$cdown_date['h']; ?>');
+
 						$('#thetimer').countdown({until: liftoffTime, 
 							format: 'HMS', expiryUrl: '<?php echo curPageURL(); ?>', compact: true, 
 							layout: '{hnn}{sep}{mnn}{sep}{snn}</b> {desc}', description: ''});
 					
 						</script>
+                        
+                        */ ?>
+                        
+                        <?php if ( !dynamic_sidebar('headerbox-widget') ) : endif; ?>
 					
 					</div>
 				
