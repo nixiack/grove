@@ -7,7 +7,7 @@ body{
 	
 }
 #main, #masthead, .site-info{
-	width: 1170px;
+	width: 960px;
 	margin:0 auto;
 	position: relative;
 }
