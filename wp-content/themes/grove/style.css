@@ -615,9 +615,9 @@ object {
 .banner-inner h1{font-size: 150%;color: #fff; text-shadow: 2px 2px #333;}
 
 .hotbuttons{width:1170px; clear: both; overflow: auto; margin: 0 auto 30px auto;max-width: 100%;}
-.hotbuttons a{width: 370px; overflow: hidden; margin-right: 3%; display: inline-block; float: left;}
+.hotbuttons a{width: 366px; overflow: hidden; margin-right: 3%; display: inline-block; float: left;}
 .hotbuttons a:last-child{margin:0;}
-.hotbuttons a img{max-width: 370px; display: block;}
+.hotbuttons a img{max-width: 366px; display: block;}
 .hotbuttons a strong{display: block; font-size: 140%; margin: 10px 0 0 0;}
 .hotbuttons a span{color:#666; display: block; margin: 10px 0 0 0;}
 .hotbuttons-4 a{width:279px;max-width: 22%;}
@@ -628,9 +628,9 @@ object {
 .hotbuttons-2 a img{max-width: 555px;}
 
 .minifeatures{width:1170px; clear: both; overflow: auto; margin: 0 auto 30px auto;}
-.minifeatures a{width: 370px; overflow: hidden; margin-right: 30px; display: inline-block; float: left;}
+.minifeatures a{width: 366px; overflow: hidden; margin-right: 30px; display: inline-block; float: left;}
 .minifeatures a:last-child{margin:0;}
-.minifeatures a img{max-width: 370px; display: block;}
+.minifeatures a img{max-width: 366px; display: block;}
 .minifeatures a strong{display: block; font-size: 140%; margin: 10px 0 0 0;}
 .minifeatures a span{color:#666; display: block; margin: 10px 0 0 0;}
 .minifeatures-4 a{width:279px; margin-right: 18px;}
