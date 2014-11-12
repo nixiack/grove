@@ -119,8 +119,8 @@ function grove_widgets_init() {
 		'name' => 'Header Box',
 		'id' => 'headerbox-widget',
 		'description' => 'This is a widget box for the header.',
-		'before_widget' => '<div class="widget headerbox %2$s">',
-		'after_widget' => '</div>',
+		'before_widget' => '<div id="timer"><div class="widget headerbox %2$s">',
+		'after_widget' => '</div></div>',
 		'before_title' => '<header class="heading"><h2 class="section-title">',
 		'after_title' => '</h2></header>'
 	) );
