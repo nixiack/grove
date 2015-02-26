@@ -24,7 +24,7 @@ function grove_customize($wp_customize) {
 
 	public function render_content() { ?>
 	<style type="text/css">select{margin-bottom:20px;}#customize-section-grove_footer ul{padding-top:70px; position: relative;}</style>
-		<a target="_blank" onclick="popupwindow('/wp-admin/widgets.php?chromeless=true', 'Widgets', 980, 800); return false;" href="/wp-admin/widgets.php" style="padding:10px 0; text-align:center; background:#00a99d; color:#fff; border-radius:4px; display:block; margin:10px 0; position:absolute; top:5px;left:20px; width:258px;">Configure Widgets</a>
+		<a target="_blank" onclick="popupwindow('/wp-admin/widgets.php?chromeless=true', 'Widgets', 980, 800); return false;" href="/wp-admin/widgets.php" style="padding:10px 0; text-align:center; background:#00a99d; color:#fff; border-radius:4px; display:block; margin:10px 0; position:relative; top:5px; width:258px;">Configure Widgets</a>
 	<?php }
 	}
 
@@ -33,7 +33,7 @@ function grove_customize($wp_customize) {
 
 	public function render_content() { ?>
 	<style type="text/css">select{margin-bottom:20px;}#customize-section-nav ul{padding-top:70px; position: relative;}</style>
-		<a target="_blank" onclick="popupwindow('/wp-admin/nav-menus.php?chromeless=true', 'Menus', 980, 800); return false;" href="/wp-admin/widgets.php" style="padding:10px 0; text-align:center; background:#00a99d; color:#fff; border-radius:4px; display:block; margin:10px 0; position:absolute; top:5px;left:20px; width:258px;">Configure Navigation Links</a>
+		<a target="_blank" onclick="popupwindow('/wp-admin/nav-menus.php?chromeless=true', 'Menus', 980, 800); return false;" href="/wp-admin/widgets.php" style="padding:10px 0; text-align:center; background:#00a99d; color:#fff; border-radius:4px; display:block; margin:10px 0; position:relative; top:5px; width:258px;">Configure Navigation Links</a>
 	<?php }
 	}
 
@@ -141,6 +141,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'mini_1_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_1_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_1_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'mini_1_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -189,6 +201,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_minifeature_2_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_2_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_2_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_2_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'mini_2_excerpt', array(
@@ -240,6 +264,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'mini_3_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_3_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_3_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'mini_3_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -287,6 +323,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_minifeature_4_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_4_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_4_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_4_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'mini_4_excerpt', array(
@@ -338,6 +386,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'mini_5_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_5_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_5_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'mini_5_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -387,6 +447,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_minifeature_6_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_6_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_6_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_6_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'mini_6_excerpt', array(
@@ -441,6 +513,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'mini_7_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_7_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_7_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'mini_7_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -490,6 +574,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_minifeature_8_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_8_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_8_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_8_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'mini_8_excerpt', array(
@@ -545,6 +641,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'mini_9_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_9_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_9_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'mini_9_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -596,6 +704,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_minifeature_10_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'mini_10_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'mini_10_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_minifeature_10_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'mini_10_excerpt', array(
@@ -706,6 +826,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_1_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_1_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_1_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_1_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -716,6 +848,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_hotbutton_1_settings',
 	'settings'   => 'hb_1_excerpt',
 	) ) );
+
+	$wp_customize->add_setting( 'hb_1_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_1_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_1_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
 
 
 	$wp_customize->add_section( 'grove_hotbutton_2_settings', array(
@@ -754,6 +898,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_hotbutton_2_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_2_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_2_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_2_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'hb_2_excerpt', array(
@@ -805,6 +961,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_3_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_3_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_3_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_3_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -854,6 +1022,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_4_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_4_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_4_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_4_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -901,6 +1081,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_hotbutton_5_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_5_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_5_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_5_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'hb_5_excerpt', array(
@@ -959,6 +1151,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_6_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_6_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_6_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_6_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -1009,6 +1213,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_hotbutton_7_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_7_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_7_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_7_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'hb_7_excerpt', array(
@@ -1063,6 +1279,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_8_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_8_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_8_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_8_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -1113,6 +1341,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link',
 		'section' => 'grove_hotbutton_9_settings',
 		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'hb_9_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_9_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_9_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
 	) );
 
 	$wp_customize->add_setting( 'hb_9_excerpt', array(
@@ -1167,6 +1407,18 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'type'    => 'text',
 	) );
 
+	$wp_customize->add_setting( 'hb_10_target', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'hb_10_target', array(
+	'label'   => 'Link Target',
+	'section' => 'grove_hotbutton_10_settings',
+	'type'    => 'select',
+	'choices'    => array('_self'=>'Same Window','_blank'=>'A New Window'),
+	) );
+
 	$wp_customize->add_setting( 'hb_10_excerpt', array(
 	'default'        => '',
 	'type'	=> 'option',
@@ -1182,7 +1434,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 
 	$wp_customize->add_section( 'grove_slider_settings', array(
 		'title'          => 'Slider (Homepage)',
-		'description'	 => 'Manage the main slider on the homepage.',
+		'description'	 => 'Manage the main slider on the homepage. Items with (Posts) will only work if "Pull Slides From" is set to Posts',
 		'priority'       => 42,
 	) );
 
@@ -1192,11 +1444,29 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	) );
 	
 	$wp_customize->add_control( 'slide_type', array(
-	'label'   => 'Pull Slide Show From',
+	'label'   => 'Pull Slides From',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('sliderstype'=>'Slideshows','posttype'=>'Posts'),
 	'priority' => 1, 
+	) );
+
+	$wp_customize->add_setting( 'slide_page', array(
+		'default'        => '',
+		'type'	=> 'option',
+	) );
+
+	$slide_categories = get_terms("slide-page"); 
+			foreach ( $slide_categories as $cat ) {
+			$slides[$cat->slug] = $cat->name;
+			 };
+
+	$wp_customize->add_control( 'slide_page', array(
+	'label'   => 'Choose Slide Group (Slideshows)',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => $slides,
+	'priority' => 2, 
 	) );
 	
 	
@@ -1215,7 +1485,20 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => $pcats,
-	'priority' => 2, 
+	'priority' => 3, 
+	) );
+
+	$wp_customize->add_setting( 'slide_num', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+	
+	$wp_customize->add_control( 'slide_num', array(
+	'label'   => 'How Many Slides To Display?',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12'),
+	'priority' => 4, 
 	) );
 	
 
@@ -1229,7 +1512,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('left'=>'Align Left','right'=>'Align Right','top'=>'Align Top','bottom'=>'Align Bottom'),
-	'priority' => 3, 
+	'priority' => 5, 
 	) );
 	
 
@@ -1243,12 +1526,12 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('false'=>'Dots','true'=>'Thumbnails'),
-	'priority' => 4, 
+	'priority' => 6, 
 	) );
 
 	$wp_customize->add_setting( 'slide_order_by', array(
-		'default'        => '',
-		'type'	=> 'option',
+	'default'        => '',
+	'type'	=> 'option',
 	) );
 
 	$wp_customize->add_control( 'slide_order_by', array(
@@ -1256,39 +1539,6 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('date'=>'Date','menu_order'=>'Menu Order'),
-	'priority' => 5, 
-	) );
-
-	$wp_customize->add_setting( 'slide_page', array(
-		'default'        => '',
-		'type'	=> 'option',
-	) );
-
-	$slide_categories = get_terms("slide-page"); 
-			foreach ( $slide_categories as $cat ) {
-			$slides[$cat->slug] = $cat->name;
-			 };
-
-	$wp_customize->add_control( 'slide_page', array(
-	'label'   => 'Choose Slide Group (Slideshows)',
-	'section' => 'grove_slider_settings',
-	'type'    => 'select',
-	'choices'    => $slides,
-	'priority' => 6, 
-	) );
-	
-	
-
-	$wp_customize->add_setting( 'slide_num', array(
-		'default'        => '',
-		'type'	=> 'option',
-	) );
-	
-	$wp_customize->add_control( 'slide_num', array(
-	'label'   => 'How Many Slides To Display?',
-	'section' => 'grove_slider_settings',
-	'type'    => 'select',
-	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12'),
 	'priority' => 7, 
 	) );
 	
@@ -1358,40 +1608,6 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
     'section' => 'grove_home_banner_text',
     'type'    => 'text',
     ) );
-	
-
-	
-	$wp_customize->add_section( 'grove_countdown_settings', array(
-		'title'          => 'Homepage Event Countdown',
-		'description'	 => 'Countdown settings',
-		'priority'       => 26,
-	) );
-	
-	$wp_customize->add_setting( 'header_countdown_settings', array(
-		'default'        => '',
-		'type'	=> 'option',
-	) );
-	
-	
-	$cdown['No Coundown'] = 'no';
-	$cdownterms = get_terms("tribe_events_cat");
- 		$cdowncount = count($cdownterms);
- 		if ( $cdowncount > 0 ){
-			foreach ( $cdownterms as $cdownterm ) {
-				$cdown[$cdownterm->term_id] = $cdownterm->name;
-			}
-		}
-		
-
-	$wp_customize->add_control( 'header_countdown_settings', array(
-	'label'   => 'Assign An Event Category',
-	'section' => 'grove_countdown_settings',
-	'type'    => 'select',
-	'choices'    => $cdown,
-	) );
-	
-	
-	
 
 	$wp_customize->add_section( 'grove_social_settings', array(
 		'title'          => 'Social Settings',
