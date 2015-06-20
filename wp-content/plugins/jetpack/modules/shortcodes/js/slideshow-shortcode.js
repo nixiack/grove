@@ -44,6 +44,8 @@ JetpackSlideshow.prototype.init = function() {
 		var imageInfo = this.images[i];
 		var img = document.createElement( 'img' );
 		img.src = imageInfo.src + '?w=' + this.width;
+		img.title = imageInfo.title;
+		img.alt = imageInfo.alt;
 		img.align = 'middle';
 		var caption = document.createElement( 'div' );
 		caption.className = 'slideshow-slide-caption';
@@ -127,12 +129,12 @@ JetpackSlideshow.prototype.finishInit_ = function() {
 		} );
 		slideshow.on( 'mouseleave', function() {
 			if ( ! jQuery( document.activeElement.parentNode ).hasClass( 'slideshow-controls' ) ) {
-				controls.fadeTo( 200, 0.5 );
+				controls.fadeTo( 200, 0 );
 			}
 		} );
 		slideshow.on( 'focusout', function() {
 			if ( ! slideshow.is( ':hover' ) ) {
-				controls.fadeTo( 200, 0.5 );
+				controls.fadeTo( 200, 0 );
 			}
 		} );
 	} else {

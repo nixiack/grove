@@ -157,16 +157,14 @@ function insert_banner() {
 
 add_action( 'grove_home_after_slider', 'insert_banner' );
 
-add_action('customize_register', 'child_customize');
-
 //add some custom image sizes
-add_image_size( '960', 960, 9999 );
+add_image_size( '1170', 1170, 9999 );
 add_image_size( '720', 720, 9999 );
 
 
 $args = array(
 	'flex-width'    => false,
-	'width'         => 960,
+	'width'         => 1170,
 	'flex-height'    => true,
 	'height'        => 200,
 	'default-image' => '',
@@ -177,7 +175,7 @@ add_theme_support( 'custom-header', $args );
 $defaults = array(
 	'default-color'          => '',
 	'default-image'          => '',
-	'wp-head-callback'       => '',
+	'wp-head-callback'       => '_custom_background_cb',
 	'admin-head-callback'    => '',
 	'admin-preview-callback' => ''
 );
@@ -190,7 +188,7 @@ function theme_customize() {
 }
 
 function grove_parent() {
-	echo '<div class="wrap"><h3>Enjoy your stay in the Grove.</h3><p style="max-width:600px">This site is built on Grove, a brand-new WordPress framework from Ignite360. While we\'re still kicking the tires, we\'re thrilled to have you in the family and hope your stay in Grove is a pleasant one. If you need any help, with anything, don\'t hesitate to <a href="#">contact us</a>.</p><a class="button" href="customize.php?">Customize Theme</a> <a class="button" href="admin.php?page=make-content">Make Content</a></div>';
+	echo '<div class="wrap"><h3>Enjoy your stay in the Grove.</h3><p style="max-width:600px">This site is built on Grove, a brand-new WordPress framework from faithHighway. While we\'re still kicking the tires, we\'re thrilled to have you in the family and hope your stay in Grove is a pleasant one. If you need any help, with anything, don\'t hesitate to <a href="#">contact us</a>.</p><a class="button" href="customize.php?">Customize Theme</a> </div>';
 	
 }
 
@@ -212,22 +210,14 @@ add_action('admin_init', function() {
   
 });
 
-
-
-
-add_theme_support( 'woocommerce' );
-
-remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-
-add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
-add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
-
-function my_theme_wrapper_start() {
-  echo '<div id="primary" class="content-area "><div id="content" class="site-content " role="main">';
+//add action to do_meta_boxes to revove the "Slide URL metabox"
+add_action( 'do_meta_boxes', 'remove_wooslider_url_box' );
+function remove_wooslider_url_box()
+{
+	remove_meta_box( 'wooslider-url', 'slide', 'side' ); // Remove Edit Flow Editorial Metadata
 }
 
-function my_theme_wrapper_end() {
-  echo '</div><!-- #content .site-content --></div><!-- #primary .content-area -->';
+add_action( 'after_setup_theme', 'woocommerce_support' );
+function woocommerce_support() {
+    add_theme_support( 'woocommerce' );
 }
-

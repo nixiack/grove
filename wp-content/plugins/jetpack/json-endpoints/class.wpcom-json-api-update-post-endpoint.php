@@ -10,6 +10,7 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 	// /sites/%s/posts/new       -> $blog_id
 	// /sites/%s/posts/%d        -> $blog_id, $post_id
 	// /sites/%s/posts/%d/delete -> $blog_id, $post_id
+	// /sites/%s/posts/%d/restore -> $blog_id, $post_id
 	function callback( $path = '', $blog_id = 0, $post_id = 0 ) {
 		$blog_id = $this->api->switch_to_blog_and_validate_user( $this->api->get_blog_id( $blog_id ) );
 		if ( is_wp_error( $blog_id ) ) {
@@ -18,6 +19,8 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 
 		if ( $this->api->ends_with( $path, '/delete' ) ) {
 			return $this->delete_post( $path, $blog_id, $post_id );
+		} elseif ( $this->api->ends_with( $path, '/restore' ) ) {
+			return $this->restore_post( $path, $blog_id, $post_id );
 		} else {
 			return $this->write_post( $path, $blog_id, $post_id );
 		}
@@ -219,6 +222,9 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 
 		unset( $input['comments_open'], $input['pings_open'] );
 
+		$insert['menu_order'] = $input['menu_order'];
+		unset( $input['menu_order'] );
+
 		$publicize = $input['publicize'];
 		$publicize_custom_message = $input['publicize_message'];
 		unset( $input['publicize'], $input['publicize_message'] );
@@ -287,11 +293,17 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 			}
 
 			$post_id = wp_update_post( (object) $insert );
-		}
 
+		}
 
 		if ( !$post_id || is_wp_error( $post_id ) ) {
 			return $post_id;
+		}
+
+		// make sure this post actually exists and is not an error of some kind (ie, trying to load media in the posts endpoint)
+		$post_check = $this->get_post_by( 'ID', $post_id, $args['context'] );
+		if ( is_wp_error( $post_check ) ) {
+			return $post_check;
 		}
 
 		if ( $has_media ) {
@@ -382,9 +394,16 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 		// to instead flag the ones we don't want to be skipped. proceed with said logic.
 		// any posts coming from Path (client ID 25952) should also not publicize
 		if ( $publicize === false || 25952 == $this->api->token_details['client_id'] ) {
-			// No publicize at all, skipp all by full service
+			// No publicize at all, skip all by ID
 			foreach ( $GLOBALS['publicize_ui']->publicize->get_services( 'all' ) as $name => $service ) {
-				update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name, 1 );
+				delete_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name );
+				$service_connections   = $GLOBALS['publicize_ui']->publicize->get_connections( $name );
+				if ( ! $service_connections ) {
+					continue;
+				}
+				foreach ( $service_connections as $service_connection ) {
+					update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $service_connection->unique_id, 1 );
+				}
 			}
 		} else if ( is_array( $publicize ) && ( count ( $publicize ) > 0 ) ) {
 			foreach ( $GLOBALS['publicize_ui']->publicize->get_services( 'all' ) as $name => $service ) {
@@ -402,19 +421,39 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 				 * EG: array( 'twitter', 'facebook' => '(int) $pub_conn_id_0, (int) $pub_conn_id_3' ) will publicize to all available Twitter accounts, but only 2 of potentially many Facebook connections
 				 * 		Form data: publicize[]=twitter&publicize[facebook]=$pub_conn_id_0,$pub_conn_id_3
 				 */
+
+				// Delete any stale SKIP value for the service by name. We'll add it back by ID.
+				delete_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name );
+
+				// Get the user's connections
+				$service_connections = $GLOBALS['publicize_ui']->publicize->get_connections( $name );
+
+				// if the user doesn't have any connections for this service, move on
+				if ( ! $service_connections ) {
+					continue;
+				}
+
 				if ( !in_array( $name, $publicize ) && !array_key_exists( $name, $publicize ) ) {
-					// Skip the whole service
-					update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $name, 1 );
+					// Skip the whole service by adding each connection ID
+					foreach ( $service_connections as $service_connection ) {
+						update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $service_connection->unique_id, 1 );
+					}
 				} else if ( !empty( $publicize[ $name ] ) ) {
 					// Seems we're being asked to only push to [a] specific connection[s].
 					// Explode the list on commas, which will also support a single passed ID
 					$requested_connections = explode( ',', ( preg_replace( '/[\s]*/', '', $publicize[ $name ] ) ) );
-					// Get the user's connections and flag the ones we can't match with the requested list to be skipped.
-					$service_connections   = $GLOBALS['publicize_ui']->publicize->get_connections( $name );
+					// Flag the connections we can't match with the requested list to be skipped.
 					foreach ( $service_connections as $service_connection ) {
 						if ( !in_array( $service_connection->meta['connection_data']->id, $requested_connections ) ) {
 							update_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $service_connection->unique_id, 1 );
+						} else {
+							delete_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $service_connection->unique_id );
 						}
+					}
+				} else {
+					// delete all SKIP values; it's okay to publish to all connected IDs for this service
+					foreach ( $service_connections as $service_connection ) {
+						delete_post_meta( $post_id, $GLOBALS['publicize_ui']->publicize->POST_SKIP . $service_connection->unique_id );
 					}
 				}
 			}
@@ -455,6 +494,14 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 				$meta->key = wp_slash( $meta->key );
 				$unslashed_existing_meta_key = wp_unslash( $existing_meta_item->meta_key );
 				$existing_meta_item->meta_key = wp_slash( $existing_meta_item->meta_key );
+
+				// make sure that the meta id passed matches the existing meta key
+				if ( ! empty( $meta->id ) && ! empty( $meta->key ) ) {
+					$meta_by_id = get_metadata_by_mid( 'post', $meta->id );
+					if ( $meta_by_id->meta_key !== $meta->key ) {
+						continue; // skip this meta
+					}
+				}
 
 				switch ( $meta->operation ) {
 					case 'delete':
@@ -506,6 +553,9 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 			$return['preview_nonce'] = wp_create_nonce( 'post_preview_' . $input['parent'] );
 		}
 
+		// workaround for sticky test occasionally failing, maybe a race condition with stick_post() above
+		$return['sticky'] = ( true === $sticky );
+
 		do_action( 'wpcom_json_api_objects', 'posts' );
 
 		return $return;
@@ -541,6 +591,26 @@ class WPCOM_JSON_API_Update_Post_Endpoint extends WPCOM_JSON_API_Post_Endpoint {
 			$return['status'] = 'deleted';
 			return $return;
 		}
+
+		return $this->get_post_by( 'ID', $post->ID, $args['context'] );
+	}
+
+	// /sites/%s/posts/%d/restore -> $blog_id, $post_id
+	function restore_post( $path, $blog_id, $post_id ) {
+		$args  = $this->query_args();
+		$post = get_post( $post_id );
+
+		if ( !$post || is_wp_error( $post ) ) {
+			return new WP_Error( 'unknown_post', 'Unknown post', 404 );
+		}
+
+		if ( !current_user_can( 'delete_post', $post->ID ) ) {
+			return new WP_Error( 'unauthorized', 'User cannot restore trashed posts', 403 );
+		}
+
+		do_action( 'wpcom_json_api_objects', 'posts' );
+
+		wp_untrash_post( $post->ID );
 
 		return $this->get_post_by( 'ID', $post->ID, $args['context'] );
 	}

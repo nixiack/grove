@@ -1497,7 +1497,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'label'   => 'How Many Slides To Display?',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
-	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12'),
+	'choices'    => array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15'),
 	'priority' => 4, 
 	) );
 	
@@ -1535,11 +1535,24 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	) );
 
 	$wp_customize->add_control( 'slide_order_by', array(
-	'label'   => 'Order by (Slideshows)',
+	'label'   => 'Order by',
+	'section' => 'grove_slider_settings',
+	'type'    => 'select',
+	'choices'    => array('ASC'=>'Ascending','DESC'=>'Descending'),
+	'priority' => 7, 
+	) );
+
+	$wp_customize->add_setting( 'slide_sort_by', array(
+	'default'        => '',
+	'type'	=> 'option',
+	) );
+
+	$wp_customize->add_control( 'slide_sort_by', array(
+	'label'   => 'Sort by (Slideshows)',
 	'section' => 'grove_slider_settings',
 	'type'    => 'select',
 	'choices'    => array('date'=>'Date','menu_order'=>'Menu Order'),
-	'priority' => 7, 
+	'priority' => 8, 
 	) );
 	
 	$wp_customize->add_setting( 'slider_linking', array(
@@ -1551,7 +1564,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Link Slide To It\'s Post?',
 		'section' => 'grove_slider_settings',
 		'type'    => 'checkbox',
-		'priority' => 8, 
+		'priority' => 9, 
 	) );
 	
 	$wp_customize->add_setting( 'slide_custom_id', array(
@@ -1563,7 +1576,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'label'   => 'Custom ID',
 	'section' => 'grove_slider_settings',
 	'type'    => 'text',
-	'priority' => 9, 
+	'priority' => 10, 
 	) );
 
 	$wp_customize->add_setting( 'small_slider', array(
@@ -1575,7 +1588,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 		'label'   => 'Small slider?',
 		'section' => 'grove_slider_settings',
 		'type'    => 'checkbox',
-		'priority' => 10, 
+		'priority' => 12, 
 	) );
 
 	$wp_customize->add_setting( 'slide_feature_static', array(
@@ -1587,7 +1600,7 @@ class WP_Customize_MiniFeature extends WP_Customize_Control {
 	'label'   => 'Feature content (for use with small slider)',
 	'section' => 'grove_slider_settings',
 	'settings'   => 'slide_feature_static',
-	'priority' => 11, 
+	'priority' => 14, 
 	) ) );	
 
 

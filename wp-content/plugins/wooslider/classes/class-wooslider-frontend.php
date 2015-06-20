@@ -565,7 +565,7 @@ class WooSlider_Frontend {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script( $this->token . '-mousewheel', esc_url( $wooslider->plugin_url . 'assets/js/jquery.mousewheel' . $suffix . '.js' ), array( 'jquery' ), '2.1.0-20121206', true );
-		wp_register_script( $this->token . '-flexslider', esc_url( $wooslider->plugin_url . 'assets/js/jquery.flexslider' . $suffix . '.js' ), array( 'jquery', $this->token . '-mousewheel' ), '2.2.0-20121206', true );
+		wp_register_script( $this->token . '-flexslider', esc_url( $wooslider->plugin_url . 'assets/js/jquery.flexslider' . $suffix . '.js' ), array( 'jquery', $this->token . '-mousewheel' ), '2.4.0-20150227', true );
 		wp_register_script( $this->token . '-fitvids', esc_url( $wooslider->plugin_url . 'assets/js/jquery.fitvids.js' ), array( 'jquery' ), '2.1.0-20121206', true );
 
 		wp_enqueue_script( $this->token . '-flexslider' );

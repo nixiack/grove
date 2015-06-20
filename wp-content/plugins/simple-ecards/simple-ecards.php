@@ -201,7 +201,7 @@ function simple_ecards_send_callback()
 	{
 
 		add_filter('wp_mail_content_type', 'set_html_content_type');
-		$body = generate_ecard($card_info['card'], $card_info['message']);
+		$body = generate_ecard($card_info['card'], $card_info['message']) . $card_info['send_from_name'];
 		$fromtemp = get_option('simple_ecard_from_email');
 		$headers = '';
 
@@ -211,7 +211,7 @@ function simple_ecards_send_callback()
 
 		elseif(!empty($card_info['send_from']) && !empty($card_info['send_from_name']))
 		{
-			$headers = 'From: ' . $card_info['send_from_name'] . '<' . $card_info['send_from'] . '>' . "\r\n";
+			$headers = 'From: ' . $card_info['send_from_name'] . ' <' . $card_info['send_from'] . '>' . "\r\n";
 		}
 		
 		$sent = wp_mail($card_info['send_to'], stripslashes($card_info['subject']), $body, $headers);

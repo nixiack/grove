@@ -344,8 +344,12 @@ class WooSlider_Widget_Base extends WP_Widget {
 				case 'range':
 					$html = '<select name="' . esc_attr( $this->get_field_name( $args['key'] ) ) . '" id="' . esc_attr( $this->get_field_id( $args['key'] ) ) . '" class="widefat">' . "\n";
 					foreach ( $args['data']['options'] as $k => $v ) {
-
-						$html .= '<option value="' . esc_attr( $k ) . '"' . selected( $k, $instance[$args['key']], false ) . '>' . $v . '</option>' . "\n";
+                        // check the selected value
+                        $selected_value = '';
+                        if( isset( $instance[$args['key']] ) ){
+                            $selected_value = $instance[$args['key']];
+                        }
+						$html .= '<option value="' . esc_attr( $k ) . '"' . selected( $k, $selected_value, false ) . '>' . $v . '</option>' . "\n";
 					}
 					$html .= '</select>' . "\n";
 
@@ -358,7 +362,7 @@ class WooSlider_Widget_Base extends WP_Widget {
 					$html = '<div class="multicheck-container">' . "\n";
 					foreach ( $args['data']['options'] as $k => $v ) {
 						$checked = '';
-						if ( in_array( $k, (array)$instance[$args['key']] ) ) { $checked = ' checked="checked"'; }
+						if ( isset( $instance[$args['key']] ) && in_array( $k, (array)$instance[$args['key']] ) ) { $checked = ' checked="checked"'; }
 						$html .= '<input type="checkbox" name="' . esc_attr( $this->get_field_name( $args['key'] ) ) . '[]" class="multicheck multicheck-' . esc_attr( $args['key'] ) . '" value="' . esc_attr( $k ) . '"' . $checked . ' /> ' . $v . '<br />' . "\n";
 					}
 					$html .= '</div>' . "\n";
@@ -370,7 +374,13 @@ class WooSlider_Widget_Base extends WP_Widget {
 				// Single checkbox.
 				case 'checkbox':
 				if ( isset( $args['key'] ) && $args['key'] != '' ) {
-					$html .= '<input type="checkbox" name="' . esc_attr( $this->get_field_name( $args['key'] ) ) . '" class="checkbox checkbox-' . esc_attr( $args['key'] ) . '" value="1"' . checked( '1', $instance[$args['key']], false ) . ' /> ' . "\n";
+                    // setup teh checked value
+                    $checked_value = '';
+                    if( isset( $instance[$args['key']] ) ){
+                        $checked_value = $instance[$args['key']];
+                    }
+
+					$html .= '<input type="checkbox" name="' . esc_attr( $this->get_field_name( $args['key'] ) ) . '" class="checkbox checkbox-' . esc_attr( $args['key'] ) . '" value="1"' . checked( '1', $checked_value , false ) . ' /> ' . "\n";
 					echo $html;
 				}
 

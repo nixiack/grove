@@ -1,5 +1,9 @@
 *** WooSlider Changelog ***
 
+2015.02.27 - version 2.2.0
+ * Update - Updated to use the latest version of FlexSlider, 2.4.0, various fixes and improvements.
+   assets/js/jquery.flexslider.js
+
 2014.07.31 - version 2.1.0
  * Fix - Fix issue with PHP noticed being shown when adding a slider via the Add Media screen.
    classes/class-wooslider-sliders.php
